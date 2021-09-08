@@ -1,0 +1,100 @@
+# You can override the included template(s) by including variable overrides
+# See https://docs.gitlab.com/ee/user/application_security/sast/#customizing-the-sast-settings
+# Note that environment variables can be set in several places
+# See https://docs.gitlab.com/ee/ci/variables/#priority-of-environment-variables
+image: maven:latest
+stages:
+- validate
+- build
+- merge-request-only-build
+- test
+- merge-train-only-test
+- package
+validate:
+  stage: validate
+  tags:
+  - maven
+  script:
+  - echo "==============================  Validate =============================="
+  - mvn clean
+  - mvn validate
+build:
+  stage: build
+  tags:
+  - maven
+  script:
+  - echo "==============================  Build =============================="
+  - mvn clean
+  - mvn compile
+UnitTest:
+  stage: test
+  tags:
+  - maven
+  script:
+  - echo "============================== TEST =============================="
+  - mvn clean
+  - mvn test -X
+  - cat target/site/jacoco/index.html
+
+
+
+# package
+package:
+  stage: package
+  only:
+    - master
+  tags:
+  - maven
+  script:
+  - echo "============================== package  =============================="
+  - mvn package -Dmaven.test.skip=true
+  artifacts:
+    paths:
+    - "/builds/19206226/YOTO_Translator/target/YOTO_Translator_Maven-1.0-SNAPSHOT-jar-with-dependencies.jar"
+    - "/builds/19206226/YOTO_Translator/target/YOTO_Translator.exe"
+    expire_in: 2 week
+merge-request-only-build:
+  stage: merge-request-only-build
+  tags:
+  - maven
+  script:
+  - echo "============================== Merge Build =============================="
+  - mvn clean
+  - mvn compile
+  only:
+    refs:
+    - merge_requests
+    variables:
+    - $CI_MERGE_REQUEST_EVENT_TYPE == "merged_result"
+merge-train-only-test:
+  stage: merge-train-only-test
+  tags:
+  - maven
+  script:
+  - echo "============================== Merge TEST =============================="
+  - mvn clean
+  - mvn test -X
+  only:
+    refs:
+    - merge_requests
+    variables:
+    - $CI_MERGE_REQUEST_EVENT_TYPE == "merge_train"
+
+
+license_scanning:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+secret_detection_default_branch:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+gemnasium-maven-dependency_scanning:
+    rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+
+include:
+- template: Security/Dependency-Scanning.gitlab-ci.yml
+- template: Security/License-Scanning.gitlab-ci.yml
+- template: Security/Secret-Detection.gitlab-ci.yml
+
