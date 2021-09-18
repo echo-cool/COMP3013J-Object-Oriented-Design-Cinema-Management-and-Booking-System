@@ -13,7 +13,7 @@ stages:
 validate:
   stage: validate
   tags:
-  - comp3013j-runner
+  - maven
   script:
   - echo "==============================  Validate =============================="
   - mvn clean
