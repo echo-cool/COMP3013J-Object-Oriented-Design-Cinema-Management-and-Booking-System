@@ -8,8 +8,7 @@ stages:
 - package
 validate:
   stage: validate
-  tags:
-  - comp3013j
+
   script:
   - echo "==============================  Validate =============================="
   - mvn clean
