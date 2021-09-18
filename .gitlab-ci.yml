@@ -9,7 +9,7 @@ stages:
 validate:
   stage: validate
   tags:
-  - maven
+  - comp3013j
   script:
   - echo "==============================  Validate =============================="
   - mvn clean
@@ -17,7 +17,7 @@ validate:
 build:
   stage: build
   tags:
-  - maven
+  - comp3013j
   script:
   - echo "==============================  Build =============================="
   - mvn clean
@@ -25,7 +25,7 @@ build:
 UnitTest:
   stage: test
   tags:
-  - maven
+  - comp3013j
   script:
   - echo "============================== TEST =============================="
   - mvn clean
@@ -40,7 +40,7 @@ package:
   only:
     - master
   tags:
-  - maven
+  - comp3013j
   script:
   - echo "============================== package  =============================="
   - mvn package -Dmaven.test.skip=true
@@ -52,7 +52,7 @@ package:
 merge-request-only-build:
   stage: merge-request-only-build
   tags:
-  - maven
+  - comp3013j
   script:
   - echo "============================== Merge Build =============================="
   - mvn clean
@@ -65,7 +65,7 @@ merge-request-only-build:
 merge-train-only-test:
   stage: merge-train-only-test
   tags:
-  - maven
+  - comp3013j
   script:
   - echo "============================== Merge TEST =============================="
   - mvn clean
