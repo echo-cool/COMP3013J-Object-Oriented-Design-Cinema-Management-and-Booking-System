@@ -9,7 +9,7 @@ stages:
 validate:
   stage: validate
   tags:
-  - ecs
+  - comp3013j
   script:
   - echo "==============================  Validate =============================="
   - mvn clean
@@ -17,7 +17,7 @@ validate:
 build:
   stage: build
   tags:
-  - ecs
+  - comp3013j
   script:
   - echo "==============================  Build =============================="
   - mvn clean
