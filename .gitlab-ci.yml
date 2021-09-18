@@ -12,8 +12,6 @@ stages:
 - package
 validate:
   stage: validate
-  tags:
-  - maven
   script:
   - echo "==============================  Validate =============================="
   - mvn clean
