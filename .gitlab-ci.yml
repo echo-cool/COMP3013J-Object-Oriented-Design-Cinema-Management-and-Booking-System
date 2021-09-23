@@ -8,24 +8,24 @@ stages:
 - package
 validate:
   stage: validate
-  tags:
-  - comp3013j
+  # tags:
+  # - comp3013j
   script:
   - echo "==============================  Validate =============================="
   - mvn clean
   - mvn validate
 build:
   stage: build
-  tags:
-  - comp3013j
+  # tags:
+  # - comp3013j
   script:
   - echo "==============================  Build =============================="
   - mvn clean
   - mvn compile
 UnitTest:
   stage: test
-  tags:
-  - comp3013j
+  # tags:
+  # - comp3013j
   script:
   - echo "============================== TEST =============================="
   - mvn clean
@@ -39,8 +39,8 @@ package:
   stage: package
   only:
     - master
-  tags:
-  - comp3013j
+  # tags:
+  # - comp3013j
   script:
   - echo "============================== package  =============================="
   - mvn package -Dmaven.test.skip=true
@@ -51,8 +51,8 @@ package:
   #   expire_in: 2 week
 merge-request-only-build:
   stage: merge-request-only-build
-  tags:
-  - comp3013j
+  # tags:
+  # - comp3013j
   script:
   - echo "============================== Merge Build =============================="
   - mvn clean
@@ -64,8 +64,8 @@ merge-request-only-build:
     - $CI_MERGE_REQUEST_EVENT_TYPE == "merged_result"
 merge-train-only-test:
   stage: merge-train-only-test
-  tags:
-  - comp3013j
+  # tags:
+  # - comp3013j
   script:
   - echo "============================== Merge TEST =============================="
   - mvn clean
