@@ -46,7 +46,8 @@ package:
   - mvn package -Dmaven.test.skip=true
   artifacts:
     paths:
-    - "/builds/19206226/comp3013j_assignment/target/COMP3013J-1.0-SNAPSHOT.jar"
+    - "/builds/comp3013-2021/group4/comp3013j_assignment/target/COMP3013J-1.0-SNAPSHOT-shaded.jar"
+    - "/builds/comp3013-2021/group4/comp3013j_assignment/target/COMP3013J-1.0-SNAPSHOT.jar"
     expire_in: 2 week
 merge-request-only-build:
   stage: merge-request-only-build
