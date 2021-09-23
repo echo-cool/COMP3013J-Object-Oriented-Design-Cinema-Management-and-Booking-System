@@ -30,7 +30,7 @@ UnitTest:
   - echo "============================== TEST =============================="
   - mvn clean
   - mvn test -X
-  - cat target/site/jacoco/index.html
+  # - cat target/site/jacoco/index.html
 
 
 
@@ -44,11 +44,10 @@ package:
   script:
   - echo "============================== package  =============================="
   - mvn package -Dmaven.test.skip=true
-  # artifacts:
-  #   paths:
-  #   - "/builds/19206226/YOTO_Translator/target/YOTO_Translator_Maven-1.0-SNAPSHOT-jar-with-dependencies.jar"
-  #   - "/builds/19206226/YOTO_Translator/target/YOTO_Translator.exe"
-  #   expire_in: 2 week
+  artifacts:
+    paths:
+    - "/builds/19206226/comp3013j_assignment/target/COMP3013J-1.0-SNAPSHOT.jar"
+    expire_in: 2 week
 merge-request-only-build:
   stage: merge-request-only-build
   # tags:
