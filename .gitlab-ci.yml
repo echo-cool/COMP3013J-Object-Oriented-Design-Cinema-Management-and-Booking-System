@@ -30,7 +30,7 @@ UnitTest:
   - echo "============================== TEST =============================="
   - mvn clean
   - mvn test -X
-  # - cat target/site/jacoco/index.html
+  - cat target/site/jacoco/index.html
 
 
 
