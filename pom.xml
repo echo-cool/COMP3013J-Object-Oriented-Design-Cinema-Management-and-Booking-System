@@ -366,12 +366,12 @@
         <version>0.8.3</version>
         <configuration>
           <excludes>
-            <exclude>com/Group_Six/View/**/*</exclude>
+<!--            <exclude>com/Group_Six/View/**/*</exclude>-->
           </excludes>
           <includes>
-            <include>com/Group_Six/Model/**/*</include>
-            <include>com/Group_Six/Database/**/*</include>
-            <include>com/Group_Six/Utils/**/*</include>
+            <include>com/**/*</include>
+<!--            <include>com/Group_Six/Database/**/*</include>-->
+<!--            <include>com/Group_Six/Utils/**/*</include>-->
           </includes>
         </configuration>
         <executions>
