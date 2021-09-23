@@ -234,7 +234,7 @@
           <configuration>
             <archive>
               <manifest>
-                <mainClass>com.Group_Six.Window</mainClass>
+                <mainClass>com.Main</mainClass>
               </manifest>
             </archive>
           </configuration>
