@@ -2,4 +2,4 @@
 
 ## Section1: Group Setup
 
-![19206226 - WangYuyang Personal Information](19206226.md)
+[19206226 - WangYuyang Personal Information](19206226.md)
