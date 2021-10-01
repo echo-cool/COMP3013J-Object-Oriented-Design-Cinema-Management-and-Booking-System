@@ -1,8 +1,27 @@
 package com.mapper;
 
 import com.model.Ticket;
+import com.model.TicketExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface TicketMapper {
+    /**
+    * countByExample
+    * @param example example
+    * @return long long
+    */
+    long countByExample(TicketExample example);
+
+    /**
+    * deleteByExample
+    * @param example example
+    * @return int int
+    */
+    int deleteByExample(TicketExample example);
+
     /**
     * deleteByPrimaryKey
     * @param id id
@@ -25,11 +44,34 @@ public interface TicketMapper {
     int insertSelective(Ticket record);
 
     /**
+    * selectByExample
+    * @param example example
+    * @return List<Ticket> List<Ticket>
+    */
+    List<Ticket> selectByExample(TicketExample example);
+
+    /**
     * selectByPrimaryKey
     * @param id id
     * @return Ticket Ticket
     */
     Ticket selectByPrimaryKey(Integer id);
+
+    /**
+    * updateByExampleSelective
+    * @param record record
+    * @param example example
+    * @return int int
+    */
+    int updateByExampleSelective(@Param("record") Ticket record, @Param("example") TicketExample example);
+
+    /**
+    * updateByExample
+    * @param record record
+    * @param example example
+    * @return int int
+    */
+    int updateByExample(@Param("record") Ticket record, @Param("example") TicketExample example);
 
     /**
     * updateByPrimaryKeySelective

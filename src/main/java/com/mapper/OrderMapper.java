@@ -1,8 +1,27 @@
 package com.mapper;
 
 import com.model.Order;
+import com.model.OrderExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface OrderMapper {
+    /**
+    * countByExample
+    * @param example example
+    * @return long long
+    */
+    long countByExample(OrderExample example);
+
+    /**
+    * deleteByExample
+    * @param example example
+    * @return int int
+    */
+    int deleteByExample(OrderExample example);
+
     /**
     * deleteByPrimaryKey
     * @param id id
@@ -25,11 +44,34 @@ public interface OrderMapper {
     int insertSelective(Order record);
 
     /**
+    * selectByExample
+    * @param example example
+    * @return List<Order> List<Order>
+    */
+    List<Order> selectByExample(OrderExample example);
+
+    /**
     * selectByPrimaryKey
     * @param id id
     * @return Order Order
     */
     Order selectByPrimaryKey(Integer id);
+
+    /**
+    * updateByExampleSelective
+    * @param record record
+    * @param example example
+    * @return int int
+    */
+    int updateByExampleSelective(@Param("record") Order record, @Param("example") OrderExample example);
+
+    /**
+    * updateByExample
+    * @param record record
+    * @param example example
+    * @return int int
+    */
+    int updateByExample(@Param("record") Order record, @Param("example") OrderExample example);
 
     /**
     * updateByPrimaryKeySelective

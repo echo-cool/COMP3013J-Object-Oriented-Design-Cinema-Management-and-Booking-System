@@ -261,7 +261,7 @@
           <configuration>
             <archive>
               <manifest>
-                <mainClass>com.view.Main</mainClass>
+                <mainClass>com.util.Main</mainClass>
               </manifest>
             </archive>
           </configuration>
@@ -296,7 +296,7 @@
           <!-- MainClass in mainfest make a executable jar -->
           <archive>
             <manifest>
-              <mainClass>com.view.Main</mainClass>
+              <mainClass>com.util.Main</mainClass>
             </manifest>
           </archive>
 

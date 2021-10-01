@@ -1,6 +1,6 @@
 package com;
 
-import com.view.Main;
+import com.util.Main;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
