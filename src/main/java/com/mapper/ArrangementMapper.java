@@ -1,8 +1,27 @@
 package com.mapper;
 
 import com.model.Arrangement;
+import com.model.ArrangementExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface ArrangementMapper {
+    /**
+    * countByExample
+    * @param example example
+    * @return long long
+    */
+    long countByExample(ArrangementExample example);
+
+    /**
+    * deleteByExample
+    * @param example example
+    * @return int int
+    */
+    int deleteByExample(ArrangementExample example);
+
     /**
     * deleteByPrimaryKey
     * @param id id
@@ -25,11 +44,34 @@ public interface ArrangementMapper {
     int insertSelective(Arrangement record);
 
     /**
+    * selectByExample
+    * @param example example
+    * @return List<Arrangement> List<Arrangement>
+    */
+    List<Arrangement> selectByExample(ArrangementExample example);
+
+    /**
     * selectByPrimaryKey
     * @param id id
     * @return Arrangement Arrangement
     */
     Arrangement selectByPrimaryKey(Integer id);
+
+    /**
+    * updateByExampleSelective
+    * @param record record
+    * @param example example
+    * @return int int
+    */
+    int updateByExampleSelective(@Param("record") Arrangement record, @Param("example") ArrangementExample example);
+
+    /**
+    * updateByExample
+    * @param record record
+    * @param example example
+    * @return int int
+    */
+    int updateByExample(@Param("record") Arrangement record, @Param("example") ArrangementExample example);
 
     /**
     * updateByPrimaryKeySelective
