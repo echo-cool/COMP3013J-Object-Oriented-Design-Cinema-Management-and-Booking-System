@@ -1,4 +1,4 @@
-package com.Config;
+package com.config;
 
 public class Settings {
 

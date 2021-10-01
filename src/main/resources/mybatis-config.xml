@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <environments default="development">
+        <environment id="development">
+            <!-- 配置JDBC事务,此事务由mybatis管理 -->
+            <transactionManager type="JDBC"></transactionManager>
+            <!-- 配置连接池,此连接池为mybatis连接池 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="org.sqlite.JDBC"/>
+                <property name="url" value="jdbc:sqlite:../comp3013j_assignment/src/main/resources/database.sqlite"/>
+                <property name="username" value=""/>
+                <property name="password" value=""/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="xml/AdminUserMapper.xml" />
+        <mapper resource="xml/ArrangmentMapper.xml" />
+        <mapper resource="xml/CustomerMapper.xml" />
+        <mapper resource="xml/OrderMapper.xml" />
+        <mapper resource="xml/ScreenMapper.xml" />
+        <mapper resource="xml/TicketMapper.xml" />
+    </mappers>
+</configuration>

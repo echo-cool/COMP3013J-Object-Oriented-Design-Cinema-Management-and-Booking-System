@@ -1,10 +1,8 @@
-package com;
+package com.view;
 
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
 import com.github.weisj.darklaf.LafManager;
-import com.github.weisj.darklaf.theme.IntelliJTheme;
-import mdlaf.MaterialLookAndFeel;
 
 import javax.swing.*;
 

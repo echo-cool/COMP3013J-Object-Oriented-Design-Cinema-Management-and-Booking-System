@@ -17,8 +17,35 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
+  <!--使用阿里云包源，提高下载速度-->
+  <repositories>
+    <repository>
+      <!--创建私服的地址-->
+      <id>aliyun</id>
+      <name>aliyun</name>
+      <url>https://maven.aliyun.com/repository/public</url>
+    </repository>
+  </repositories>
 
   <dependencies>
+    <!--引入mybatis框架-->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>3.5.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.xerial</groupId>
+      <artifactId>sqlite-jdbc</artifactId>
+      <version>3.21.0.1</version>
+    </dependency>
+    <!--单元测试组件-->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+    </dependency>
 
     <dependency>
       <groupId>com.baidu.aip</groupId>
@@ -234,7 +261,7 @@
           <configuration>
             <archive>
               <manifest>
-                <mainClass>com.Main</mainClass>
+                <mainClass>com.view.Main</mainClass>
               </manifest>
             </archive>
           </configuration>
@@ -269,7 +296,7 @@
           <!-- MainClass in mainfest make a executable jar -->
           <archive>
             <manifest>
-              <mainClass>com.Main</mainClass>
+              <mainClass>com.view.Main</mainClass>
             </manifest>
           </archive>
 
