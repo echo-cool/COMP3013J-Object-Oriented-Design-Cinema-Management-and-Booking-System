@@ -17,15 +17,15 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
-  <!--使用阿里云包源，提高下载速度-->
-  <repositories>
-    <repository>
-      <!--创建私服的地址-->
-      <id>aliyun</id>
-      <name>aliyun</name>
-      <url>https://maven.aliyun.com/repository/public</url>
-    </repository>
-  </repositories>
+<!--  &lt;!&ndash;使用阿里云包源，提高下载速度&ndash;&gt;-->
+<!--  <repositories>-->
+<!--    <repository>-->
+<!--      &lt;!&ndash;创建私服的地址&ndash;&gt;-->
+<!--      <id>aliyun</id>-->
+<!--      <name>aliyun</name>-->
+<!--      <url>https://maven.aliyun.com/repository/public</url>-->
+<!--    </repository>-->
+<!--  </repositories>-->
 
   <dependencies>
     <!--引入mybatis框架-->
