@@ -2,12 +2,10 @@ package com.model;
 
 import java.io.Serializable;
 
-public class Screen implements Serializable {
+public class Arrangement implements Serializable {
     private Integer id;
 
-    private Integer numOfSeates;
-
-    private String location;
+    private Integer screenID;
 
     private static final long serialVersionUID = 1L;
 
@@ -19,20 +17,12 @@ public class Screen implements Serializable {
         this.id = id;
     }
 
-    public Integer getNumOfSeates() {
-        return numOfSeates;
+    public Integer getScreenID() {
+        return screenID;
     }
 
-    public void setNumOfSeates(Integer numOfSeates) {
-        this.numOfSeates = numOfSeates;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location == null ? null : location.trim();
+    public void setScreenID(Integer screenID) {
+        this.screenID = screenID;
     }
 
     /**
@@ -46,8 +36,7 @@ public class Screen implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", numOfSeates=").append(numOfSeates);
-        sb.append(", location=").append(location);
+        sb.append(", screenID=").append(screenID);
         sb.append("]");
         return sb.toString();
     }
@@ -68,10 +57,9 @@ public class Screen implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Screen other = (Screen) that;
+        Arrangement other = (Arrangement) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getNumOfSeates() == null ? other.getNumOfSeates() == null : this.getNumOfSeates().equals(other.getNumOfSeates()))
-            && (this.getLocation() == null ? other.getLocation() == null : this.getLocation().equals(other.getLocation()));
+            && (this.getScreenID() == null ? other.getScreenID() == null : this.getScreenID().equals(other.getScreenID()));
     }
 
     /**
@@ -83,8 +71,7 @@ public class Screen implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getNumOfSeates() == null) ? 0 : getNumOfSeates().hashCode());
-        result = prime * result + ((getLocation() == null) ? 0 : getLocation().hashCode());
+        result = prime * result + ((getScreenID() == null) ? 0 : getScreenID().hashCode());
         return result;
     }
 }

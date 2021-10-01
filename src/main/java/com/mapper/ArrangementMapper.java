@@ -1,8 +1,8 @@
 package com.mapper;
 
-import com.model.Arrangment;
+import com.model.Arrangement;
 
-public interface ArrangmentMapper {
+public interface ArrangementMapper {
     /**
     * deleteByPrimaryKey
     * @param id id
@@ -15,33 +15,33 @@ public interface ArrangmentMapper {
     * @param record record
     * @return int int
     */
-    int insert(Arrangment record);
+    int insert(Arrangement record);
 
     /**
     * insertSelective
     * @param record record
     * @return int int
     */
-    int insertSelective(Arrangment record);
+    int insertSelective(Arrangement record);
 
     /**
     * selectByPrimaryKey
     * @param id id
-    * @return Arrangment Arrangment
+    * @return Arrangement Arrangement
     */
-    Arrangment selectByPrimaryKey(Integer id);
+    Arrangement selectByPrimaryKey(Integer id);
 
     /**
     * updateByPrimaryKeySelective
     * @param record record
     * @return int int
     */
-    int updateByPrimaryKeySelective(Arrangment record);
+    int updateByPrimaryKeySelective(Arrangement record);
 
     /**
     * updateByPrimaryKey
     * @param record record
     * @return int int
     */
-    int updateByPrimaryKey(Arrangment record);
+    int updateByPrimaryKey(Arrangement record);
 }
