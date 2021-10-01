@@ -1,4 +1,4 @@
-package com;
+package com.view;
 
 import mdlaf.themes.JMarsDarkTheme;
 import mdlaf.utils.MaterialColors;
