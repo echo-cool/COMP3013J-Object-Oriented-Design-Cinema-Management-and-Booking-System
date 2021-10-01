@@ -32,6 +32,8 @@ public class MyBatisUtilsTest {
             AdminUserMapper adminUserMapper = sqlSession.getMapper(AdminUserMapper.class);
             AdminUser adminUser = adminUserMapper.selectByPrimaryKey(1);
             System.out.println(adminUser);
+            assertNotNull(adminUser);
+            assertNotNull(connection);
 
         } catch (Exception e) {
             throw e;
