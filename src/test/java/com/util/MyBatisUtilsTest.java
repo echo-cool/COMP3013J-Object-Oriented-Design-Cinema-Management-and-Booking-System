@@ -1,5 +1,6 @@
 package com.util;
 
+import com.mapper.AdminUserMapper;
 import com.model.AdminUser;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
