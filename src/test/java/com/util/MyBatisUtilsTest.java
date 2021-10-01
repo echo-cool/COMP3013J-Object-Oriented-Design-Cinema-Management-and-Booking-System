@@ -1,6 +1,6 @@
 package com.util;
 
-import com.mapper.AdminUserMapper;
+import com.mapper.*;
 import com.model.AdminUser;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
@@ -30,6 +30,11 @@ public class MyBatisUtilsTest {
             Connection connection = sqlSession.getConnection();
             System.out.println(connection);
             AdminUserMapper adminUserMapper = sqlSession.getMapper(AdminUserMapper.class);
+            ArrangementMapper arrangementMapper = sqlSession.getMapper(ArrangementMapper.class);
+            CustomerMapper customerMapper = sqlSession.getMapper(CustomerMapper.class);
+            OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+            ScreenMapper screenMapper = sqlSession.getMapper(ScreenMapper.class);
+            TicketMapper ticketMapper = sqlSession.getMapper(TicketMapper.class);
             AdminUser adminUser = adminUserMapper.selectByPrimaryKey(1);
             System.out.println(adminUser);
             assertNotNull(adminUser);
