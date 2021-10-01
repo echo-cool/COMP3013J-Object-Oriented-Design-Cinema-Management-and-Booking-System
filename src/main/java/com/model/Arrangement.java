@@ -2,7 +2,7 @@ package com.model;
 
 import java.io.Serializable;
 
-public class Arrangment implements Serializable {
+public class Arrangement implements Serializable {
     private Integer id;
 
     private Integer screenID;
@@ -57,7 +57,7 @@ public class Arrangment implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Arrangment other = (Arrangment) that;
+        Arrangement other = (Arrangement) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getScreenID() == null ? other.getScreenID() == null : this.getScreenID().equals(other.getScreenID()));
     }

@@ -4,15 +4,15 @@
   <resultMap id="BaseResultMap" type="com.model.Ticket">
     <!--@mbg.generated -->
     <!--@Table Ticket -->
-    <!-- generated on Fri Oct 01 19:52:33 CST 2021 -->
+    <!-- generated on Fri Oct 01 20:03:49 CST 2021 -->
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="OrderID" jdbcType="INTEGER" property="orderID" />
     <result column="CustomerID" jdbcType="INTEGER" property="customerID" />
-    <result column="ArrangemntID" jdbcType="INTEGER" property="arrangemntID" />
+    <result column="ArrangementID" jdbcType="INTEGER" property="arrangementID" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated -->
-    ID, OrderID, CustomerID, ArrangemntID
+    ID, OrderID, CustomerID, ArrangementID
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated -->
@@ -29,9 +29,9 @@
   <insert id="insert" parameterType="com.model.Ticket">
     <!--@mbg.generated -->
     insert into Ticket (ID, OrderID, CustomerID, 
-      ArrangemntID)
+      ArrangementID)
     values (#{id,jdbcType=INTEGER}, #{orderID,jdbcType=INTEGER}, #{customerID,jdbcType=INTEGER}, 
-      #{arrangemntID,jdbcType=INTEGER})
+      #{arrangementID,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.model.Ticket">
     <!--@mbg.generated -->
@@ -46,8 +46,8 @@
       <if test="customerID != null">
         CustomerID,
       </if>
-      <if test="arrangemntID != null">
-        ArrangemntID,
+      <if test="arrangementID != null">
+        ArrangementID,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -60,8 +60,8 @@
       <if test="customerID != null">
         #{customerID,jdbcType=INTEGER},
       </if>
-      <if test="arrangemntID != null">
-        #{arrangemntID,jdbcType=INTEGER},
+      <if test="arrangementID != null">
+        #{arrangementID,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -75,8 +75,8 @@
       <if test="customerID != null">
         CustomerID = #{customerID,jdbcType=INTEGER},
       </if>
-      <if test="arrangemntID != null">
-        ArrangemntID = #{arrangemntID,jdbcType=INTEGER},
+      <if test="arrangementID != null">
+        ArrangementID = #{arrangementID,jdbcType=INTEGER},
       </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
@@ -86,7 +86,7 @@
     update Ticket
     set OrderID = #{orderID,jdbcType=INTEGER},
       CustomerID = #{customerID,jdbcType=INTEGER},
-      ArrangemntID = #{arrangemntID,jdbcType=INTEGER}
+      ArrangementID = #{arrangementID,jdbcType=INTEGER}
     where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -18,7 +18,7 @@
     </environments>
     <mappers>
         <mapper resource="xml/AdminUserMapper.xml" />
-        <mapper resource="xml/ArrangmentMapper.xml" />
+        <mapper resource="xml/ArrangementMapper.xml" />
         <mapper resource="xml/CustomerMapper.xml" />
         <mapper resource="xml/OrderMapper.xml" />
         <mapper resource="xml/ScreenMapper.xml" />

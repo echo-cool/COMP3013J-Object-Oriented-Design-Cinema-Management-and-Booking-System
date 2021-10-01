@@ -9,7 +9,7 @@ public class Ticket implements Serializable {
 
     private Integer customerID;
 
-    private Integer arrangemntID;
+    private Integer arrangementID;
 
     private static final long serialVersionUID = 1L;
 
@@ -37,12 +37,12 @@ public class Ticket implements Serializable {
         this.customerID = customerID;
     }
 
-    public Integer getArrangemntID() {
-        return arrangemntID;
+    public Integer getArrangementID() {
+        return arrangementID;
     }
 
-    public void setArrangemntID(Integer arrangemntID) {
-        this.arrangemntID = arrangemntID;
+    public void setArrangementID(Integer arrangementID) {
+        this.arrangementID = arrangementID;
     }
 
     /**
@@ -58,7 +58,7 @@ public class Ticket implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", orderID=").append(orderID);
         sb.append(", customerID=").append(customerID);
-        sb.append(", arrangemntID=").append(arrangemntID);
+        sb.append(", arrangementID=").append(arrangementID);
         sb.append("]");
         return sb.toString();
     }
@@ -83,7 +83,7 @@ public class Ticket implements Serializable {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getOrderID() == null ? other.getOrderID() == null : this.getOrderID().equals(other.getOrderID()))
             && (this.getCustomerID() == null ? other.getCustomerID() == null : this.getCustomerID().equals(other.getCustomerID()))
-            && (this.getArrangemntID() == null ? other.getArrangemntID() == null : this.getArrangemntID().equals(other.getArrangemntID()));
+            && (this.getArrangementID() == null ? other.getArrangementID() == null : this.getArrangementID().equals(other.getArrangementID()));
     }
 
     /**
@@ -97,7 +97,7 @@ public class Ticket implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getOrderID() == null) ? 0 : getOrderID().hashCode());
         result = prime * result + ((getCustomerID() == null) ? 0 : getCustomerID().hashCode());
-        result = prime * result + ((getArrangemntID() == null) ? 0 : getArrangemntID().hashCode());
+        result = prime * result + ((getArrangementID() == null) ? 0 : getArrangementID().hashCode());
         return result;
     }
 }
