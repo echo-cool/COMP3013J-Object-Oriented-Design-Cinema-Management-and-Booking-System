@@ -13,14 +13,19 @@ import java.sql.Connection;
  **/
 public class DatabaseUtil {
     public static void query(QueryStatement queryListener){
-        SqlSession sqlSession = null;
-        try {
-            sqlSession = MyBatisUtils.openSession();
-            queryListener.query_commands(sqlSession);
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            MyBatisUtils.closeSession(sqlSession);
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SqlSession sqlSession = null;
+                try {
+                    sqlSession = MyBatisUtils.openSession();
+                    queryListener.query_commands(sqlSession);
+                } catch (Exception e) {
+                    throw e;
+                } finally {
+                    MyBatisUtils.closeSession(sqlSession);
+                }
+            }
+        }).start();
     }
 }
