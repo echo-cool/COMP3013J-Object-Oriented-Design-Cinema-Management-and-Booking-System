@@ -5,13 +5,11 @@ import com.model.AdminUser;
 import com.model.AdminUserExample;
 import com.util.DatabaseUtil;
 import com.util.QueryStatement;
-import com.util.fxMain;
 import com.view.Dialog;
 import com.view.fxindex.IndexView;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;

@@ -2,8 +2,6 @@ package com.util;
 
 import org.apache.ibatis.session.SqlSession;
 
-import java.sql.Connection;
-
 /**
  * @Author: WangYuyang
  * @Date: 2021/10/1-23:53

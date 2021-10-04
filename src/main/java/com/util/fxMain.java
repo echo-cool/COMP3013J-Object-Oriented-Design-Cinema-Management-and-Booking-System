@@ -1,7 +1,6 @@
 package com.util;
 
 import cn.hutool.core.io.resource.ResourceUtil;
-import com.view.fxlogin.FxLoginController;
 import com.view.fxlogin.FxLoginView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
