@@ -32,7 +32,7 @@
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>
-      <version>3.5.7</version>
+      <version>3.5.1</version>
     </dependency>
 
     <dependency>
@@ -261,7 +261,7 @@
           <configuration>
             <archive>
               <manifest>
-                <mainClass>com.util.Main</mainClass>
+                <mainClass>com.util.old.Main</mainClass>
               </manifest>
             </archive>
           </configuration>
@@ -296,7 +296,7 @@
           <!-- MainClass in mainfest make a executable jar -->
           <archive>
             <manifest>
-              <mainClass>com.util.Main</mainClass>
+              <mainClass>com.util.old.Main</mainClass>
             </manifest>
           </archive>
 
