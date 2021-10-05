@@ -1,5 +1,8 @@
 package com.view.fxindex;
 
+import com.view.fxaddarrangement.AddArrangementView;
+import com.view.fxaddmovie.AddMovieView;
+import com.view.fxneworder.NewOrderView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -65,7 +68,6 @@ public class IndexController {
 
     }
 
-
     public void prevDay(ActionEvent actionEvent) {
     }
 
@@ -75,15 +77,21 @@ public class IndexController {
     public void nextDay(ActionEvent actionEvent) {
     }
 
-    public void showAddReservationDialog(ActionEvent actionEvent) {
+    public void showNewOrderView(ActionEvent actionEvent) {
+        NewOrderView orderView = new NewOrderView();
+        orderView.show();
     }
 
-    public void showAddWalkinDialog(ActionEvent actionEvent) {
+    public void showAddMovieView(ActionEvent actionEvent) {
+        AddMovieView movieView = new AddMovieView();
+        movieView.show();
     }
 
-    public void cancelBooking(ActionEvent actionEvent) {
+    public void showAddArraignmentView(ActionEvent actionEvent) {
+        AddArrangementView addArrangementView = new AddArrangementView();
+        addArrangementView.show();
     }
 
-    public void recordArrival(ActionEvent actionEvent) {
+    public void CancelOrder(ActionEvent actionEvent) {
     }
 }
