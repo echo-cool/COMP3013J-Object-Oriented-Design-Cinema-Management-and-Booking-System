@@ -1,15 +1,11 @@
 package com.model;
 
-import java.io.Serializable;
-
-public class Screen implements Serializable {
+public class Screen {
     private Integer id;
 
     private Integer numOfSeates;
 
     private String location;
-
-    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;

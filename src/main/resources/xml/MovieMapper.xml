@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mapper.AdminUserMapper">
-  <resultMap id="BaseResultMap" type="com.model.AdminUser">
+<mapper namespace="com.mapper.MovieMapper">
+  <resultMap id="BaseResultMap" type="com.model.Movie">
     <!--@mbg.generated -->
-    <!--@Table AdminUser -->
+    <!--@Table Movie -->
     <!-- generated on Sat Oct 09 12:04:25 CST 2021 -->
-    <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="Username" jdbcType="VARCHAR" property="username" />
-    <result column="Password" jdbcType="VARCHAR" property="password" />
+    <id column="ID" jdbcType="INTEGER" property="ID" />
+    <result column="Name" jdbcType="VARCHAR" property="Name" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--@mbg.generated -->
@@ -71,16 +70,16 @@
   </sql>
   <sql id="Base_Column_List">
     <!--@mbg.generated -->
-    ID, Username, "Password"
+    ID, "Name"
   </sql>
-  <select id="selectByExample" parameterType="com.model.AdminUserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.model.MovieExample" resultMap="BaseResultMap">
     <!--@mbg.generated -->
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from AdminUser
+    from Movie
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -92,73 +91,62 @@
     <!--@mbg.generated -->
     select 
     <include refid="Base_Column_List" />
-    from AdminUser
-    where ID = #{id,jdbcType=INTEGER}
+    from Movie
+    where ID = #{ID,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--@mbg.generated -->
-    delete from AdminUser
-    where ID = #{id,jdbcType=INTEGER}
+    delete from Movie
+    where ID = #{ID,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.model.AdminUserExample">
+  <delete id="deleteByExample" parameterType="com.model.MovieExample">
     <!--@mbg.generated -->
-    delete from AdminUser
+    delete from Movie
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.model.AdminUser">
+  <insert id="insert" parameterType="com.model.Movie">
     <!--@mbg.generated -->
-    insert into AdminUser (ID, Username, "Password"
-      )
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
-      )
+    insert into Movie (ID, "Name")
+    values (#{ID,jdbcType=INTEGER}, #{Name,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.model.AdminUser">
+  <insert id="insertSelective" parameterType="com.model.Movie">
     <!--@mbg.generated -->
-    insert into AdminUser
+    insert into Movie
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+      <if test="ID != null">
         ID,
       </if>
-      <if test="username != null">
-        Username,
-      </if>
-      <if test="password != null">
-        "Password",
+      <if test="Name != null">
+        "Name",
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
+      <if test="ID != null">
+        #{ID,jdbcType=INTEGER},
       </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
+      <if test="Name != null">
+        #{Name,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.model.AdminUserExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.model.MovieExample" resultType="java.lang.Long">
     <!--@mbg.generated -->
-    select count(*) from AdminUser
+    select count(*) from Movie
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     <!--@mbg.generated -->
-    update AdminUser
+    update Movie
     <set>
-      <if test="record.id != null">
-        ID = #{record.id,jdbcType=INTEGER},
+      <if test="record.ID != null">
+        ID = #{record.ID,jdbcType=INTEGER},
       </if>
-      <if test="record.username != null">
-        Username = #{record.username,jdbcType=VARCHAR},
-      </if>
-      <if test="record.password != null">
-        "Password" = #{record.password,jdbcType=VARCHAR},
+      <if test="record.Name != null">
+        "Name" = #{record.Name,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="example != null">
@@ -167,32 +155,27 @@
   </update>
   <update id="updateByExample" parameterType="map">
     <!--@mbg.generated -->
-    update AdminUser
-    set ID = #{record.id,jdbcType=INTEGER},
-      Username = #{record.username,jdbcType=VARCHAR},
-      "Password" = #{record.password,jdbcType=VARCHAR}
+    update Movie
+    set ID = #{record.ID,jdbcType=INTEGER},
+      "Name" = #{record.Name,jdbcType=VARCHAR}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.model.AdminUser">
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Movie">
     <!--@mbg.generated -->
-    update AdminUser
+    update Movie
     <set>
-      <if test="username != null">
-        Username = #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        "Password" = #{password,jdbcType=VARCHAR},
+      <if test="Name != null">
+        "Name" = #{Name,jdbcType=VARCHAR},
       </if>
     </set>
-    where ID = #{id,jdbcType=INTEGER}
+    where ID = #{ID,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.model.AdminUser">
+  <update id="updateByPrimaryKey" parameterType="com.model.Movie">
     <!--@mbg.generated -->
-    update AdminUser
-    set Username = #{username,jdbcType=VARCHAR},
-      "Password" = #{password,jdbcType=VARCHAR}
-    where ID = #{id,jdbcType=INTEGER}
+    update Movie
+    set "Name" = #{Name,jdbcType=VARCHAR}
+    where ID = #{ID,jdbcType=INTEGER}
   </update>
 </mapper>

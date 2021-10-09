@@ -1,13 +1,15 @@
 package com.model;
 
-import java.io.Serializable;
-
-public class Arrangement implements Serializable {
+public class Arrangement {
     private Integer id;
 
     private Integer screenID;
 
-    private static final long serialVersionUID = 1L;
+    private Integer movieID;
+
+    private String startTime;
+
+    private String endTime;
 
     public Integer getId() {
         return id;
@@ -25,6 +27,30 @@ public class Arrangement implements Serializable {
         this.screenID = screenID;
     }
 
+    public Integer getMovieID() {
+        return movieID;
+    }
+
+    public void setMovieID(Integer movieID) {
+        this.movieID = movieID;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime == null ? null : startTime.trim();
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime == null ? null : endTime.trim();
+    }
+
     /**
     * toString
     * @return String String
@@ -37,6 +63,9 @@ public class Arrangement implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", screenID=").append(screenID);
+        sb.append(", movieID=").append(movieID);
+        sb.append(", startTime=").append(startTime);
+        sb.append(", endTime=").append(endTime);
         sb.append("]");
         return sb.toString();
     }
@@ -59,7 +88,10 @@ public class Arrangement implements Serializable {
         }
         Arrangement other = (Arrangement) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getScreenID() == null ? other.getScreenID() == null : this.getScreenID().equals(other.getScreenID()));
+            && (this.getScreenID() == null ? other.getScreenID() == null : this.getScreenID().equals(other.getScreenID()))
+            && (this.getMovieID() == null ? other.getMovieID() == null : this.getMovieID().equals(other.getMovieID()))
+            && (this.getStartTime() == null ? other.getStartTime() == null : this.getStartTime().equals(other.getStartTime()))
+            && (this.getEndTime() == null ? other.getEndTime() == null : this.getEndTime().equals(other.getEndTime()));
     }
 
     /**
@@ -72,6 +104,9 @@ public class Arrangement implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getScreenID() == null) ? 0 : getScreenID().hashCode());
+        result = prime * result + ((getMovieID() == null) ? 0 : getMovieID().hashCode());
+        result = prime * result + ((getStartTime() == null) ? 0 : getStartTime().hashCode());
+        result = prime * result + ((getEndTime() == null) ? 0 : getEndTime().hashCode());
         return result;
     }
 }

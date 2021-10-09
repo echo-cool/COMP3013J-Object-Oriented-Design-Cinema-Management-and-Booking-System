@@ -2,12 +2,9 @@ package com.mapper;
 
 import com.model.Ticket;
 import com.model.TicketExample;
-import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
-@Mapper
 public interface TicketMapper {
     /**
     * countByExample

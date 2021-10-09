@@ -1,59 +1,59 @@
 package com.mapper;
 
-import com.model.Screen;
-import com.model.ScreenExample;
+import com.model.Movie;
+import com.model.MovieExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface ScreenMapper {
+public interface MovieMapper {
     /**
     * countByExample
     * @param example example
     * @return long long
     */
-    long countByExample(ScreenExample example);
+    long countByExample(MovieExample example);
 
     /**
     * deleteByExample
     * @param example example
     * @return int int
     */
-    int deleteByExample(ScreenExample example);
+    int deleteByExample(MovieExample example);
 
     /**
     * deleteByPrimaryKey
-    * @param id id
+    * @param ID ID
     * @return int int
     */
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Integer ID);
 
     /**
     * insert
     * @param record record
     * @return int int
     */
-    int insert(Screen record);
+    int insert(Movie record);
 
     /**
     * insertSelective
     * @param record record
     * @return int int
     */
-    int insertSelective(Screen record);
+    int insertSelective(Movie record);
 
     /**
     * selectByExample
     * @param example example
-    * @return List<Screen> List<Screen>
+    * @return List<Movie> List<Movie>
     */
-    List<Screen> selectByExample(ScreenExample example);
+    List<Movie> selectByExample(MovieExample example);
 
     /**
     * selectByPrimaryKey
-    * @param id id
-    * @return Screen Screen
+    * @param ID ID
+    * @return Movie Movie
     */
-    Screen selectByPrimaryKey(Integer id);
+    Movie selectByPrimaryKey(Integer ID);
 
     /**
     * updateByExampleSelective
@@ -61,7 +61,7 @@ public interface ScreenMapper {
     * @param example example
     * @return int int
     */
-    int updateByExampleSelective(@Param("record") Screen record, @Param("example") ScreenExample example);
+    int updateByExampleSelective(@Param("record") Movie record, @Param("example") MovieExample example);
 
     /**
     * updateByExample
@@ -69,19 +69,19 @@ public interface ScreenMapper {
     * @param example example
     * @return int int
     */
-    int updateByExample(@Param("record") Screen record, @Param("example") ScreenExample example);
+    int updateByExample(@Param("record") Movie record, @Param("example") MovieExample example);
 
     /**
     * updateByPrimaryKeySelective
     * @param record record
     * @return int int
     */
-    int updateByPrimaryKeySelective(Screen record);
+    int updateByPrimaryKeySelective(Movie record);
 
     /**
     * updateByPrimaryKey
     * @param record record
     * @return int int
     */
-    int updateByPrimaryKey(Screen record);
+    int updateByPrimaryKey(Movie record);
 }
