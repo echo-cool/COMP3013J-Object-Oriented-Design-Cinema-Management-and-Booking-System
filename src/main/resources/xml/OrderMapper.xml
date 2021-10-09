@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.model.Order">
     <!--@mbg.generated -->
     <!--@Table Order -->
-    <!-- generated on Sat Oct 02 00:05:12 CST 2021 -->
+    <!-- generated on Sat Oct 09 12:04:25 CST 2021 -->
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="OwnerID" jdbcType="INTEGER" property="ownerID" />
     <result column="CreateAt" jdbcType="VARCHAR" property="createAt" />

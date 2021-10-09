@@ -223,6 +223,206 @@ public class ArrangementExample {
             addCriterion("ScreenID not between", value1, value2, "screenID");
             return (Criteria) this;
         }
+
+        public Criteria andMovieIDIsNull() {
+            addCriterion("MovieID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMovieIDIsNotNull() {
+            addCriterion("MovieID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMovieIDEqualTo(Integer value) {
+            addCriterion("MovieID =", value, "movieID");
+            return (Criteria) this;
+        }
+
+        public Criteria andMovieIDNotEqualTo(Integer value) {
+            addCriterion("MovieID <>", value, "movieID");
+            return (Criteria) this;
+        }
+
+        public Criteria andMovieIDGreaterThan(Integer value) {
+            addCriterion("MovieID >", value, "movieID");
+            return (Criteria) this;
+        }
+
+        public Criteria andMovieIDGreaterThanOrEqualTo(Integer value) {
+            addCriterion("MovieID >=", value, "movieID");
+            return (Criteria) this;
+        }
+
+        public Criteria andMovieIDLessThan(Integer value) {
+            addCriterion("MovieID <", value, "movieID");
+            return (Criteria) this;
+        }
+
+        public Criteria andMovieIDLessThanOrEqualTo(Integer value) {
+            addCriterion("MovieID <=", value, "movieID");
+            return (Criteria) this;
+        }
+
+        public Criteria andMovieIDIn(List<Integer> values) {
+            addCriterion("MovieID in", values, "movieID");
+            return (Criteria) this;
+        }
+
+        public Criteria andMovieIDNotIn(List<Integer> values) {
+            addCriterion("MovieID not in", values, "movieID");
+            return (Criteria) this;
+        }
+
+        public Criteria andMovieIDBetween(Integer value1, Integer value2) {
+            addCriterion("MovieID between", value1, value2, "movieID");
+            return (Criteria) this;
+        }
+
+        public Criteria andMovieIDNotBetween(Integer value1, Integer value2) {
+            addCriterion("MovieID not between", value1, value2, "movieID");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartTimeIsNull() {
+            addCriterion("StartTime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartTimeIsNotNull() {
+            addCriterion("StartTime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartTimeEqualTo(String value) {
+            addCriterion("StartTime =", value, "startTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartTimeNotEqualTo(String value) {
+            addCriterion("StartTime <>", value, "startTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartTimeGreaterThan(String value) {
+            addCriterion("StartTime >", value, "startTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartTimeGreaterThanOrEqualTo(String value) {
+            addCriterion("StartTime >=", value, "startTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartTimeLessThan(String value) {
+            addCriterion("StartTime <", value, "startTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartTimeLessThanOrEqualTo(String value) {
+            addCriterion("StartTime <=", value, "startTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartTimeLike(String value) {
+            addCriterion("StartTime like", value, "startTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartTimeNotLike(String value) {
+            addCriterion("StartTime not like", value, "startTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartTimeIn(List<String> values) {
+            addCriterion("StartTime in", values, "startTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartTimeNotIn(List<String> values) {
+            addCriterion("StartTime not in", values, "startTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartTimeBetween(String value1, String value2) {
+            addCriterion("StartTime between", value1, value2, "startTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartTimeNotBetween(String value1, String value2) {
+            addCriterion("StartTime not between", value1, value2, "startTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndTimeIsNull() {
+            addCriterion("EndTime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndTimeIsNotNull() {
+            addCriterion("EndTime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndTimeEqualTo(String value) {
+            addCriterion("EndTime =", value, "endTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndTimeNotEqualTo(String value) {
+            addCriterion("EndTime <>", value, "endTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndTimeGreaterThan(String value) {
+            addCriterion("EndTime >", value, "endTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndTimeGreaterThanOrEqualTo(String value) {
+            addCriterion("EndTime >=", value, "endTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndTimeLessThan(String value) {
+            addCriterion("EndTime <", value, "endTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndTimeLessThanOrEqualTo(String value) {
+            addCriterion("EndTime <=", value, "endTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndTimeLike(String value) {
+            addCriterion("EndTime like", value, "endTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndTimeNotLike(String value) {
+            addCriterion("EndTime not like", value, "endTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndTimeIn(List<String> values) {
+            addCriterion("EndTime in", values, "endTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndTimeNotIn(List<String> values) {
+            addCriterion("EndTime not in", values, "endTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndTimeBetween(String value1, String value2) {
+            addCriterion("EndTime between", value1, value2, "endTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndTimeNotBetween(String value1, String value2) {
+            addCriterion("EndTime not between", value1, value2, "endTime");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

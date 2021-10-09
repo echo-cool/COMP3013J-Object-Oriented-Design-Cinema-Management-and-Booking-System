@@ -4,9 +4,12 @@
   <resultMap id="BaseResultMap" type="com.model.Arrangement">
     <!--@mbg.generated -->
     <!--@Table Arrangement -->
-    <!-- generated on Sat Oct 02 00:05:12 CST 2021 -->
+    <!-- generated on Sat Oct 09 12:04:25 CST 2021 -->
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="ScreenID" jdbcType="INTEGER" property="screenID" />
+    <result column="MovieID" jdbcType="INTEGER" property="movieID" />
+    <result column="StartTime" jdbcType="VARCHAR" property="startTime" />
+    <result column="EndTime" jdbcType="VARCHAR" property="endTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--@mbg.generated -->
@@ -70,7 +73,7 @@
   </sql>
   <sql id="Base_Column_List">
     <!--@mbg.generated -->
-    ID, ScreenID
+    ID, ScreenID, MovieID, StartTime, EndTime
   </sql>
   <select id="selectByExample" parameterType="com.model.ArrangementExample" resultMap="BaseResultMap">
     <!--@mbg.generated -->
@@ -108,8 +111,10 @@
   </delete>
   <insert id="insert" parameterType="com.model.Arrangement">
     <!--@mbg.generated -->
-    insert into Arrangement (ID, ScreenID)
-    values (#{id,jdbcType=INTEGER}, #{screenID,jdbcType=INTEGER})
+    insert into Arrangement (ID, ScreenID, MovieID, 
+      StartTime, EndTime)
+    values (#{id,jdbcType=INTEGER}, #{screenID,jdbcType=INTEGER}, #{movieID,jdbcType=INTEGER}, 
+      #{startTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.model.Arrangement">
     <!--@mbg.generated -->
@@ -121,6 +126,15 @@
       <if test="screenID != null">
         ScreenID,
       </if>
+      <if test="movieID != null">
+        MovieID,
+      </if>
+      <if test="startTime != null">
+        StartTime,
+      </if>
+      <if test="endTime != null">
+        EndTime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -128,6 +142,15 @@
       </if>
       <if test="screenID != null">
         #{screenID,jdbcType=INTEGER},
+      </if>
+      <if test="movieID != null">
+        #{movieID,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -148,6 +171,15 @@
       <if test="record.screenID != null">
         ScreenID = #{record.screenID,jdbcType=INTEGER},
       </if>
+      <if test="record.movieID != null">
+        MovieID = #{record.movieID,jdbcType=INTEGER},
+      </if>
+      <if test="record.startTime != null">
+        StartTime = #{record.startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endTime != null">
+        EndTime = #{record.endTime,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -157,7 +189,10 @@
     <!--@mbg.generated -->
     update Arrangement
     set ID = #{record.id,jdbcType=INTEGER},
-      ScreenID = #{record.screenID,jdbcType=INTEGER}
+      ScreenID = #{record.screenID,jdbcType=INTEGER},
+      MovieID = #{record.movieID,jdbcType=INTEGER},
+      StartTime = #{record.startTime,jdbcType=VARCHAR},
+      EndTime = #{record.endTime,jdbcType=VARCHAR}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -169,13 +204,25 @@
       <if test="screenID != null">
         ScreenID = #{screenID,jdbcType=INTEGER},
       </if>
+      <if test="movieID != null">
+        MovieID = #{movieID,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        StartTime = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        EndTime = #{endTime,jdbcType=VARCHAR},
+      </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.model.Arrangement">
     <!--@mbg.generated -->
     update Arrangement
-    set ScreenID = #{screenID,jdbcType=INTEGER}
+    set ScreenID = #{screenID,jdbcType=INTEGER},
+      MovieID = #{movieID,jdbcType=INTEGER},
+      StartTime = #{startTime,jdbcType=VARCHAR},
+      EndTime = #{endTime,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

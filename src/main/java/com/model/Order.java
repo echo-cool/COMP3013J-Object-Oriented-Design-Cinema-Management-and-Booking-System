@@ -1,15 +1,11 @@
 package com.model;
 
-import java.io.Serializable;
-
-public class Order implements Serializable {
+public class Order {
     private Integer id;
 
     private Integer ownerID;
 
     private String createAt;
-
-    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;

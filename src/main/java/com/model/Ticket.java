@@ -1,8 +1,6 @@
 package com.model;
 
-import java.io.Serializable;
-
-public class Ticket implements Serializable {
+public class Ticket {
     private Integer id;
 
     private Integer orderID;
@@ -10,8 +8,6 @@ public class Ticket implements Serializable {
     private Integer customerID;
 
     private Integer arrangementID;
-
-    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;
