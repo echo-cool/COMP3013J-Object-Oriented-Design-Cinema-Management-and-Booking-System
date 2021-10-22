@@ -17,12 +17,13 @@ Milestone1(Release): https://csgitlab.ucd.ie/comp3013-2021/group4/comp3013j_assi
 
 ## Use Case
 ##### Use Case 1:
-Schedule Movie Screening
+Display Screening Tickets Sold Capacity
 ##### Use Case 2:
-Reschedule Movie Screening
+Schedule Movie Screening
 ##### Use Case 3:
+Reschedule Movie Screening
+##### Use Case 4:
 Cancel Movie Screening
-##### Use Case 4:
+##### Use Case 5:
 Sell Tickets
-##### Use Case 4:
-Display the scheduled times for movie screenig in a day and which screen they are being shown on as well as the number of tickets sold for each and the capacity of the screens
+
