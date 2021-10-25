@@ -10,9 +10,6 @@
 
 [19206207 - YangLiuxin  Personal Information](19206207.md)
 
-## Milestones
-
-Milestone1(Release): https://csgitlab.ucd.ie/comp3013-2021/group4/comp3013j_assignment/-/releases/Requirements-Done-%2528Milestone-1%2529
 
 
 ## Use Case
