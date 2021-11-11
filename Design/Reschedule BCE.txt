@@ -1,0 +1,75 @@
+actor Staff
+boundary StaffUI
+
+control ScreeningSystem
+participant Cinema
+entity Screening (current)
+entity Screening (selected)
+participant ScreeningMapper
+database Database
+Staff->StaffUI:mousePressed(x : Integer, y : Integer)
+activate StaffUI
+
+StaffUI->StaffUI:sno := yToScreening(y : Integer)
+StaffUI->StaffUI:time := xToTime(x : Integer)
+StaffUI->ScreeningSystem:selectScreening(sno : Integer, time : LocalTime)
+activate ScreeningSystem
+
+loop for each current Screening
+ScreeningSystem->Screening (current):getScreening()
+ScreeningSystem->Screening (current):getTime()
+end
+ScreeningSystem->ScreeningSystem:notifyObservers()
+ScreeningSystem->StaffUI:update()
+
+ScreeningSystem-->StaffUI:
+deactivate ScreeningSystem
+StaffUI-->Staff:
+deactivate StaffUI
+
+
+loop for every time the mouse is moved
+Staff->StaffUI:mouseMoved(x : integer, y : integer)
+activate StaffUI
+StaffUI->StaffUI:update()
+StaffUI-->Staff:
+deactivate StaffUI
+end
+
+Staff->StaffUI:mouseReleased(x : Integer, y : Integer)
+activate StaffUI
+StaffUI->StaffUI:sno := yToScreening(y : Integer)
+StaffUI->StaffUI:time := xToTime(x : Integer)
+StaffUI->ScreeningSystem:changeSelected(time : LocalTime, sno :Integer)
+activate ScreeningSystem
+expandable- see diagrams 02 - Add Reservation ACE (2) (overfilled table cancel/ok)
+
+
+
+ScreeningSystem->ScreeningSystem:checkOverlapScreening(time : LocalTime, sno : Integer, s : Screening)
+end 
+ScreeningSystem->Cinema:table := getTable(tno : Integer)
+ScreeningSystem->Screening (selected):setTime(time : LocalTime)
+ScreeningSystem->Screening (selected):setTable(table : Table)
+ScreeningSystem->Cinema:updateScreening(selected : Screening)
+activate Cinema
+Cinema->ScreeningMapper:updateScreening(b : Screening)
+activate ScreeningMapper
+ScreeningMapper->ScreeningMapper:performUpdate(sql : String)
+activate ScreeningMapper
+ScreeningMapper->Database:executeUpdate(sql : String)
+ScreeningMapper-->ScreeningMapper:
+deactivate ScreeningMapper
+ScreeningMapper-->Cinema:
+
+
+Cinema-->ScreeningSystem:
+deactivate Cinema
+expandable- see 01 - Display Date BCE
+ScreeningSystem->ScreeningSystem:notifyObservers()                    
+end
+ScreeningSystem-->StaffUI:
+deactivate ScreeningSystem
+
+StaffUI-->Staff:
+deactivate StaffUI
