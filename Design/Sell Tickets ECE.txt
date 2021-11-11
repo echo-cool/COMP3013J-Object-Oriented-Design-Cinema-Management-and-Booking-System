@@ -1,0 +1,70 @@
+
+title Sell Tickets ECE
+
+actor Staff
+boundary ": Alert" as AL
+boundary ": StaffUI" as SU
+control ": ManagementSystem" as MS
+
+participant "：Cinema" as CNM
+entity current：Screenings
+entity "s：Screen" as S
+entity "selected：Screening" as SS
+
+#participant "：ScreeningMapper" as SM
+#database DataBase
+
+Staff ->SU: mousePressed(x : Integer, y : Integer)
+
+activate SU
+SU ->SU: screenNumber: yToScreen(y : Integer)
+SU ->SU: time: xToTime: xTotime(x : Integer)
+
+activate MS
+SU->MS:selectScreening(screenNumber : Integer, time: LocalTime)
+loop for all screenings on screen
+MS->current：Screenings:time=getStartTime()
+MS->current：Screenings:s=getScreen()
+end 
+MS->MS: notifyObservers()
+MS->SU: update()
+MS-->SU:
+deactivate MS
+SU-->Staff:
+deactivate SU
+
+Staff->SU:sellTicket()
+activate SU
+SU->MS: sellTicket()
+activate MS
+
+
+MS->S:getCapacity()
+activate S
+S-->MS:return capacity
+deactivate S
+MS->SS:getTicketsSold
+activate SS
+SS-->MS: return ticket_sold
+deactivate SS
+
+
+MS->MS: checkInsufficientTickest()
+activate MS
+MS-->MS: return true
+deactivate MS
+
+
+
+
+MS-->SU:alertInsufficientTickets()
+deactivate MS
+SU->AL: showAndWait()
+activate AL
+AL->Staff: 
+Staff-->AL:
+AL-->SU: dismiss()
+deactivate AL
+SU-->Staff:
+
+deactivate SU
