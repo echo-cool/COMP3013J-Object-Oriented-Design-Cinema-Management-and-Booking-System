@@ -1,0 +1,85 @@
+
+title Cancel Movie Screening BCE
+
+actor Staff
+boundary ": ScreeningDialog" as SD
+boundary ": StaffUI" as SU
+
+control ": ManagementSystem" as MS
+
+participant "：Cinema" as CNM
+entity current：Screenings
+#entity "s：Screen" as S
+#entity "m：Movie" as M
+entity "selected：Screening" as SS
+
+participant "：ScreeningMapper" as SM
+database DataBase
+
+Staff ->SU: mousePressed(x : Integer, y : Integer)
+
+activate SU
+SU ->SU: screenNumber: yToScreen(y : Integer)
+SU ->SU: time: xToTime: xTotime(x : Integer)
+
+activate MS
+SU->MS:selectScreening(screenNumber : Integer, time: LocalTime)
+loop for all screenings on screen
+MS->current：Screenings:time=getStartTime()
+MS->current：Screenings:s=getScreen()
+end 
+MS->MS: notifyObservers()
+MS->SU: update()
+MS-->SU:
+deactivate MS
+SU-->Staff:
+deactivate SU
+
+Staff->SU:cancel()
+activate SU
+SU->MS: cancel()
+activate MS
+
+MS->*SD:ScreeningDialog()
+activate SD
+SD->Staff: confirm()
+activate Staff
+Staff-->SD: return "yes"
+deactivate Staff
+SD-->MS: confirm()
+deactivate SD
+
+MS->CNM: DeleteScreening(selectedScreening : Screening)
+activate CNM
+CNM->SM: deleteScrenning(s : Screening)
+activate SM
+SM->SM: performUpdate(sql: String)
+activate SM
+SM->DataBase: excuteUpdate(sql: String)
+SM-->SM:  
+deactivate SM
+SM-->CNM:
+deactivate SM
+
+CNM->SS:< < destory > >
+destroy SS
+CNM-->MS:
+deactivate CNM
+
+
+
+
+expandable− see 01 - Display Date BCE
+MS->MS:notifyObservers()                      
+end 
+
+MS-->SU:
+deactivate MS
+SU-->Staff:
+deactivate SU
+
+
+
+
+
+
