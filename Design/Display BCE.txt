@@ -1,0 +1,73 @@
+
+
+actor Staff
+boundary StaffUI
+control ScreeningSystem
+participant Restaurant
+participant BookingMapper
+participant TableMapper
+participant CustomerMapper
+database db
+entity PersistentReservation
+entity PersistentWalkIn
+Staff->StaffUI:submit(date : LocalDate)
+activate StaffUI
+StaffUI->ScreeningSystem:setDate(date : LocalDate)
+activate ScreeningSystem
+
+ScreeningSystem->Restaurant:getBookings(date : LocalDate)
+activate Restaurant
+
+Restaurant->BookingMapper:getBookings(date : LocalDate)
+activate BookingMapper
+BookingMapper->db:executeQuery(sql : String)
+
+loop for every row returned for reservations
+BookingMapper->TableMapper:t := getTableforOid(table : Integer)
+BookingMapper->CustomerMapper:getCustomerForOid(cust : Integer)
+BookingMapper->*PersistentReservation:PersistentReservation(oid : Integer, covers : Integer, \n    bdate : LocalDate, btime : LocalTime, t : Table, c : Customer, atime : LocalTime)
+activate PersistentReservation
+PersistentReservation-->BookingMapper:
+deactivate PersistentReservation
+end
+
+BookingMapper->db:executeQuery(sql : String)
+
+loop for every row returned for walk in bookings
+BookingMapper->TableMapper:t := getTableforOid(table : Integer)
+BookingMapper->*PersistentWalkIn:PersistentWalkIn(oid : Integer, covers : Integer, bdate : LocalDate, btime : LocalTime, t : Table)
+activate PersistentWalkIn
+PersistentWalkIn-->BookingMapper:
+deactivate PersistentWalkIn
+end
+
+BookingMapper-->Restaurant:return bookings
+deactivate BookingMapper
+
+
+Restaurant-->ScreeningSystem:return bookings
+deactivate Restaurant
+
+ScreeningSystem->ScreeningSystem:notifyObservers()
+activate ScreeningSystem
+
+ScreeningSystem->StaffUI:update()
+activate StaffUI
+StaffUI->ScreeningSystem:getDate()
+activate ScreeningSystem
+ScreeningSystem-->StaffUI:return date
+deactivate ScreeningSystem
+
+StaffUI->ScreeningSystem:getBookings()
+activate ScreeningSystem
+ScreeningSystem-->StaffUI:return bookings
+deactivate ScreeningSystem
+
+StaffUI-->ScreeningSystem:
+deactivate StaffUI
+
+ScreeningSystem-->ScreeningSystem:
+deactivate ScreeningSystem
+ScreeningSystem-->StaffUI:
+deactivate ScreeningSystem
+StaffUI-->Staff:
