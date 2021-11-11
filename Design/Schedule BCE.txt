@@ -1,0 +1,90 @@
+actor Staff
+boundary ScreeningDialog
+boundary StaffUI
+
+control ScreeningSystem
+participant Cinema
+participant ScreenMapper
+participant ScreenMapper
+participant MovieMapper
+participant ScreeningMapper
+database Database
+entity s (Screen)
+entity m (Movie)
+entity Screening
+
+Staff->StaffUI:scheduleScreening()
+activate StaffUI
+
+StaffUI->*ScreeningDialog:ScreeningDialog()
+activate ScreeningDialog
+ScreeningDialog-->StaffUI:
+deactivate ScreeningDialog
+
+
+StaffUI->ScreeningSystem:scheduleScreening(date : LocalDate, start_time: LocalTime, \nscreen_no : Integer, movie_no : Integer, ticket_sold: Integer)
+activate ScreeningSystem
+
+
+expandable- see diagram 03 - Schedule Screening ECE (overlap Screening)
+
+ScreeningSystem->ScreeningSystem:checkOverlapScreening                                                         
+end 
+
+ScreeningSystem->Cinema:scheduleScreening(date : LocalDate, start_time: LocalTime, \nscreen_no : Integer, movie_no : Integer, ticket_sold: Integer)
+activate Cinema
+
+Cinema->ScreenMapper:getScreen(screen_no : int)
+activate ScreenMapper
+ScreenMapper->ScreenMapper:getFromCacheByNumber(screen_no)
+ScreenMapper-->Cinema:return s : Screen
+deactivate ScreenMapper
+
+Cinema->MovieMapper:getMovie(movie_no : int)
+activate MovieMapper
+MovieMapper->MovieMapper:getFromCacheByNumber(movie_no)
+MovieMapper-->Cinema:return m : Movie
+deactivate MovieMapper
+
+
+Cinema->ScreeningMapper:scheduleScreening(date : LocalDate, start_time: LocalTime, \ns : Screen, m : Movie, ticket_sold: Integer)
+activate ScreeningMapper
+ScreeningMapper->Database:oid := getId()
+ScreeningMapper->ScreeningMapper:performUpdate(sql : String)
+activate ScreeningMapper
+
+
+ScreeningMapper->Database:executeUpdate(sql : String)
+ScreeningMapper-->ScreeningMapper:
+deactivate ScreeningMapper
+
+
+ScreeningMapper->*Screening:PersistentScreening(oid : Integer, date : LocalDate, \nstart_time: LocalTime, s : Screen, m : Movie, ticket_sold: Integer)
+activate Screening
+Screening-->ScreeningMapper:
+deactivate Screening
+ScreeningMapper-->Cinema:
+deactivate ScreeningMapper
+Cinema-->ScreeningSystem:
+deactivate Cinema
+ScreeningSystem->ScreeningSystem:notifyObservers()
+activate ScreeningSystem
+ScreeningSystem->StaffUI:update()
+activate StaffUI
+StaffUI->ScreeningSystem:getDate()
+activate ScreeningSystem
+ScreeningSystem-->StaffUI:return date
+deactivate ScreeningSystem
+StaffUI->ScreeningSystem:getScreenings()
+activate ScreeningSystem
+ScreeningSystem-->StaffUI: return Screenings
+deactivate ScreeningSystem
+StaffUI-->ScreeningSystem:
+deactivate StaffUI
+deactivateafter ScreeningSystem
+
+
+ScreeningSystem-->StaffUI:
+deactivate ScreeningSystem
+StaffUI-->Staff:
+deactivate StaffUI
