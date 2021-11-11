@@ -4,48 +4,38 @@ actor Staff
 boundary StaffUI
 control ScreeningSystem
 participant Restaurant
-participant BookingMapper
-participant TableMapper
-participant CustomerMapper
+participant ScreeningMapper
+participant ScreenMapper
+participant MovieMapper
 database db
-entity PersistentReservation
-entity PersistentWalkIn
+entity PersistentScreening
 Staff->StaffUI:submit(date : LocalDate)
 activate StaffUI
 StaffUI->ScreeningSystem:setDate(date : LocalDate)
 activate ScreeningSystem
 
-ScreeningSystem->Restaurant:getBookings(date : LocalDate)
+ScreeningSystem->Restaurant:getScreenings(date : LocalDate)
 activate Restaurant
 
-Restaurant->BookingMapper:getBookings(date : LocalDate)
-activate BookingMapper
-BookingMapper->db:executeQuery(sql : String)
+Restaurant->ScreeningMapper:getScreenings(date : LocalDate)
+activate ScreeningMapper
+ScreeningMapper->db:executeQuery(sql : String)
 
-loop for every row returned for reservations
-BookingMapper->TableMapper:t := getTableforOid(table : Integer)
-BookingMapper->CustomerMapper:getCustomerForOid(cust : Integer)
-BookingMapper->*PersistentReservation:PersistentReservation(oid : Integer, covers : Integer, \n    bdate : LocalDate, btime : LocalTime, t : Table, c : Customer, atime : LocalTime)
-activate PersistentReservation
-PersistentReservation-->BookingMapper:
-deactivate PersistentReservation
+loop for every row returned for Screenings
+ScreeningMapper->ScreenMapper:t := getScreenforOid(screen : Integer)
+ScreeningMapper->MovieMapper:getMovieForOid(movie : Integer)
+ScreeningMapper->*PersistentScreening:PersistentScreening(oid : Integer, capacity : Integer, \n    bdate : LocalDate, btime : LocalTime, s : Screen, m : Movie, atime : LocalTime)
+activate PersistentScreening
+PersistentScreening-->ScreeningMapper:
+deactivate PersistentScreening
 end
 
-BookingMapper->db:executeQuery(sql : String)
 
-loop for every row returned for walk in bookings
-BookingMapper->TableMapper:t := getTableforOid(table : Integer)
-BookingMapper->*PersistentWalkIn:PersistentWalkIn(oid : Integer, covers : Integer, bdate : LocalDate, btime : LocalTime, t : Table)
-activate PersistentWalkIn
-PersistentWalkIn-->BookingMapper:
-deactivate PersistentWalkIn
-end
-
-BookingMapper-->Restaurant:return bookings
-deactivate BookingMapper
+ScreeningMapper-->Restaurant:return Screenings
+deactivate ScreeningMapper
 
 
-Restaurant-->ScreeningSystem:return bookings
+Restaurant-->ScreeningSystem:return Screenings
 deactivate Restaurant
 
 ScreeningSystem->ScreeningSystem:notifyObservers()
@@ -58,9 +48,9 @@ activate ScreeningSystem
 ScreeningSystem-->StaffUI:return date
 deactivate ScreeningSystem
 
-StaffUI->ScreeningSystem:getBookings()
+StaffUI->ScreeningSystem:getScreenings()
 activate ScreeningSystem
-ScreeningSystem-->StaffUI:return bookings
+ScreeningSystem-->StaffUI:return Screenings
 deactivate ScreeningSystem
 
 StaffUI-->ScreeningSystem:
