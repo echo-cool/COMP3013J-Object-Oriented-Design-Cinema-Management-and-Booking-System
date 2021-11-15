@@ -17,14 +17,15 @@ entity "selected：Screening" as SS
 Staff ->SU: mousePressed(x : Integer, y : Integer)
 
 activate SU
-SU ->SU: screenNumber: yToScreen(y : Integer)
+SU ->SU: screenNumber: yToScreening(y : Integer)
 SU ->SU: time: xToTime: xTotime(x : Integer)
 
 activate MS
 SU->MS:selectScreening(screenNumber : Integer, time: LocalTime)
 loop for all screenings on screen
-MS->current：Screenings:time=getStartTime()
 MS->current：Screenings:s=getScreen()
+MS->current：Screenings:time=getStartTime()
+
 end 
 MS->MS: notifyObservers()
 MS->SU: update()
@@ -51,20 +52,20 @@ deactivate SS
 
 MS->MS: checkInsufficientTickest()
 activate MS
-MS-->MS: return true
+MS-->MS:return true
 deactivate MS
 
 
 
 
-MS-->SU:alertInsufficientTickets()
-deactivate MS
-SU->AL: showAndWait()
-activate AL
-AL->Staff: 
-Staff-->AL:
-AL-->SU: dismiss()
-deactivate AL
-SU-->Staff:
+expandable− see digram - Display BCE
+MS->MS:notifyObservers()                    
+end
 
+
+
+MS-->SU:return false
+deactivate MS
+
+SU-->Staff:return false
 deactivate SU

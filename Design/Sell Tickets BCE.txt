@@ -16,14 +16,15 @@ database DataBase
 Staff ->SU: mousePressed(x : Integer, y : Integer)
 
 activate SU
-SU ->SU: screenNumber: yToScreen(y : Integer)
+SU ->SU: screenNumber: yToScreening(y : Integer)
 SU ->SU: time: xToTime: xTotime(x : Integer)
 
 activate MS
-SU->MS:selectScreening(screenNumber : Integer, time: LocalTime)
+SU->MS:selectScreening(sno : Integer, time: LocalTime)
 loop for all screenings on screen
-MS->current：Screenings:time=getStartTime()
 MS->current：Screenings:s=getScreen()
+MS->current：Screenings:time=getStartTime()
+
 end 
 MS->MS: notifyObservers()
 MS->SU: update()
@@ -68,7 +69,7 @@ deactivate SM
 CNM-->MS:
 deactivate CNM
 
-expandable− see 01 - Display Date BCE
+expandable− see diagram - Display BCE
 MS->MS:notifyObservers()                      
 end 
 
