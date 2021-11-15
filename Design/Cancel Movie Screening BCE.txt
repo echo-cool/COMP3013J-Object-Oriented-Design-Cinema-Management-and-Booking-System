@@ -1,85 +1,84 @@
-
 title Cancel Movie Screening BCE
 
 actor Staff
-boundary ": ScreeningDialog" as SD
-boundary ": StaffUI" as SU
+boundary Alert
+boundary StaffUI
 
-control ": ManagementSystem" as MS
+control ManagementSystem
+participant Cinema
+entity Screening (current)
+entity Screening (selected)
+participant ScreeningMapper
+database Database
+Staff->StaffUI:mousePressed(x : Integer, y : Integer)
+activate StaffUI
 
-participant "：Cinema" as CNM
-entity current：Screenings
-#entity "s：Screen" as S
-#entity "m：Movie" as M
-entity "selected：Screening" as SS
+StaffUI->StaffUI:sno := yToScreening(y : Integer)
+StaffUI->StaffUI:time := xToTime(x : Integer)
+StaffUI->ManagementSystem:selectScreening(sno : Integer, time : LocalTime)
+activate ManagementSystem
 
-participant "：ScreeningMapper" as SM
-database DataBase
+loop for each current Screening
+ManagementSystem->Screening (current):getScreening()
+ManagementSystem->Screening (current):getTime()
+end
+ManagementSystem->ManagementSystem:notifyObservers()
+ManagementSystem->StaffUI:update()
 
-Staff ->SU: mousePressed(x : Integer, y : Integer)
-
-activate SU
-SU ->SU: screenNumber: yToScreen(y : Integer)
-SU ->SU: time: xToTime: xTotime(x : Integer)
-
-activate MS
-SU->MS:selectScreening(screenNumber : Integer, time: LocalTime)
-loop for all screenings on screen
-MS->current：Screenings:time=getStartTime()
-MS->current：Screenings:s=getScreen()
-end 
-MS->MS: notifyObservers()
-MS->SU: update()
-MS-->SU:
-deactivate MS
-SU-->Staff:
-deactivate SU
-
-Staff->SU:cancel()
-activate SU
-SU->MS: cancel()
-activate MS
-
-MS->*SD:ScreeningDialog()
-activate SD
-SD->Staff: confirm()
-activate Staff
-Staff-->SD: return "yes"
-deactivate Staff
-SD-->MS: confirm()
-deactivate SD
-
-MS->CNM: DeleteScreening(selectedScreening : Screening)
-activate CNM
-CNM->SM: deleteScrenning(s : Screening)
-activate SM
-SM->SM: performUpdate(sql: String)
-activate SM
-SM->DataBase: excuteUpdate(sql: String)
-SM-->SM:  
-deactivate SM
-SM-->CNM:
-deactivate SM
-
-CNM->SS:< < destory > >
-destroy SS
-CNM-->MS:
-deactivate CNM
+ManagementSystem-->StaffUI:
+deactivate ManagementSystem
+StaffUI-->Staff:
+deactivate StaffUI
 
 
 
 
-expandable− see 01 - Display Date BCE
-MS->MS:notifyObservers()                      
-end 
+Staff->StaffUI:cancelScreening()
+activate StaffUI
+StaffUI->ManagementSystem:cancelSelected()
+activate ManagementSystem
 
-MS-->SU:
-deactivate MS
-SU-->Staff:
-deactivate SU
+ManagementSystem->ManagementSystem:observerMessage(s : String, true : Boolean)
+activate ManagementSystem
+ManagementSystem->StaffUI:message(message : String, true : Boolean)
+activate StaffUI
+StaffUI->*Alert:Alert( confirmation : AlertType)
+activate Alert
+Alert-->StaffUI:
+deactivate Alert
+
+StaffUI->Alert:showAndWait();
+activate Alert
+Alert->Staff:
+Staff-->Alert:
+note over Alert:user selects OK
+Alert-->StaffUI:return true
+deactivate Alert
+StaffUI-->ManagementSystem:return true
+deactivate StaffUI
 
 
 
+ManagementSystem->Cinema:removeScreening(selectedScreening : Screening)
+activate Cinema
+Cinema->ScreeningMapper:deleteScreening(s : Screening)
+activate ScreeningMapper
+ScreeningMapper->ScreeningMapper:performUpdate(sql : String)
+activate ScreeningMapper
+ScreeningMapper->Database:executeUpdate(sql : String)
+ScreeningMapper-->ScreeningMapper:
+deactivate ScreeningMapper
+ScreeningMapper-->Cinema:
+deactivate ScreeningMapper
+Cinema-->ManagementSystem:
+deactivate Cinema
+expandable− see diagram - Display BCE
+ManagementSystem->ManagementSystem:notifyObservers()                    
+end
+ManagementSystem-->ManagementSystem:
+deactivate ManagementSystem
+ManagementSystem-->StaffUI:
+deactivate ManagementSystem
 
-
-
+StaffUI-->Staff:
+deactivate StaffUI
