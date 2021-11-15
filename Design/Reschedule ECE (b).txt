@@ -1,0 +1,68 @@
+title Reschedule Movie Screening ECE (b)
+
+actor Staff
+boundary Alert
+boundary StaffUI
+
+control ManagementSystem
+participant Cinema
+entity Screening (current)
+entity Screening (selected)
+participant ScreeningMapper
+
+Staff->StaffUI:mousePressed(x : Integer, y : Integer)
+activate StaffUI
+
+StaffUI->StaffUI:sno := yToScreening(y : Integer)
+StaffUI->StaffUI:time := xToTime(x : Integer)
+StaffUI->ManagementSystem:selectScreening(sno : Integer, time : LocalTime)
+activate ManagementSystem
+
+loop for each current Screening
+ManagementSystem->Screening (current):getScreening()
+ManagementSystem->Screening (current):getTime()
+end
+ManagementSystem->ManagementSystem:notifyObservers()
+ManagementSystem->StaffUI:update()
+
+ManagementSystem-->StaffUI:
+deactivate ManagementSystem
+StaffUI-->Staff:
+deactivate StaffUI
+
+
+loop for every time the mouse is moved
+Staff->StaffUI:mouseMoved(x : integer, y : integer)
+activate StaffUI
+StaffUI->StaffUI:update()
+StaffUI-->Staff:
+deactivate StaffUI
+end
+
+Staff->StaffUI:mouseReleased(x : Integer, y : Integer)
+activate StaffUI
+StaffUI->StaffUI:sno := yToScreening(y : Integer)
+StaffUI->StaffUI:time := xToTime(x : Integer)
+StaffUI->ManagementSystem:changeSelected(time : LocalTime, sno :Integer)
+activate ManagementSystem
+
+ManagementSystem->ScreeningMapper:getTicketsSold()
+activate ScreeningMapper
+ScreeningMapper-->ManagementSystem:return ticket_sold
+deactivate ScreeningMapper
+
+ManagementSystem->ManagementSystem:checkTicketsSold()
+activate ManagementSystem
+ManagementSystem-->ManagementSystem:return true
+deactivate ManagementSystem
+
+expandable− see digram - Display BCE
+ManagementSystem->ManagementSystem:notifyObservers()                    
+end
+ManagementSystem-->StaffUI:return false
+deactivate ManagementSystem
+
+StaffUI-->Staff:return false
+deactivate StaffUI
+
+
