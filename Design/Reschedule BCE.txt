@@ -1,3 +1,5 @@
+title Reschedule Movie Screening BCE
+
 actor Staff
 boundary StaffUI
 
@@ -42,7 +44,7 @@ StaffUI->StaffUI:sno := yToScreening(y : Integer)
 StaffUI->StaffUI:time := xToTime(x : Integer)
 StaffUI->ScreeningSystem:changeSelected(time : LocalTime, sno :Integer)
 activate ScreeningSystem
-expandable- see diagrams 02 - Add Reservation ACE (2) (overfilled table cancel/ok)
+expandable- see diagrams - Schedule Movie Screening (ECE: OverlapScreening)
 
 
 
@@ -53,7 +55,7 @@ ScreeningSystem->Screening (selected):setTime(time : LocalTime)
 ScreeningSystem->Screening (selected):setTable(table : Table)
 ScreeningSystem->Cinema:updateScreening(selected : Screening)
 activate Cinema
-Cinema->ScreeningMapper:updateScreening(b : Screening)
+Cinema->ScreeningMapper:updateScreening(s : Screening)
 activate ScreeningMapper
 ScreeningMapper->ScreeningMapper:performUpdate(sql : String)
 activate ScreeningMapper
@@ -65,8 +67,8 @@ ScreeningMapper-->Cinema:
 
 Cinema-->ScreeningSystem:
 deactivate Cinema
-expandable- see 01 - Display Date BCE
-ScreeningSystem->ScreeningSystem:notifyObservers()                    
+expandable- see diagram 01 - Display BCE
+ScreeningSystem->ScreeningSystem:notifyObservers()                         
 end
 ScreeningSystem-->StaffUI:
 deactivate ScreeningSystem
