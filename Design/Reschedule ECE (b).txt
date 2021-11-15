@@ -8,7 +8,6 @@ control ManagementSystem
 participant Cinema
 entity Screening (current)
 entity Screening (selected)
-participant ScreeningMapper
 
 Staff->StaffUI:mousePressed(x : Integer, y : Integer)
 activate StaffUI
@@ -46,10 +45,10 @@ StaffUI->StaffUI:time := xToTime(x : Integer)
 StaffUI->ManagementSystem:changeSelected(time : LocalTime, sno :Integer)
 activate ManagementSystem
 
-ManagementSystem->ScreeningMapper:getTicketsSold()
-activate ScreeningMapper
-ScreeningMapper-->ManagementSystem:return ticket_sold
-deactivate ScreeningMapper
+ManagementSystem->Screening (selected):getTicketsSold()
+activate Screening (selected)
+Screening (selected)-->ManagementSystem:return ticket_sold
+deactivate Screening (selected)
 
 ManagementSystem->ManagementSystem:checkTicketsSold()
 activate ManagementSystem
