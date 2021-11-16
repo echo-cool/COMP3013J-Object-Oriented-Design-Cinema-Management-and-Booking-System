@@ -23,8 +23,8 @@ SU ->SU: time: xToTime: xTotime(x : Integer)
 activate MS
 SU->MS:selectScreening(screenNumber : Integer, time: LocalTime)
 loop for all screenings on screen
-MS->current：Screenings:s=getScreen()
-MS->current：Screenings:time=getStartTime()
+MS->current：Screenings:s := getScreen()
+MS->current：Screenings:time := getStartTime()
 
 end 
 MS->MS: notifyObservers()
@@ -44,7 +44,7 @@ MS->S:getCapacity()
 activate S
 S-->MS:return capacity
 deactivate S
-MS->SS:getTicketsSold
+MS->SS:getTicketsSold()
 activate SS
 SS-->MS: return ticket_sold
 deactivate SS
