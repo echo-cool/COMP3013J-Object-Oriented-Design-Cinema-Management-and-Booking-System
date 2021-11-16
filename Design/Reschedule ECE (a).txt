@@ -74,10 +74,10 @@ StaffUI-->ManagementSystem:return false
 deactivate StaffUI
 
 ManagementSystem-->ManagementSystem:return false
-ManagementSystem-->ManagementSystem:return true
-
-
 deactivate ManagementSystem
+
+
+
 ManagementSystem-->StaffUI:return false
 deactivate ManagementSystem
 StaffUI-->Staff:
