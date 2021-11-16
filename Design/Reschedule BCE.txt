@@ -18,7 +18,7 @@ StaffUI->ScreeningSystem:selectScreening(sno : Integer, time : LocalTime)
 activate ScreeningSystem
 
 loop for each current Screening
-ScreeningSystem->Screening (current):getScreening()
+ScreeningSystem->Screening (current):getScreen()
 ScreeningSystem->Screening (current):getTime()
 end
 ScreeningSystem->ScreeningSystem:notifyObservers()
@@ -50,9 +50,9 @@ expandable- see diagrams - Schedule Movie Screening (ECE: OverlapScreening)
 
 ScreeningSystem->ScreeningSystem:checkOverlapScreening(time : LocalTime, sno : Integer, s : Screening)
 end 
-ScreeningSystem->Cinema:table := getTable(tno : Integer)
+ScreeningSystem->Cinema:screen := getscreen(tno : Integer)
 ScreeningSystem->Screening (selected):setTime(time : LocalTime)
-ScreeningSystem->Screening (selected):setTable(table : Table)
+ScreeningSystem->Screening (selected):setscreen(screen : screen)
 ScreeningSystem->Cinema:updateScreening(selected : Screening)
 activate Cinema
 Cinema->ScreeningMapper:updateScreening(s : Screening)
@@ -63,6 +63,7 @@ ScreeningMapper->Database:executeUpdate(sql : String)
 ScreeningMapper-->ScreeningMapper:
 deactivate ScreeningMapper
 ScreeningMapper-->Cinema:
+deactivate ScreeningMapper
 
 
 Cinema-->ScreeningSystem:

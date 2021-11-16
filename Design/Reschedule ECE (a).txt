@@ -19,7 +19,7 @@ StaffUI->ManagementSystem:selectScreening(sno : Integer, time : LocalTime)
 activate ManagementSystem
 
 loop for each current Screening
-ManagementSystem->Screening (current):getScreening()
+ManagementSystem->Screening (current):getScreen()
 ManagementSystem->Screening (current):getTime()
 end
 ManagementSystem->ManagementSystem:notifyObservers()
@@ -74,10 +74,10 @@ StaffUI-->ManagementSystem:return false
 deactivate StaffUI
 
 ManagementSystem-->ManagementSystem:return false
-ManagementSystem-->ManagementSystem:return true
-
-
 deactivate ManagementSystem
+
+
+
 ManagementSystem-->StaffUI:return false
 deactivate ManagementSystem
 StaffUI-->Staff:
