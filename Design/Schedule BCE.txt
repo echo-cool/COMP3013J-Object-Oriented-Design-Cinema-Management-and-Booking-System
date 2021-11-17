@@ -22,7 +22,7 @@ ScreeningDialog-->StaffUI:
 deactivate ScreeningDialog
 
 
-StaffUI->ScreeningSystem:scheduleScreening(date : LocalDate, start_time: LocalTime, \nscreen_no : Integer, movie_no : Integer)
+StaffUI->ScreeningSystem:scheduleScreening(date : LocalDate, start_time: LocalTime, \nscreen_no : Integer, movie_name : String)
 activate ScreeningSystem
 
 
@@ -31,7 +31,7 @@ expandable- see diagram 03 - Schedule Screening ECE (overlap Screening)
 ScreeningSystem->ScreeningSystem:checkOverlapScreening                                                         
 end 
 
-ScreeningSystem->Cinema:scheduleScreening(date : LocalDate, start_time: LocalTime, \nscreen_no : Integer, movie_no : Integer)
+ScreeningSystem->Cinema:scheduleScreening(date : LocalDate, start_time: LocalTime, \nscreen_no : Integer, movie_name : String)
 activate Cinema
 
 Cinema->ScreenMapper:getScreen(screen_no : int)
@@ -40,7 +40,7 @@ ScreenMapper->ScreenMapper:getFromCacheByNumber(screen_no)
 ScreenMapper-->Cinema:return s : Screen
 deactivate ScreenMapper
 
-Cinema->MovieMapper:getMovie(movie_no : int)
+Cinema->MovieMapper:getMovie(movie_name : String)
 activate MovieMapper
 MovieMapper->MovieMapper:getFromCacheByNumber(movie_no)
 MovieMapper-->Cinema:return m : Movie
