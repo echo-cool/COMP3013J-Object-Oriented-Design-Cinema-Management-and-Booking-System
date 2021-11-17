@@ -25,7 +25,7 @@ ScreenMapper->ScreenMapper:getFromCacheByNumber(screen_no)
 ScreenMapper-->ManagementSystem: return s : Screen
 deactivate ScreenMapper
 
-ManagementSystem->MovieMapper:getMovie()
+ManagementSystem->MovieMapper:getMovie(movie_name : String)
 activate MovieMapper
 MovieMapper->MovieMapper:getFromCacheByNumber(movie_name)
 MovieMapper->ManagementSystem: return m : Movie
