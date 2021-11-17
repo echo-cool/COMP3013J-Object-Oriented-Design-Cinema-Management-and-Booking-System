@@ -1,3 +1,5 @@
+title Schedule Movie Screening BCE
+
 actor Staff
 boundary ScreeningDialog
 boundary StaffUI
