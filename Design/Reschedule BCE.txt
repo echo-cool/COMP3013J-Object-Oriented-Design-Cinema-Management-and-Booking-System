@@ -50,9 +50,9 @@ expandable- see diagrams - Schedule Movie Screening (ECE: OverlapScreening)
 
 ScreeningSystem->ScreeningSystem:checkOverlapScreening(time : LocalTime, sno : Integer, s : Screening)
 end 
-ScreeningSystem->Cinema:screen := getscreen(tno : Integer)
+ScreeningSystem->Cinema:screen := getScreen(sno : Integer)
 ScreeningSystem->Screening (selected):setTime(time : LocalTime)
-ScreeningSystem->Screening (selected):setscreen(screen : screen)
+ScreeningSystem->Screening (selected):setScreen(screen : Screen)
 ScreeningSystem->Cinema:updateScreening(selected : Screening)
 activate Cinema
 Cinema->ScreeningMapper:updateScreening(s : Screening)

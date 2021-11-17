@@ -1,4 +1,4 @@
-
+title Display BCE
 
 actor Staff
 boundary StaffUI
@@ -22,8 +22,8 @@ activate ScreeningMapper
 ScreeningMapper->db:executeQuery(sql : String)
 
 loop for every row returned for Screenings
-ScreeningMapper->ScreenMapper:s := getScreenforOid(screen : Integer)
-ScreeningMapper->MovieMapper:m := getMovieForOid(movie : Integer)
+ScreeningMapper->ScreenMapper:s := getScreen(screen : Integer)
+ScreeningMapper->MovieMapper:m := getMovie(movie_name : String)
 ScreeningMapper->*PersistentScreening:PersistentScreening(oid : Integer, date : LocalDate, \nstart_time : LocalTime, s : Screen, m : Movie, ticket_sold : Integer)
 activate PersistentScreening
 PersistentScreening-->ScreeningMapper:
