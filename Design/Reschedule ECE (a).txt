@@ -45,12 +45,10 @@ StaffUI->StaffUI:sno := yToScreening(y : Integer)
 StaffUI->StaffUI:time := xToTime(x : Integer)
 StaffUI->ManagementSystem:changeSelected(time : LocalTime, sno :Integer)
 activate ManagementSystem
-expandable- see diagrams - Schedule Movie Screening (ECE: OverlapScreening)
 
 
-
-ManagementSystem->ManagementSystem:checkOverlapScreening(time : LocalTime, sno : Integer, s : Screening)
-end 
+ManagementSystem->ManagementSystem:checkOverlapScreening(date : LocalDate, start_time: LocalTime, \nscreen_no : Integer, duration : Integer)
+activate ManagementSystem
 note over ManagementSystem:another screening is found that overlaps with this in time on the same screen
 
 
@@ -75,10 +73,14 @@ deactivate StaffUI
 
 ManagementSystem-->ManagementSystem:return false
 deactivate ManagementSystem
+ManagementSystem-->ManagementSystem:return true
+
+deactivate ManagementSystem
 
 
 
 ManagementSystem-->StaffUI:return false
+deactivate ManagementSystem
 deactivate ManagementSystem
 StaffUI-->Staff:
 deactivate StaffUI
