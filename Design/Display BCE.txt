@@ -2,7 +2,7 @@ title Display BCE
 
 actor Staff
 boundary StaffUI
-control ScreeningSystem
+control ManagementSystem
 participant Cinema
 participant ScreeningMapper
 participant ScreenMapper
@@ -11,10 +11,10 @@ database db
 entity PersistentScreening
 Staff->StaffUI:submit(date : LocalDate)
 activate StaffUI
-StaffUI->ScreeningSystem:setDate(date : LocalDate)
-activate ScreeningSystem
+StaffUI->ManagementSystem:setDate(date : LocalDate)
+activate ManagementSystem
 
-ScreeningSystem->Cinema:getScreenings(date : LocalDate)
+ManagementSystem->Cinema:getScreenings(date : LocalDate)
 activate Cinema
 
 Cinema->ScreeningMapper:getScreenings(date : LocalDate)
@@ -35,29 +35,30 @@ ScreeningMapper-->Cinema:return Screenings
 deactivate ScreeningMapper
 
 
-Cinema-->ScreeningSystem:return Screenings
+Cinema-->ManagementSystem:return Screenings
 deactivate Cinema
 
-ScreeningSystem->ScreeningSystem:notifyObservers()
-activate ScreeningSystem
+ManagementSystem->ManagementSystem:notifyObservers()
+activate ManagementSystem
 
-ScreeningSystem->StaffUI:update()
+ManagementSystem->StaffUI:update()
 activate StaffUI
-StaffUI->ScreeningSystem:getDate()
-activate ScreeningSystem
-ScreeningSystem-->StaffUI:return date
-deactivate ScreeningSystem
+StaffUI->ManagementSystem:getDate()
+activate ManagementSystem
+ManagementSystem-->StaffUI:return date
+deactivate ManagementSystem
 
-StaffUI->ScreeningSystem:getScreenings()
-activate ScreeningSystem
-ScreeningSystem-->StaffUI:return Screenings
-deactivate ScreeningSystem
+StaffUI->ManagementSystem:getScreenings()
+activate ManagementSystem
+ManagementSystem-->StaffUI:return Screenings
+deactivate ManagementSystem
 
-StaffUI-->ScreeningSystem:
+StaffUI-->ManagementSystem:
 deactivate StaffUI
 
-ScreeningSystem-->ScreeningSystem:
-deactivate ScreeningSystem
-ScreeningSystem-->StaffUI:
-deactivate ScreeningSystem
+ManagementSystem-->ManagementSystem:
+deactivate ManagementSystem
+ManagementSystem-->StaffUI:
+deactivate ManagementSystem
 StaffUI-->Staff:
+deactivate StaffUI
