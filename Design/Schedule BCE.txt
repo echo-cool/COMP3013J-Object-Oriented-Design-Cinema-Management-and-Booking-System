@@ -1,10 +1,10 @@
 title Schedule Movie Screening BCE
 
 actor Staff
-boundary ScreeningDialog
+boundary ScheduleScreeningDialog
 boundary StaffUI
 
-control ScreeningSystem
+control ManagementSystem
 participant Cinema
 participant ScreenMapper
 participant ScreenMapper
@@ -15,25 +15,25 @@ entity s (Screen)
 entity m (Movie)
 entity Screening
 
-Staff->StaffUI:scheduleScreening()
+Staff->StaffUI:showScheduleScreeningDialog()
 activate StaffUI
 
-StaffUI->*ScreeningDialog:ScreeningDialog()
-activate ScreeningDialog
-ScreeningDialog-->StaffUI:
-deactivate ScreeningDialog
+StaffUI->*ScheduleScreeningDialog:show()
+activate ScheduleScreeningDialog
+ScheduleScreeningDialog-->StaffUI:
+deactivate ScheduleScreeningDialog
 
 
-StaffUI->ScreeningSystem:scheduleScreening(date : LocalDate, start_time: LocalTime, \nscreen_no : Integer, movie_name : String)
-activate ScreeningSystem
+StaffUI->ManagementSystem:scheduleScreening(date : LocalDate, start_time: LocalTime, \nscreen_no : Integer, movie_name : String)
+activate ManagementSystem
 
 
-expandable- see diagram 03 - Schedule Screening ECE (overlap Screening)
+expandable- see diagram - Schedule Screening ECE (overlap Screening)
 
-ScreeningSystem->ScreeningSystem:checkOverlapScreening                                                         
+ManagementSystem->ManagementSystem:checkOverlapScreening(date : LocalDate, start_time: LocalTime, sno : Integer, s : Screening)                                                         
 end 
 
-ScreeningSystem->Cinema:scheduleScreening(date : LocalDate, start_time: LocalTime, \nscreen_no : Integer, movie_name : String)
+ManagementSystem->Cinema:scheduleScreening(date : LocalDate, start_time: LocalTime, \nscreen_no : Integer, movie_name : String)
 activate Cinema
 
 Cinema->ScreenMapper:getScreen(screen_no : int)
@@ -44,12 +44,12 @@ deactivate ScreenMapper
 
 Cinema->MovieMapper:getMovie(movie_name : String)
 activate MovieMapper
-MovieMapper->MovieMapper:getFromCacheByNumber(movie_no)
+MovieMapper->MovieMapper:getFromCacheByName(movie_name)
 MovieMapper-->Cinema:return m : Movie
 deactivate MovieMapper
 
 
-Cinema->ScreeningMapper:scheduleScreening(date : LocalDate, start_time: LocalTime, \ns : Screen, m : Movie, ticket_sold: Integer)
+Cinema->ScreeningMapper:scheduleScreening(date : LocalDate, \nstart_time: LocalTime, s : Screen, m : Movie)
 activate ScreeningMapper
 ScreeningMapper->Database:oid := getId()
 ScreeningMapper->ScreeningMapper:performUpdate(sql : String)
@@ -61,32 +61,32 @@ ScreeningMapper-->ScreeningMapper:
 deactivate ScreeningMapper
 
 
-ScreeningMapper->*Screening:PersistentScreening(oid : Integer, date : LocalDate, \nstart_time: LocalTime, s : Screen, m : Movie, ticket_sold: Integer)
+ScreeningMapper->*Screening:PersistentScreening(oid : Integer, date : LocalDate, \nstart_time: LocalTime, s : Screen, m : Movie, ticket_sold : Integer)
 activate Screening
 Screening-->ScreeningMapper:
 deactivate Screening
 ScreeningMapper-->Cinema:
 deactivate ScreeningMapper
-Cinema-->ScreeningSystem:
+Cinema-->ManagementSystem:
 deactivate Cinema
-ScreeningSystem->ScreeningSystem:notifyObservers()
-activate ScreeningSystem
-ScreeningSystem->StaffUI:update()
+ManagementSystem->ManagementSystem:notifyObservers()
+activate ManagementSystem
+ManagementSystem->StaffUI:update()
 activate StaffUI
-StaffUI->ScreeningSystem:getDate()
-activate ScreeningSystem
-ScreeningSystem-->StaffUI:return date
-deactivate ScreeningSystem
-StaffUI->ScreeningSystem:getScreenings()
-activate ScreeningSystem
-ScreeningSystem-->StaffUI: return Screenings
-deactivate ScreeningSystem
-StaffUI-->ScreeningSystem:
+StaffUI->ManagementSystem:getDate()
+activate ManagementSystem
+ManagementSystem-->StaffUI:return date
+deactivate ManagementSystem
+StaffUI->ManagementSystem:getScreenings()
+activate ManagementSystem
+ManagementSystem-->StaffUI: return screenings
+deactivate ManagementSystem
+StaffUI-->ManagementSystem:
 deactivate StaffUI
-deactivateafter ScreeningSystem
+deactivateafter ManagementSystem
 
 
-ScreeningSystem-->StaffUI:
-deactivate ScreeningSystem
+ManagementSystem-->StaffUI:
+deactivate ManagementSystem
 StaffUI-->Staff:
 deactivate StaffUI

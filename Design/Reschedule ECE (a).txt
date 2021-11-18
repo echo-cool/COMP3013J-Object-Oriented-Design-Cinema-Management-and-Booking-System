@@ -1,4 +1,4 @@
-title Reschedule Movie Screening ECE
+title Reschedule Movie Screening ECE (a)
 
 actor Staff
 boundary Alert
@@ -13,14 +13,14 @@ database Database
 Staff->StaffUI:mousePressed(x : Integer, y : Integer)
 activate StaffUI
 
-StaffUI->StaffUI:sno := yToScreening(y : Integer)
-StaffUI->StaffUI:time := xToTime(x : Integer)
-StaffUI->ManagementSystem:selectScreening(sno : Integer, time : LocalTime)
+StaffUI->StaffUI:screen_no := yToScreen(y : Integer)
+StaffUI->StaffUI:start_time := xToTime(x : Integer)
+StaffUI->ManagementSystem:selectScreening(screen_no : Integer, start_time : LocalTime)
 activate ManagementSystem
 
 loop for each current Screening
 ManagementSystem->Screening (current):getScreen()
-ManagementSystem->Screening (current):getTime()
+ManagementSystem->Screening (current):getStartTime()
 end
 ManagementSystem->ManagementSystem:notifyObservers()
 ManagementSystem->StaffUI:update()
@@ -41,9 +41,9 @@ end
 
 Staff->StaffUI:mouseReleased(x : Integer, y : Integer)
 activate StaffUI
-StaffUI->StaffUI:sno := yToScreening(y : Integer)
-StaffUI->StaffUI:time := xToTime(x : Integer)
-StaffUI->ManagementSystem:changeSelected(time : LocalTime, sno :Integer)
+StaffUI->StaffUI:screen_no := yToScreen
+StaffUI->StaffUI:start_time := xToTime(x : Integer)
+StaffUI->ManagementSystem:changeSelected(start_time : LocalTime, screen_no :Integer)
 activate ManagementSystem
 
 

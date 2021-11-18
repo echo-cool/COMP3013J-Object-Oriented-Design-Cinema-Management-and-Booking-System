@@ -3,7 +3,7 @@ title Reschedule Movie Screening BCE
 actor Staff
 boundary StaffUI
 
-control ScreeningSystem
+control ManagementSystem
 participant Cinema
 entity Screening (current)
 entity Screening (selected)
@@ -12,26 +12,26 @@ database Database
 Staff->StaffUI:mousePressed(x : Integer, y : Integer)
 activate StaffUI
 
-StaffUI->StaffUI:sno := yToScreening(y : Integer)
-StaffUI->StaffUI:time := xToTime(x : Integer)
-StaffUI->ScreeningSystem:selectScreening(sno : Integer, time : LocalTime)
-activate ScreeningSystem
+StaffUI->StaffUI:screen_no := yToScreen(y : Integer)
+StaffUI->StaffUI:start_time := xToTime(x : Integer)
+StaffUI->ManagementSystem:selectScreening(screen_no : Integer, start_time : LocalTime)
+activate ManagementSystem
 
 loop for each current Screening
-ScreeningSystem->Screening (current):getScreen()
-ScreeningSystem->Screening (current):getTime()
+ManagementSystem->Screening (current):getScreen()
+ManagementSystem->Screening (current):getStartTime()
 end
-ScreeningSystem->ScreeningSystem:notifyObservers()
-ScreeningSystem->StaffUI:update()
+ManagementSystem->ManagementSystem:notifyObservers()
+ManagementSystem->StaffUI:update()
 
-ScreeningSystem-->StaffUI:
-deactivate ScreeningSystem
+ManagementSystem-->StaffUI:
+deactivate ManagementSystem
 StaffUI-->Staff:
 deactivate StaffUI
 
 
 loop for every time the mouse is moved
-Staff->StaffUI:mouseMoved(x : integer, y : integer)
+Staff->StaffUI:mouseMoved(x : Integer, y : Integer)
 activate StaffUI
 StaffUI->StaffUI:update()
 StaffUI-->Staff:
@@ -40,20 +40,20 @@ end
 
 Staff->StaffUI:mouseReleased(x : Integer, y : Integer)
 activate StaffUI
-StaffUI->StaffUI:sno := yToScreening(y : Integer)
-StaffUI->StaffUI:time := xToTime(x : Integer)
-StaffUI->ScreeningSystem:changeSelected(time : LocalTime, sno :Integer)
-activate ScreeningSystem
+StaffUI->StaffUI:screen_no := yToScreening(y : Integer)
+StaffUI->StaffUI:start_time := xToTime(x : Integer)
+StaffUI->ManagementSystem:changeSelected(time : LocalTime, screen_no :Integer)
+activate ManagementSystem
 expandable- see diagrams - Schedule Movie Screening (ECE: OverlapScreening)
 
 
 
-ScreeningSystem->ScreeningSystem:checkOverlapScreening(time : LocalTime, sno : Integer, s : Screening)
+ManagementSystem->ManagementSystem:checkOverlapScreening(date : LocalDate, start_time : LocalTime, screen_no : Integer, s : Screening)
 end 
-ScreeningSystem->Cinema:screen := getScreen(sno : Integer)
-ScreeningSystem->Screening (selected):setTime(time : LocalTime)
-ScreeningSystem->Screening (selected):setScreen(screen : Screen)
-ScreeningSystem->Cinema:updateScreening(selected : Screening)
+ManagementSystem->Cinema:screen := getScreen(screen_no : Integer)
+ManagementSystem->Screening (selected):setStartTime(start_time : LocalTime)
+ManagementSystem->Screening (selected):setScreen(screen : Screen)
+ManagementSystem->Cinema:updateScreening(selected : Screening)
 activate Cinema
 Cinema->ScreeningMapper:updateScreening(s : Screening)
 activate ScreeningMapper
@@ -66,13 +66,13 @@ ScreeningMapper-->Cinema:
 deactivate ScreeningMapper
 
 
-Cinema-->ScreeningSystem:
+Cinema-->ManagementSystem:
 deactivate Cinema
 expandable- see diagram 01 - Display BCE
-ScreeningSystem->ScreeningSystem:notifyObservers()                         
+ManagementSystem->ManagementSystem:notifyObservers()                         
 end
-ScreeningSystem-->StaffUI:
-deactivate ScreeningSystem
+ManagementSystem-->StaffUI:
+deactivate ManagementSystem
 
 StaffUI-->Staff:
 deactivate StaffUI

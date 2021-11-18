@@ -1,22 +1,22 @@
 title Schedule Movie Screening ECE
 actor Staff
-boundary ScreeningDialog
+boundary ScheduleScreeningDialog
 boundary StaffUI
 control ManagementSystem
 participant ScreenMapper
 participant MovieMapper
 entity "m: Movie" as m
 
-Staff->StaffUI:scheduleScreening()
+Staff->StaffUI:showScheduleScreeningDialog()
 activate StaffUI
 
-StaffUI->*ScreeningDialog:ScreeningDialog()
-activate ScreeningDialog
-ScreeningDialog-->StaffUI:
-deactivate ScreeningDialog
+StaffUI->*ScheduleScreeningDialog:show()
+activate ScheduleScreeningDialog
+ScheduleScreeningDialog-->StaffUI:
+deactivate ScheduleScreeningDialog
 
 
-StaffUI->ManagementSystem:scheduleScreening(date : LocalDate, start_time: LocalTime, \nscreen_no : Integer, movie_name : String, ticket_sold: Integer)
+StaffUI->ManagementSystem:scheduleScreening(date : LocalDate, start_time: LocalTime, \nscreen_no : Integer, movie_name : String)
 activate ManagementSystem
 
 ManagementSystem->ScreenMapper:getScreen(screen_no : Integer)
@@ -27,7 +27,7 @@ deactivate ScreenMapper
 
 ManagementSystem->MovieMapper:getMovie(movie_name : String)
 activate MovieMapper
-MovieMapper->MovieMapper:getFromCacheByNumber(movie_name)
+MovieMapper->MovieMapper:getFromCacheByName(movie_name)
 MovieMapper->ManagementSystem: return m : Movie
 deactivate MovieMapper
 
