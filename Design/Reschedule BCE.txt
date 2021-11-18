@@ -19,7 +19,7 @@ activate ManagementSystem
 
 loop for each current Screening
 ManagementSystem->Screening (current):getScreen()
-ManagementSystem->Screening (current):getTime()
+ManagementSystem->Screening (current):getStartTime()
 end
 ManagementSystem->ManagementSystem:notifyObservers()
 ManagementSystem->StaffUI:update()
@@ -51,7 +51,7 @@ expandable- see diagrams - Schedule Movie Screening (ECE: OverlapScreening)
 ManagementSystem->ManagementSystem:checkOverlapScreening(date : LocalDate, start_time : LocalTime, screen_no : Integer, s : Screening)
 end 
 ManagementSystem->Cinema:screen := getScreen(screen_no : Integer)
-ManagementSystem->Screening (selected):setTime(time : LocalTime)
+ManagementSystem->Screening (selected):setStartTime(start_time : LocalTime)
 ManagementSystem->Screening (selected):setScreen(screen : Screen)
 ManagementSystem->Cinema:updateScreening(selected : Screening)
 activate Cinema
