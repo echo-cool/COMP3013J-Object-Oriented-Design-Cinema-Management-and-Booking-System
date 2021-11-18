@@ -12,9 +12,9 @@ database Database
 Staff->StaffUI:mousePressed(x : Integer, y : Integer)
 activate StaffUI
 
-StaffUI->StaffUI:sno := yToScreening(y : Integer)
-StaffUI->StaffUI:time := xToTime(x : Integer)
-StaffUI->ManagementSystem:selectScreening(sno : Integer, time : LocalTime)
+StaffUI->StaffUI:screen_no := yToScreen(y : Integer)
+StaffUI->StaffUI:start_time := xToTime(x : Integer)
+StaffUI->ManagementSystem:selectScreening(screen_no : Integer, start_time : LocalTime)
 activate ManagementSystem
 
 loop for each current Screening
@@ -31,7 +31,7 @@ deactivate StaffUI
 
 
 loop for every time the mouse is moved
-Staff->StaffUI:mouseMoved(x : integer, y : integer)
+Staff->StaffUI:mouseMoved(x : Integer, y : Integer)
 activate StaffUI
 StaffUI->StaffUI:update()
 StaffUI-->Staff:
@@ -40,17 +40,17 @@ end
 
 Staff->StaffUI:mouseReleased(x : Integer, y : Integer)
 activate StaffUI
-StaffUI->StaffUI:sno := yToScreening(y : Integer)
-StaffUI->StaffUI:time := xToTime(x : Integer)
-StaffUI->ManagementSystem:changeSelected(time : LocalTime, sno :Integer)
+StaffUI->StaffUI:screen_no := yToScreening(y : Integer)
+StaffUI->StaffUI:start_time := xToTime(x : Integer)
+StaffUI->ManagementSystem:changeSelected(time : LocalTime, screen_no :Integer)
 activate ManagementSystem
 expandable- see diagrams - Schedule Movie Screening (ECE: OverlapScreening)
 
 
 
-ManagementSystem->ManagementSystem:checkOverlapScreening(time : LocalTime, sno : Integer, s : Screening)
+ManagementSystem->ManagementSystem:checkOverlapScreening(date : LocalDate, start_time : LocalTime, screen_no : Integer, s : Screening)
 end 
-ManagementSystem->Cinema:screen := getScreen(sno : Integer)
+ManagementSystem->Cinema:screen := getScreen(screen_no : Integer)
 ManagementSystem->Screening (selected):setTime(time : LocalTime)
 ManagementSystem->Screening (selected):setScreen(screen : Screen)
 ManagementSystem->Cinema:updateScreening(selected : Screening)
