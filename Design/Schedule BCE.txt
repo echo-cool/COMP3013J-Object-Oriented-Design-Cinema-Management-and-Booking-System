@@ -30,7 +30,7 @@ activate ManagementSystem
 
 expandable- see diagram - Schedule Screening ECE (overlap Screening)
 
-ManagementSystem->ManagementSystem:checkOverlapScreening                                                         
+ManagementSystem->ManagementSystem:checkOverlapScreening(date : LocalDate, start_time: LocalTime, sno : Integer, s : Screening)                                                         
 end 
 
 ManagementSystem->Cinema:scheduleScreening(date : LocalDate, start_time: LocalTime, \nscreen_no : Integer, movie_name : String)
@@ -44,12 +44,12 @@ deactivate ScreenMapper
 
 Cinema->MovieMapper:getMovie(movie_name : String)
 activate MovieMapper
-MovieMapper->MovieMapper:getFromCacheByNumber(movie_no)
+MovieMapper->MovieMapper:getFromCacheByName(movie_name)
 MovieMapper-->Cinema:return m : Movie
 deactivate MovieMapper
 
 
-Cinema->ScreeningMapper:scheduleScreening(date : LocalDate, start_time: LocalTime, \ns : Screen, m : Movie, ticket_sold: Integer)
+Cinema->ScreeningMapper:scheduleScreening(date : LocalDate, \nstart_time: LocalTime, s : Screen, m : Movie)
 activate ScreeningMapper
 ScreeningMapper->Database:oid := getId()
 ScreeningMapper->ScreeningMapper:performUpdate(sql : String)
@@ -61,7 +61,7 @@ ScreeningMapper-->ScreeningMapper:
 deactivate ScreeningMapper
 
 
-ScreeningMapper->*Screening:PersistentScreening(oid : Integer, date : LocalDate, \nstart_time: LocalTime, s : Screen, m : Movie, ticket_sold: Integer)
+ScreeningMapper->*Screening:PersistentScreening(oid : Integer, date : LocalDate, \nstart_time: LocalTime, s : Screen, m : Movie)
 activate Screening
 Screening-->ScreeningMapper:
 deactivate Screening
@@ -79,7 +79,7 @@ ManagementSystem-->StaffUI:return date
 deactivate ManagementSystem
 StaffUI->ManagementSystem:getScreenings()
 activate ManagementSystem
-ManagementSystem-->StaffUI: return Screenings
+ManagementSystem-->StaffUI: return screenings
 deactivate ManagementSystem
 StaffUI-->ManagementSystem:
 deactivate StaffUI
