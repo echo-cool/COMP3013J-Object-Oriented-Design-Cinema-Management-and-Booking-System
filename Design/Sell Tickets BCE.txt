@@ -16,11 +16,11 @@ database DataBase
 Staff ->SU: mousePressed(x : Integer, y : Integer)
 
 activate SU
-SU ->SU: screenNumber: yToScreening(y : Integer)
-SU ->SU: time: xToTime: xTotime(x : Integer)
+SU ->SU: screen_no: yToScreen(y : Integer)
+SU ->SU: start_time: xToTime: xTotime(x : Integer)
 
 activate MS
-SU->MS:selectScreening(sno : Integer, time: LocalTime)
+SU->MS:selectScreening(screen_no : Integer, start_time: LocalTime)
 loop for all screenings on screen
 MS->current：Screenings:s := getScreen()
 MS->current：Screenings:time := getStartTime()
