@@ -56,9 +56,9 @@ ManagementSystem->ManagementSystem:observerMessage(message : String, false : Boo
 activate ManagementSystem
 ManagementSystem->StaffUI: message(message : String, false : Boolean)
 activate StaffUI
-StaffUI->*Alert:Alert( warning : AlertType)
+StaffUI->*Alert:showAlert(message : String, warning : AlertType)
 activate Alert
-Alert-->StaffUI:
+Alert-->StaffUI: 
 deactivate Alert
 
 StaffUI->Alert:showAndWait();
