@@ -61,7 +61,7 @@ ScreeningMapper-->ScreeningMapper:
 deactivate ScreeningMapper
 
 
-ScreeningMapper->*Screening:PersistentScreening(oid : Integer, date : LocalDate, \nstart_time: LocalTime, s : Screen, m : Movie)
+ScreeningMapper->*Screening:PersistentScreening(oid : Integer, date : LocalDate, \nstart_time: LocalTime, s : Screen, m : Movie, ticket_sold : Integer)
 activate Screening
 Screening-->ScreeningMapper:
 deactivate Screening
