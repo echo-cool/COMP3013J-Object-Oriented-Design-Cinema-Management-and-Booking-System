@@ -22,8 +22,8 @@ activate ScreeningMapper
 ScreeningMapper->db:executeQuery(sql : String)
 
 loop for every row returned for Screenings
-ScreeningMapper->ScreenMapper:s := getScreenforOid(screen : Integer)
-ScreeningMapper->MovieMapper:m := getMovieForOid(movie : Integer)
+ScreeningMapper->ScreenMapper:s := getScreenforOid(sno : Integer)
+ScreeningMapper->MovieMapper:m := getMovieForOid(mno : Integer)
 ScreeningMapper->*PersistentScreening:PersistentScreening(oid : Integer, date : LocalDate, \nstart_time : LocalTime, s : Screen, m : Movie, ticket_sold : Integer)
 activate PersistentScreening
 PersistentScreening-->ScreeningMapper:
@@ -31,11 +31,11 @@ deactivate PersistentScreening
 end
 
 
-ScreeningMapper-->Cinema:return Screenings
+ScreeningMapper-->Cinema:return screenings
 deactivate ScreeningMapper
 
 
-Cinema-->ManagementSystem:return Screenings
+Cinema-->ManagementSystem:return screenings
 deactivate Cinema
 
 ManagementSystem->ManagementSystem:notifyObservers()
@@ -50,7 +50,7 @@ deactivate ManagementSystem
 
 StaffUI->ManagementSystem:getScreenings()
 activate ManagementSystem
-ManagementSystem-->StaffUI:return Screenings
+ManagementSystem-->StaffUI:return screenings
 deactivate ManagementSystem
 
 StaffUI-->ManagementSystem:
