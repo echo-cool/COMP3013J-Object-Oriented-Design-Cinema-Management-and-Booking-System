@@ -10,17 +10,18 @@ entity Screening (current)
 entity Screening (selected)
 participant ScreeningMapper
 database Database
+entryspacing 1.0
 Staff->StaffUI:mousePressed(x : Integer, y : Integer)
 activate StaffUI
 
-StaffUI->StaffUI:sno := yToScreening(y : Integer)
-StaffUI->StaffUI:time := xToTime(x : Integer)
-StaffUI->ManagementSystem:selectScreening(sno : Integer, time : LocalTime)
+StaffUI->StaffUI:screen_no := yToScreen(y : Integer)
+StaffUI->StaffUI:start_time := xToTime(x : Integer)
+StaffUI->ManagementSystem:selectScreening(screen_no : Integer, start_time : LocalTime)
 activate ManagementSystem
 
 loop for each current Screening
 ManagementSystem->Screening (current):getScreen()
-ManagementSystem->Screening (current):getTime()
+ManagementSystem->Screening (current):getStartTime()
 end
 ManagementSystem->ManagementSystem:notifyObservers()
 ManagementSystem-->StaffUI:
@@ -40,9 +41,9 @@ ManagementSystem->ManagementSystem:observerMessage(s : String, true : Boolean)
 activate ManagementSystem
 ManagementSystem->StaffUI:message(message : String, true : Boolean)
 activate StaffUI
-StaffUI->*Alert:Alert( confirmation : AlertType)
+StaffUI->*Alert:showAlert(message : String, warning : AlertType)
 activate Alert
-Alert-->StaffUI:
+Alert-->StaffUI: 
 deactivate Alert
 
 StaffUI->Alert:showAndWait();
