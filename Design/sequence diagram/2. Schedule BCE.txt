@@ -18,9 +18,16 @@ entity Screening
 Staff->StaffUI:showScheduleScreeningDialog()
 activate StaffUI
 
-StaffUI->*ScheduleScreeningDialog:show()
+StaffUI->*ScheduleScreeningDialog:ScheduleScreeningDialog
 activate ScheduleScreeningDialog
 ScheduleScreeningDialog-->StaffUI:
+deactivate ScheduleScreeningDialog
+
+StaffUI->ScheduleScreeningDialog:showAndWait()
+activate ScheduleScreeningDialog
+ScheduleScreeningDialog->Staff:
+Staff-->ScheduleScreeningDialog:
+ScheduleScreeningDialog-->StaffUI: return details
 deactivate ScheduleScreeningDialog
 
 
@@ -88,5 +95,5 @@ deactivateafter ManagementSystem
 
 ManagementSystem-->StaffUI:
 deactivate ManagementSystem
-StaffUI-->Staff:
+StaffUI-->Staff:return true
 deactivate StaffUI

@@ -22,7 +22,6 @@ ManagementSystem->Screening (current):getScreen()
 ManagementSystem->Screening (current):getStartTime()
 end
 ManagementSystem->ManagementSystem:notifyObservers()
-ManagementSystem->StaffUI:update()
 
 ManagementSystem-->StaffUI:
 deactivate ManagementSystem
@@ -41,7 +40,7 @@ ManagementSystem->ManagementSystem:observerMessage(s : String, true : Boolean)
 activate ManagementSystem
 ManagementSystem->StaffUI:message(message : String, true : Boolean)
 activate StaffUI
-StaffUI->*Alert:showAlert(message : String, warning : AlertType)
+StaffUI->*Alert:Alert(message : String, warning : AlertType)
 activate Alert
 Alert-->StaffUI:
 deactivate Alert
