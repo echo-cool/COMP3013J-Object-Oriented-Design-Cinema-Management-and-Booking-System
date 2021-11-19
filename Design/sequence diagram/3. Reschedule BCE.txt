@@ -22,7 +22,6 @@ ManagementSystem->Screening (current):getScreen()
 ManagementSystem->Screening (current):getStartTime()
 end
 ManagementSystem->ManagementSystem:notifyObservers()
-ManagementSystem->StaffUI:update()
 
 ManagementSystem-->StaffUI:
 deactivate ManagementSystem

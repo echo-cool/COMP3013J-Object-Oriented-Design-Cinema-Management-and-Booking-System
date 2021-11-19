@@ -79,5 +79,5 @@ deactivate ManagementSystem
 ManagementSystem-->StaffUI:
 deactivate ManagementSystem
 
-StaffUI-->Staff:
+StaffUI-->Staff:return true
 deactivate StaffUI
