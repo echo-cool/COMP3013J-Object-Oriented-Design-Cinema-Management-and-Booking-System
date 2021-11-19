@@ -1,0 +1,88 @@
+title Reschedule Movie Screening ECE (a)
+
+actor Staff
+boundary Alert
+boundary StaffUI
+
+control ManagementSystem
+participant Cinema
+entity Screening (current)
+entity Screening (selected)
+participant ScreeningMapper
+database Database
+Staff->StaffUI:mousePressed(x : Integer, y : Integer)
+activate StaffUI
+
+StaffUI->StaffUI:screen_no := yToScreen(y : Integer)
+StaffUI->StaffUI:start_time := xToTime(x : Integer)
+StaffUI->ManagementSystem:selectScreening(screen_no : Integer, start_time : LocalTime)
+activate ManagementSystem
+
+loop for each current Screening
+ManagementSystem->Screening (current):getScreen()
+ManagementSystem->Screening (current):getStartTime()
+end
+ManagementSystem->ManagementSystem:notifyObservers()
+ManagementSystem->StaffUI:update()
+
+ManagementSystem-->StaffUI:
+deactivate ManagementSystem
+StaffUI-->Staff:
+deactivate StaffUI
+
+
+loop for every time the mouse is moved
+Staff->StaffUI:mouseMoved(x : integer, y : integer)
+activate StaffUI
+StaffUI->StaffUI:update()
+StaffUI-->Staff:
+deactivate StaffUI
+end
+
+Staff->StaffUI:mouseReleased(x : Integer, y : Integer)
+activate StaffUI
+StaffUI->StaffUI:screen_no := yToScreen
+StaffUI->StaffUI:start_time := xToTime(x : Integer)
+StaffUI->ManagementSystem:changeSelected(start_time : LocalTime, screen_no :Integer)
+activate ManagementSystem
+
+
+ManagementSystem->ManagementSystem:checkOverlapScreening(date : LocalDate, start_time: LocalTime, \nscreen_no : Integer, duration : Integer)
+activate ManagementSystem
+note over ManagementSystem:another screening is found that overlaps with this in time on the same screen
+
+
+ManagementSystem->ManagementSystem:observerMessage(message : String, false : Boolean)
+activate ManagementSystem
+ManagementSystem->StaffUI: message(message : String, false : Boolean)
+activate StaffUI
+StaffUI->*Alert:showAlert(message : String, warning : AlertType)
+activate Alert
+Alert-->StaffUI: 
+deactivate Alert
+
+StaffUI->Alert:showAndWait();
+activate Alert
+Alert->Staff:
+Staff-->Alert:
+Alert-->StaffUI:return result
+deactivate Alert
+
+StaffUI-->ManagementSystem:return false
+deactivate StaffUI
+
+ManagementSystem-->ManagementSystem:return false
+deactivate ManagementSystem
+ManagementSystem-->ManagementSystem:return true
+
+deactivate ManagementSystem
+
+
+
+ManagementSystem-->StaffUI:return false
+deactivate ManagementSystem
+deactivate ManagementSystem
+StaffUI-->Staff:
+deactivate StaffUI
+
+
