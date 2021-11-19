@@ -76,7 +76,7 @@ ManagementSystem->ManagementSystem:notifyObservers()
 end
 ManagementSystem-->ManagementSystem:
 deactivate ManagementSystem
-ManagementSystem-->StaffUI:
+ManagementSystem-->StaffUI:return true
 deactivate ManagementSystem
 
 StaffUI-->Staff:return true
