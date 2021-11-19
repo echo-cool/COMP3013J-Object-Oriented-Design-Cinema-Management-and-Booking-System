@@ -2,6 +2,7 @@
 title Sell Tickets ECE
 
 actor Staff
+boundary SellTicketgDialog
 boundary ": Alert" as AL
 boundary ": StaffUI" as SU
 control ": ManagementSystem" as MS
@@ -28,15 +29,20 @@ MS->current：Screenings:time := getStartTime()
 
 end 
 MS->MS: notifyObservers()
-MS->SU: update()
 MS-->SU:
 deactivate MS
 SU-->Staff:
 deactivate SU
-
-Staff->SU:sellTicket()
+Staff->SU:showSellTicketgDialog()
 activate SU
-SU->MS: sellTicket()
+
+SU->*SellTicketgDialog:show()
+activate SellTicketgDialog
+SellTicketgDialog-->SU:
+deactivate SellTicketgDialog
+
+
+SU->MS: sellTicket(num : Integer)
 activate MS
 
 
