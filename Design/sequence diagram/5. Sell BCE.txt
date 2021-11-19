@@ -35,12 +35,16 @@ deactivate MS
 SU-->Staff:
 deactivate SU
 
-Staff->SU:showSellTicketgDialog()
-activate SU
-
-SU->*SellTicketgDialog:show()
+SU->*SellTicketgDialog:SellTicketDialoig()
 activate SellTicketgDialog
 SellTicketgDialog-->SU:
+deactivate SellTicketgDialog
+
+SU->SellTicketgDialog:showAndWait()
+activate SellTicketgDialog
+SellTicketgDialog->Staff:
+Staff-->SellTicketgDialog:
+SellTicketgDialog-->SU: return num : Integer
 deactivate SellTicketgDialog
 
 
