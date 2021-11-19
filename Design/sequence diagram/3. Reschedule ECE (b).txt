@@ -22,7 +22,6 @@ ManagementSystem->Screening (current):getScreen()
 ManagementSystem->Screening (current):getStartTime()
 end
 ManagementSystem->ManagementSystem:notifyObservers()
-ManagementSystem->StaffUI:update()
 
 ManagementSystem-->StaffUI:
 deactivate ManagementSystem
@@ -42,7 +41,7 @@ Staff->StaffUI:mouseReleased(x : Integer, y : Integer)
 activate StaffUI
 StaffUI->StaffUI:screen_no := yToScreen(y : Integer)
 StaffUI->StaffUI:start_time := xToTime(x : Integer)
-StaffUI->ManagementSystem:changeSelected(start_time : LocalTime, screen_no :Integer)
+StaffUI->ManagementSystem:updateSelected(start_time : LocalTime, screen_no :Integer)
 activate ManagementSystem
 
 ManagementSystem->Screening (selected):getTicketsSold()
