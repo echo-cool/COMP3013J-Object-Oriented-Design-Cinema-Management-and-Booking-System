@@ -10,9 +10,17 @@ entity "m: Movie" as m
 Staff->StaffUI:showScheduleScreeningDialog()
 activate StaffUI
 
-StaffUI->*ScheduleScreeningDialog:show()
+
+StaffUI->*ScheduleScreeningDialog:ScheduleScreeningDialog
 activate ScheduleScreeningDialog
 ScheduleScreeningDialog-->StaffUI:
+deactivate ScheduleScreeningDialog
+
+StaffUI->ScheduleScreeningDialog:showAndWait()
+activate ScheduleScreeningDialog
+ScheduleScreeningDialog->Staff:
+Staff-->ScheduleScreeningDialog:
+ScheduleScreeningDialog-->StaffUI: return details
 deactivate ScheduleScreeningDialog
 
 

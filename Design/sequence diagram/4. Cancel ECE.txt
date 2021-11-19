@@ -1,4 +1,4 @@
-title Reschedule Movie Screening ECE (b)
+title Cancel Movie Screening ECE
 
 actor Staff
 boundary Alert
@@ -22,7 +22,6 @@ ManagementSystem->Screening (current):getScreen()
 ManagementSystem->Screening (current):getStartTime()
 end
 ManagementSystem->ManagementSystem:notifyObservers()
-ManagementSystem->StaffUI:update()
 
 ManagementSystem-->StaffUI:
 deactivate ManagementSystem
@@ -30,20 +29,31 @@ StaffUI-->Staff:
 deactivate StaffUI
 
 
-loop for every time the mouse is moved
-Staff->StaffUI:mouseMoved(x : integer, y : integer)
-activate StaffUI
-StaffUI->StaffUI:update()
-StaffUI-->Staff:
-deactivate StaffUI
-end
 
-Staff->StaffUI:mouseReleased(x : Integer, y : Integer)
+
+Staff->StaffUI:cancelScreening()
 activate StaffUI
-StaffUI->StaffUI:screen_no := yToScreen(y : Integer)
-StaffUI->StaffUI:start_time := xToTime(x : Integer)
-StaffUI->ManagementSystem:changeSelected(start_time : LocalTime, screen_no :Integer)
+StaffUI->ManagementSystem:cancelSelected()
 activate ManagementSystem
+
+ManagementSystem->ManagementSystem:observerMessage(s : String, true : Boolean)
+activate ManagementSystem
+ManagementSystem->StaffUI:message(message : String, true : Boolean)
+activate StaffUI
+StaffUI->*Alert:Alert(message : String, warning : AlertType)
+activate Alert
+Alert-->StaffUI:
+deactivate Alert
+
+StaffUI->Alert:showAndWait();
+activate Alert
+Alert->Staff:
+Staff-->Alert:
+note over Alert:user selects OK
+Alert-->StaffUI:return true
+deactivate Alert
+StaffUI-->ManagementSystem:return true
+deactivate StaffUI
 
 ManagementSystem->Screening (selected):getTicketsSold()
 activate Screening (selected)
@@ -58,6 +68,8 @@ deactivate ManagementSystem
 expandable− see digram - Display BCE
 ManagementSystem->ManagementSystem:notifyObservers()                    
 end
+ManagementSystem-->ManagementSystem:
+deactivate ManagementSystem
 ManagementSystem-->StaffUI:return false
 deactivate ManagementSystem
 

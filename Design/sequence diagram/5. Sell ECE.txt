@@ -2,7 +2,9 @@
 title Sell Tickets ECE
 
 actor Staff
-boundary ": Alert" as AL
+boundary Alert
+boundary SellTicketgDialog
+
 boundary ": StaffUI" as SU
 control ": ManagementSystem" as MS
 
@@ -28,15 +30,27 @@ MS->current：Screenings:time := getStartTime()
 
 end 
 MS->MS: notifyObservers()
-MS->SU: update()
 MS-->SU:
 deactivate MS
 SU-->Staff:
 deactivate SU
-
 Staff->SU:sellTicket()
 activate SU
-SU->MS: sellTicket()
+
+SU->*SellTicketgDialog:SellTicketDialoig()
+activate SellTicketgDialog
+SellTicketgDialog-->SU:
+deactivate SellTicketgDialog
+
+SU->SellTicketgDialog:showAndWait()
+activate SellTicketgDialog
+SellTicketgDialog->Staff:
+Staff-->SellTicketgDialog:
+SellTicketgDialog-->SU: return num : Integer
+deactivate SellTicketgDialog
+
+
+SU->MS: sellTicket(num : Integer)
 activate MS
 
 
@@ -56,15 +70,35 @@ MS-->MS:return true
 deactivate MS
 
 
+MS->MS:observerMessage(s : String, true : Boolean)
+activate MS
+MS->SU:message(message : String, true : Boolean)
+activate SU
+SU->*Alert:Alert(message : String, warning : AlertType)
+activate Alert
+Alert-->SU:
+deactivate Alert
 
+SU->Alert:showAndWait();
+activate Alert
+Alert->Staff:
+Staff-->Alert:
+Alert-->SU:return true
+deactivate Alert
+SU-->MS:return true
 
-expandable− see digram - Display BCE
-MS->MS:notifyObservers()                    
-end
-
+deactivate SU
+MS-->MS:
+deactivate MS
 
 
 MS-->SU:return false
+
+
+
+
+
+
 deactivate MS
 
 SU-->Staff:return false
