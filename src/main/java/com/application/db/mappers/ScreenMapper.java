@@ -86,4 +86,7 @@ public interface ScreenMapper {
     * @return int int
     */
     int updateByPrimaryKey(Screen record);
+
+
+    Screen getScreenForOid(int sno);
 }

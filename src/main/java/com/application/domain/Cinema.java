@@ -1,9 +1,7 @@
 package com.application.domain;
 
 
-import com.application.domain.mappers.MovieMapper;
-import com.application.domain.mappers.ScreenMapper;
-import com.application.domain.mappers.ScreeningMapper;
+
 import com.application.models.Movie;
 import com.application.models.Screen;
 import com.application.models.Screening;
@@ -46,6 +44,17 @@ public class Cinema {
         return screenMapper.getScreenForOid(sno);
     }
 
-    public Screening getScreenings
-    
+    public Screening[] getScreenings(LocalDate date){
+        return screeningMapper.getScreenings(date);
+    }
+
+    public Screen[] getScreens(){
+        return null;
+    }
+
+    public boolean addMovie(Movie movie){
+        return movieMapper.addMovie(movie);
+    }
+
+
 }
