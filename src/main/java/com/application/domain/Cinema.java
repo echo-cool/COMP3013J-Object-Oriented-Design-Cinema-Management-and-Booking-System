@@ -1,9 +1,10 @@
 package com.application.domain;
 
 
-import com.application.domain.mappers.MovieMapper;
-import com.application.domain.mappers.ScreenMapper;
-import com.application.domain.mappers.ScreeningMapper;
+import com.application.db.mappers.MovieMapper;
+import com.application.db.mappers.ScreenMapper;
+import com.application.db.mappers.ScreeningMapper;
+
 
 import java.time.LocalDate;
 import java.time.LocalTime;

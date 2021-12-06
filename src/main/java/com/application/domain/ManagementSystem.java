@@ -2,7 +2,6 @@ package com.application.domain;
 
 import com.application.models.Movie;
 import com.application.models.Screening;
-import com.model.Screen;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
