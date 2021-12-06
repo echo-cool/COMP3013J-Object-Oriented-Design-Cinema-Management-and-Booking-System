@@ -43,6 +43,10 @@ public class Screening {
         this.start_time = start_time;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
     public void setScreen(Screen screen) {
         this.screen = screen;
     }

@@ -40,6 +40,10 @@ public class Cinema {
         return movieMapper.getMovieForOid(mno);
     }
 
+    public Movie getMovie(String name){
+        return movieMapper.getMovie(name);
+    }
+
     public Screen getScreen(int sno){
         return screenMapper.getScreenForOid(sno);
     }

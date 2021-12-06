@@ -54,32 +54,62 @@ public class ManagementSystem {
 
 
     public boolean scheduleScreening(LocalDate date,LocalTime start_time,int screen_no,String movie_name){
-        Screening screening=new Screening(date,start_time,0,)
-        if(checkOverlapScreening(date,start_time,screen_no,))
+        Movie movie=cinema.getMovie(movie_name);
+        if(checkOverlapScreening(date,start_time,screen_no,movie.getDuration())){
+            observerMessage("overlap",false);
+            return false;
+        }else{
+            cinema.scheduleScreening(date,start_time,screen_no,movie_name);
+            return true;
+        }
     }
 
     public boolean updateSelected(LocalTime time,int screen_no){
-
+        if(checkOverlapScreening(selectedScreening.getDate(),time,screen_no,selectedScreening.getMovie().getDuration())){
+            observerMessage("overlap",false);
+            return false;
+        }else{
+            selectedScreening.setStartTime(time);
+            cinema.updateScreening(selectedScreening);
+            notifyObservers();
+            return true;
+        }
     }
 
-    public boolean removeScreening(int screen_no,LocalTime start_time){
-
+    public boolean removeScreening(Screening screening){
+        cinema.deleteScreening(screening);
     }
 
-    public void cancelSelected(){
-
+    public boolean cancelSelected(){
+        if(observerMessage("cancel?",true)){
+            if (selectedScreening.getTicketSold()>0){
+                notifyObservers();
+                return false;
+            }else{
+                boolean temp=removeScreening(selectedScreening);
+                notifyObservers();
+                return temp;
+            }
+        }return false;
     }
 
     private boolean checkInsufficientTicket(Screening screening,int num){
-
+        return screening.getScreen().getCapacity() - screening.getTicketSold() -num < 0;
     }
 
     private boolean checkOverlapScreening(LocalDate date,LocalTime start_time,int screen_no,int duration){
+        Screening[] screenings=cinema.getScreenings(date);
+        for(Screening screening:screenings){
+            if(screening.getScreen().getId()==screen_no){
+                LocalTime over_time=start_time.plusSeconds(duration);
+                if(over_time.isBefore(screening.getStartTime())||start_time.isAfter(screening.getStartTime().plusSeconds(screening.getMovie().getDuration()))){
 
-    }
-
-    private boolean checkOverlapScreening(LocalDate date,LocalTime start_time,int sno,Screening screening){
-
+                }else{
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public void setDate(LocalDate date){
