@@ -7,6 +7,10 @@ import com.application.domain.mappers.ScreeningMapper;
 import com.application.models.Movie;
 import com.application.models.Screen;
 import com.application.models.Screening;
+import com.application.db.mappers.MovieMapper;
+import com.application.db.mappers.ScreenMapper;
+import com.application.db.mappers.ScreeningMapper;
+
 
 import java.time.LocalDate;
 import java.time.LocalTime;
