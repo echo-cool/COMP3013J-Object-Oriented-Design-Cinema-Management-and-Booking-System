@@ -66,8 +66,8 @@ public class ScreeningMapperImpl {
             @Override
             public void query_commands(SqlSession sqlSession) {
                 ScreeningMapper mapper = sqlSession.getMapper(ScreeningMapper.class);
-                Screening screening = new Screening(date, start_time, 0, movie, screen);
-                mapper.insert(screening);
+//                Screening screening = new Screening(date, start_time, 0, movie, screen);
+//                mapper.insert(screening);
             }
         });
 
