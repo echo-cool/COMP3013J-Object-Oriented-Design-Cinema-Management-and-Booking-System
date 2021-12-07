@@ -31,6 +31,7 @@ public class ScreeningMapperImpl {
                 ScreeningMapper mapper = sqlSession.getMapper(ScreeningMapper.class);
                 ScreeningExample example = new ScreeningExample();
                 DateTimeFormatter dtf = DateTimeFormatter.ISO_DATE;
+                System.out.println(date.format(dtf));
                 example
                         .createCriteria()
                         .andDateEqualTo(date.format(dtf));

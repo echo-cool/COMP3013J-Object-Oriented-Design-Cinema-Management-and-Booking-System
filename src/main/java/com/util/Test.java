@@ -17,15 +17,15 @@ public class Test {
         ScreeningMapperImpl screeningMapper=new ScreeningMapperImpl();
         ScreenMapperImpl screenMapper=new ScreenMapperImpl();
         MovieMapperImpl movieMapper=new MovieMapperImpl();
-//        screeningMapper.scheduleScreening(LocalDate.now(), LocalTime.now(),screenMapper.getScreenForOid(2),movieMapper.getMovie("haha0"));
+        screeningMapper.scheduleScreening(LocalDate.now(), LocalTime.now(),screenMapper.getScreenForOid(2),movieMapper.getMovie("haha0"));
 
-        DatabaseUtil.query(new QueryStatement() {
-            @Override
-            public void query_commands(SqlSession sqlSession) {
-                ScreeningMapper mapper = sqlSession.getMapper(ScreeningMapper.class);
-                System.out.println(mapper.selectByPrimaryKey(1));
-            }
-        });
-//        screeningMapper.getScreenings(LocalDate.now());
+//        DatabaseUtil.query(new QueryStatement() {
+//            @Override
+//            public void query_commands(SqlSession sqlSession) {
+//                ScreeningMapper mapper = sqlSession.getMapper(ScreeningMapper.class);
+//                System.out.println(mapper.selectByPrimaryKey(1));
+//            }
+//        });
+        System.out.println(screeningMapper.getScreenings(LocalDate.now()).length);
     }
 }
