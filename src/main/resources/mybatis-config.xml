@@ -17,11 +17,8 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="xml/AdminUserMapper.xml" />
-        <mapper resource="xml/ArrangementMapper.xml" />
-        <mapper resource="xml/CustomerMapper.xml" />
-        <mapper resource="xml/OrderMapper.xml" />
+        <mapper resource="xml/MovieMapper.xml" />
+        <mapper resource="xml/ScreeningMapper.xml" />
         <mapper resource="xml/ScreenMapper.xml" />
-        <mapper resource="xml/TicketMapper.xml" />
     </mappers>
 </configuration>

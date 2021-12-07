@@ -2,12 +2,10 @@ package com.application.domain;
 
 
 
+import com.application.db.mappers.*;
 import com.application.models.Movie;
 import com.application.models.Screen;
 import com.application.models.Screening;
-import com.application.db.mappers.MovieMapper;
-import com.application.db.mappers.ScreenMapper;
-import com.application.db.mappers.ScreeningMapper;
 
 
 import java.time.LocalDate;
@@ -18,9 +16,9 @@ import java.time.LocalTime;
 */
 public class Cinema {
     
-    MovieMapper movieMapper;
-    ScreenMapper screenMapper;
-    ScreeningMapper screeningMapper;
+    MovieMapperImpl movieMapper;
+    ScreenMapperImpl screenMapper;
+    ScreeningMapperImpl screeningMapper;
 
     public void scheduleScreening(LocalDate date, LocalTime start_time,int screen_no,String movie_name){
         Screen screen=screenMapper.getScreenForOid(screen_no);

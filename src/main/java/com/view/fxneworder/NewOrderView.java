@@ -1,7 +1,6 @@
 package com.view.fxneworder;
 
 import cn.hutool.core.io.resource.ResourceUtil;
-import com.util.fxMain;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

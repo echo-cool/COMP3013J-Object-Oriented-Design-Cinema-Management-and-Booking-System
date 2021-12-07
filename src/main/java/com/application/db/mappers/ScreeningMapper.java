@@ -93,11 +93,11 @@ public interface ScreeningMapper {
     int updateByPrimaryKey(Screening record);
 
 
-    Screening[] getScreenings(LocalDate date);
-
-    void updateScreening(Screening selected);
-
-    void deleteScreening(Screening screening);
-
-    void scheduleScreening(LocalDate date, LocalTime start_time, Screen screen, Movie movie);
+//    Screening[] getScreenings(LocalDate date);
+//
+//    void updateScreening(Screening selected);
+//
+//    void deleteScreening(Screening screening);
+//
+//    void scheduleScreening(LocalDate date, LocalTime start_time, Screen screen, Movie movie);
 }
