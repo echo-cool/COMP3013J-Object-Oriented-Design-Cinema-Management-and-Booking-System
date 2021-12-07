@@ -122,14 +122,27 @@ public class StaffUI extends Application implements ScreeningObserver {
         managementSystem.setDate(date);
     }
 
-    public void sellTicket(){}
+    public void sellTicket(){
 
-    public void showSellTicketDialog(){}
+    }
+
+    public void showSellTicketDialog(){
+
+    }
 
     public void cancelScreening(){}
 
     public void showScheduleScreeningDialog(){
+        ReservationDialog addRes = new ReservationDialog();
+        Optional<CusInfo> result = addRes.showAndWait();
 
+        if (result.isPresent()) {
+            CusInfo c = result.get();
+            if (!managementSystem.scheduleScreening(currentDate,c.time,c.screen,c.name)) {
+                showScheduleScreeningDialog();
+            }
+        }
+        update();
     }
 
     public void showAlert(String message, Alert.AlertType warning){}
@@ -308,8 +321,8 @@ public class StaffUI extends Application implements ScreeningObserver {
     }
 
     public void onMouseReleased(MouseEvent mouseEvent){
-        is_dragging=false;
-        if(managementSystem.getSelectedScreening()!=null){
+        if(managementSystem.getSelectedScreening()!=null&&is_dragging){
+            is_dragging=false;
             System.out.println(managementSystem.updateSelected(xToTime((int) (timeToX(LocalTime.parse(managementSystem.getSelectedScreening().getStartTime()))-start_x+dragged_x)),yToScreen((int) dragged_y)));
         }
     }

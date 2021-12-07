@@ -55,13 +55,18 @@ public class ManagementSystem {
 
     public boolean scheduleScreening(LocalDate date,LocalTime start_time,int screen_no,String movie_name){
         Movie movie=cinema.getMovie(movie_name);
-        if(checkOverlapScreening(date,start_time,screen_no,movie.getDuration())){
-            observerMessage("overlap",false);
-            return false;
-        }else{
-            cinema.scheduleScreening(date,start_time,screen_no,movie_name);
-            return true;
+        if(movie!=null) {
+            if (checkOverlapScreening(date, start_time, screen_no, movie.getDuration())) {
+                observerMessage("overlap", false);
+                return false;
+            } else {
+                cinema.scheduleScreening(date, start_time, screen_no, movie_name);
+                setDate(date);
+                notifyObservers();
+                return true;
+            }
         }
+        return false;
     }
 
     public boolean updateSelected(LocalTime time,int screen_no){
@@ -108,9 +113,14 @@ public class ManagementSystem {
         for(Screening screening:screenings){
             if(screening.getScreen().getId()==screen_no){
                 LocalTime over_time=start_time.plusSeconds(duration);
-                if(screen_no==selectedScreening.getScreenId()||over_time.isBefore(LocalTime.parse(screening.getStartTime()))||start_time.isAfter(LocalTime.parse(screening.getStartTime()).plusSeconds(screening.getMovie().getDuration()))){
+                if(over_time.isBefore(LocalTime.parse(screening.getStartTime()))||start_time.isAfter(LocalTime.parse(screening.getStartTime()).plusSeconds(screening.getMovie().getDuration()))){
 
                 }else{
+                    if(selectedScreening!=null){
+                        if(screen_no==selectedScreening.getScreenId()){
+                            continue;
+                        }
+                    }
                     return true;
                 }
             }

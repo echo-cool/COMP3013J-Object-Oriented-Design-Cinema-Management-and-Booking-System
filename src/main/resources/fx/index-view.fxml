@@ -57,7 +57,7 @@
                         <Button mnemonicParsing="false" onAction="#showAddMovieView" text="Add Movie" />
                         <Button mnemonicParsing="false" onAction="#showAddArraignmentView" text="Add Arraignment" />
                         <Button mnemonicParsing="false" onAction="#CancelOrder" text="Cancel Order" />
-                  <Button mnemonicParsing="false" text="test" onAction="#test"/>
+                  <Button mnemonicParsing="false" text="sell" onAction="#sellTicket"/>
                     </children>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
