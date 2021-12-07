@@ -4,6 +4,8 @@ package com.presentation;
 import cn.hutool.core.io.resource.ResourceUtil;
 import com.application.domain.ManagementSystem;
 import com.application.domain.ScreeningObserver;
+import com.application.models.Screen;
+import com.application.models.Screening;
 import com.view.fxaddarrangement.AddArrangementView;
 import com.view.fxaddmovie.AddMovieView;
 import com.view.fxneworder.NewOrderView;
@@ -52,7 +54,9 @@ public class StaffUI extends Application implements ScreeningObserver {
 
     @Override
     public void update() {
+        managementSystem.getCurrentDate();
 
+        managementSystem.getScreenings();
     }
 
     @Override
@@ -61,13 +65,21 @@ public class StaffUI extends Application implements ScreeningObserver {
     }
 
 
-    private void timeToX(LocalTime time){}
+    private int timeToX(LocalTime time){
+        return (int) ((time.getHour()*60+time.getMinute())/(60*24f)*(SLOTS * COL_WIDTH)+LEFT_MARGIN);
+    }
 
-    private void xToTime(int x){}
+    private LocalTime xToTime(int x){
+        return LocalTime.ofSecondOfDay((long) (60*((24*60f*(x-LEFT_MARGIN)/(SLOTS * COL_WIDTH)))));
+    }
 
-    private void screenToY(int screen){}
+    private int screenToY(int screen){
+        return TOP_MARGIN+screen*ROW_HEIGHT;
+    }
 
-    private void yToScreen(int y){}
+    private int yToScreen(int y){
+        return (y-TOP_MARGIN)/ROW_HEIGHT;
+    }
 
     public void mousePressed(int x,int y){}
 
@@ -75,7 +87,9 @@ public class StaffUI extends Application implements ScreeningObserver {
 
     public void mouseReleased(int x,int y){}
 
-    public void submit(LocalDate date){}
+    public void submit(LocalDate date){
+        managementSystem.setDate(date);
+    }
 
     public void sellTicket(){}
 
@@ -97,6 +111,8 @@ public class StaffUI extends Application implements ScreeningObserver {
     }
 
 
+
+    public Screening[] currentScreenings=new Screening[0];
 
 
     final static int         LEFT_MARGIN   = 60;
@@ -145,15 +161,25 @@ public class StaffUI extends Application implements ScreeningObserver {
         }
 
 
+        for(Screening screening:currentScreenings){
+            gc.setFill(Color.RED);
+            gc.fillRect(timeToX(screening.getStartTime()),screenToY(screening.getScreen().getId()),COL_WIDTH*SLOTS*((screening.getMovie().getDuration())/3600f*24f),ROW_HEIGHT);
+        }
+
+
+
     }
 
     public void prevDay(ActionEvent actionEvent) {
+
     }
 
     public void showDate(ActionEvent actionEvent) {
+
     }
 
     public void nextDay(ActionEvent actionEvent) {
+
     }
 
     public void showNewOrderView(ActionEvent actionEvent) {
@@ -172,6 +198,7 @@ public class StaffUI extends Application implements ScreeningObserver {
     }
 
     public void CancelOrder(ActionEvent actionEvent) {
+
     }
 
 

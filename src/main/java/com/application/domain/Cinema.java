@@ -16,9 +16,9 @@ import java.time.LocalTime;
 */
 public class Cinema {
     
-    MovieMapperImpl movieMapper;
-    ScreenMapperImpl screenMapper;
-    ScreeningMapperImpl screeningMapper;
+    MovieMapperImpl movieMapper=new MovieMapperImpl();
+    ScreenMapperImpl screenMapper=new ScreenMapperImpl();
+    ScreeningMapperImpl screeningMapper=new ScreeningMapperImpl();
 
     public void scheduleScreening(LocalDate date, LocalTime start_time,int screen_no,String movie_name){
         Screen screen=screenMapper.getScreenForOid(screen_no);

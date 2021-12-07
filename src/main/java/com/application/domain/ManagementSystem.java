@@ -14,7 +14,7 @@ import java.util.LinkedList;
 public class ManagementSystem {
     LocalDate currentDate;
     LinkedList<ScreeningObserver> observers=new LinkedList<>();
-    LinkedList<Screening> displayScreenings;
+    Screening[] displayScreenings;
     Screening selectedScreening;
     Cinema cinema;
 
@@ -114,7 +114,9 @@ public class ManagementSystem {
     }
 
     public void setDate(LocalDate date){
-
+        this.currentDate=date;
+        displayScreenings=cinema.getScreenings(date);
+        notifyObservers();
     }
 
     public Screening getSelectedScreening(){
@@ -123,6 +125,10 @@ public class ManagementSystem {
 
     public void changeSelected(LocalTime startTime, Screen screen){
 
+    }
+
+    public Screening[] getScreenings(){
+        return displayScreenings;
     }
 
     public LocalDate getCurrentDate() {
