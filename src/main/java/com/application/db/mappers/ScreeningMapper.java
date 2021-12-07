@@ -1,12 +1,7 @@
 package com.application.db.mappers;
 
-import com.application.models.Movie;
-import com.application.models.Screen;
 import com.application.models.Screening;
 import com.application.models.ScreeningExample;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -91,13 +86,4 @@ public interface ScreeningMapper {
     * @return int int
     */
     int updateByPrimaryKey(Screening record);
-
-
-//    Screening[] getScreenings(LocalDate date);
-//
-//    void updateScreening(Screening selected);
-//
-//    void deleteScreening(Screening screening);
-//
-//    void scheduleScreening(LocalDate date, LocalTime start_time, Screen screen, Movie movie);
 }

@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.application.models.Screening">
     <!--@mbg.generated -->
     <!--@Table Screening -->
-    <!-- generated on Mon Dec 06 16:48:49 CST 2021 -->
+    <!-- generated on Tue Dec 07 16:13:30 CST 2021 -->
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="movie_id" jdbcType="INTEGER" property="movieId" />
     <result column="screen_id" jdbcType="INTEGER" property="screenId" />

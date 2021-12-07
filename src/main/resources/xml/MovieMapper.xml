@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.application.models.Movie">
     <!--@mbg.generated -->
     <!--@Table Movie -->
-    <!-- generated on Mon Dec 06 16:48:49 CST 2021 -->
+    <!-- generated on Tue Dec 07 16:13:30 CST 2021 -->
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="duration" jdbcType="INTEGER" property="duration" />

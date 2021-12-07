@@ -14,9 +14,9 @@ import java.util.LinkedList;
 public class ManagementSystem {
     LocalDate currentDate;
     LinkedList<ScreeningObserver> observers=new LinkedList<>();
-    LinkedList<Screening> displayScreenings;
+    Screening[] displayScreenings;
     Screening selectedScreening;
-    Cinema cinema;
+    Cinema cinema=new Cinema();
 
     public void addObserver(ScreeningObserver observer){
         observers.add(observer);
@@ -41,7 +41,7 @@ public class ManagementSystem {
         int capacity=selectedScreening.getScreen().getCapacity();
         int ticket_sold=selectedScreening.getTicketSold();
         if(!checkInsufficientTicket(selectedScreening,num)){
-            selectedScreening.changeTicketSold(ticket_sold+num);
+            selectedScreening.setTicketSold(ticket_sold+num);
             cinema.updateScreening(selectedScreening);
             notifyObservers();
             return true;
@@ -65,11 +65,11 @@ public class ManagementSystem {
     }
 
     public boolean updateSelected(LocalTime time,int screen_no){
-        if(checkOverlapScreening(selectedScreening.getDate(),time,screen_no,selectedScreening.getMovie().getDuration())){
+        if(checkOverlapScreening(LocalDate.parse(selectedScreening.getDate()),time,screen_no,selectedScreening.getMovie().getDuration())){
             observerMessage("overlap",false);
             return false;
         }else{
-            selectedScreening.setStartTime(time);
+            selectedScreening.setStartTime(time.toString());
             cinema.updateScreening(selectedScreening);
             notifyObservers();
             return true;
@@ -103,7 +103,7 @@ public class ManagementSystem {
         for(Screening screening:screenings){
             if(screening.getScreen().getId()==screen_no){
                 LocalTime over_time=start_time.plusSeconds(duration);
-                if(over_time.isBefore(screening.getStartTime())||start_time.isAfter(screening.getStartTime().plusSeconds(screening.getMovie().getDuration()))){
+                if(over_time.isBefore(LocalTime.parse(screening.getStartTime()))||start_time.isAfter(LocalTime.parse(screening.getStartTime()).plusSeconds(screening.getMovie().getDuration()))){
 
                 }else{
                     return false;
@@ -114,7 +114,9 @@ public class ManagementSystem {
     }
 
     public void setDate(LocalDate date){
-
+        this.currentDate=date;
+        displayScreenings=cinema.getScreenings(date);
+        notifyObservers();
     }
 
     public Screening getSelectedScreening(){
@@ -123,6 +125,10 @@ public class ManagementSystem {
 
     public void changeSelected(LocalTime startTime, Screen screen){
 
+    }
+
+    public Screening[] getScreenings(){
+        return displayScreenings;
     }
 
     public LocalDate getCurrentDate() {
