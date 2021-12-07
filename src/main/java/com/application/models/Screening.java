@@ -43,7 +43,6 @@ public class Screening {
 
     public void setId(Integer id) {
         this.id = id;
-        this.screen=new ScreenMapperImpl().getScreenForOid(id);
     }
 
     public Integer getMovieId() {
@@ -52,7 +51,7 @@ public class Screening {
 
     public void setMovieId(Integer movieId) {
         this.movieId = movieId;
-        this.movie=new MovieMapperImpl().getMovieForOid(id);
+        this.movie=new MovieMapperImpl().getMovieForOid(movieId);
     }
 
     public Integer getScreenId() {
@@ -61,7 +60,9 @@ public class Screening {
 
     public void setScreenId(Integer screenId) {
         this.screenId = screenId;
+        this.screen=new ScreenMapperImpl().getScreenForOid(screenId);
     }
+
 
     public String getDate() {
         return date;

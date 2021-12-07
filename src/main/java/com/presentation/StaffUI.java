@@ -4,12 +4,13 @@ package com.presentation;
 import cn.hutool.core.io.resource.ResourceUtil;
 import com.application.domain.ManagementSystem;
 import com.application.domain.ScreeningObserver;
-import com.application.models.Screen;
 import com.application.models.Screening;
 import com.view.fxaddarrangement.AddArrangementView;
 import com.view.fxaddmovie.AddMovieView;
 import com.view.fxneworder.NewOrderView;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,13 +18,16 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Optional;
 
 
 public class StaffUI extends Application implements ScreeningObserver {
@@ -33,6 +37,7 @@ public class StaffUI extends Application implements ScreeningObserver {
     public StaffUI(){
         managementSystem=new ManagementSystem();
         managementSystem.addObserver(this);
+
 
     }
 
@@ -56,14 +61,38 @@ public class StaffUI extends Application implements ScreeningObserver {
 
     @Override
     public void update() {
-        managementSystem.getCurrentDate();
         currentScreenings=managementSystem.getScreenings();
+
         draw();
     }
 
     @Override
     public boolean message(String message, boolean isConfirmation) {
-        return false;
+        if(isConfirmation) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText(message);
+//        alert.setContentText("Are you ok with this?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                update();
+                return true;
+            } else {
+                update();
+                return false;
+            }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(message);
+//            alert.setContentText("I have a great message for you!");
+
+            alert.showAndWait();
+            update();
+            return true;
+        }
+
     }
 
 
@@ -99,7 +128,9 @@ public class StaffUI extends Application implements ScreeningObserver {
 
     public void cancelScreening(){}
 
-    public void showScheduleScreeningDialog(){}
+    public void showScheduleScreeningDialog(){
+
+    }
 
     public void showAlert(String message, Alert.AlertType warning){}
 
@@ -108,9 +139,6 @@ public class StaffUI extends Application implements ScreeningObserver {
     public void showAddMovieDialog(){
     }
 
-    public void showDate(){
-
-    }
 
 
     public LocalDate currentDate=LocalDate.now();
@@ -131,6 +159,13 @@ public class StaffUI extends Application implements ScreeningObserver {
 
     public void initialize() {
         datePicker.setValue(LocalDate.now());
+        managementSystem.setDate(LocalDate.now());
+        datePicker.valueProperty().addListener(new ChangeListener<LocalDate>() {
+            @Override
+            public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
+                managementSystem.setDate(newValue);
+            }
+        });
         this.draw();
     }
 
@@ -144,6 +179,7 @@ public class StaffUI extends Application implements ScreeningObserver {
         data.add("Screen 6");
         data.add("Screen 7");
         GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         canvas.setHeight(TOP_MARGIN + data.size() * ROW_HEIGHT);
         canvas.setWidth(LEFT_MARGIN + (SLOTS * COL_WIDTH));
 //        gc.setFill(Color.WHITE);
@@ -177,23 +213,52 @@ public class StaffUI extends Application implements ScreeningObserver {
                     screenToY(screening.getScreen().getId()),
                     COL_WIDTH*SLOTS*((screening.getMovie().getDuration())/(3600f*24f)),
                     ROW_HEIGHT);
+            if(screening==managementSystem.getSelectedScreening()){
+                gc.strokeRect(timeToX(LocalTime.parse(screening.getStartTime()))+2,
+                        screenToY(screening.getScreen().getId())+2,
+                        COL_WIDTH*SLOTS*((screening.getMovie().getDuration())/(3600f*24f))-4,
+                        ROW_HEIGHT-4);
+            }
+        }
+
+        if(managementSystem.getSelectedScreening()!=null&&is_dragging){
+            gc.setFill(Color.rgb(255,0,0,0.5));
+//            gc.fillRect(
+//                    timeToX(LocalTime.parse(managementSystem.getSelectedScreening().getStartTime()))-start_x+dragged_x,
+//                    screenToY(managementSystem.getSelectedScreening().getScreen().getId())-start_y+dragged_y,
+//                    COL_WIDTH*SLOTS*((managementSystem.getSelectedScreening().getMovie().getDuration())/(3600f*24f)),
+//                    ROW_HEIGHT);
+            gc.fillRect(
+                    timeToX(LocalTime.parse(managementSystem.getSelectedScreening().getStartTime()))-start_x+dragged_x,
+                    screenToY(yToScreen((int) dragged_y)),
+                    COL_WIDTH*SLOTS*((managementSystem.getSelectedScreening().getMovie().getDuration())/(3600f*24f)),
+                    ROW_HEIGHT);
         }
 
 
 
     }
 
-    public void prevDay(ActionEvent actionEvent) {
-
-    }
 
     public void showDate(ActionEvent actionEvent) {
 
     }
 
-    public void nextDay(ActionEvent actionEvent) {
-
+    public void nextDay() {
+        currentDate = datePicker.getValue();
+        currentDate = currentDate.plusDays(1);
+        datePicker.setValue(currentDate);
+        managementSystem.setDate(currentDate);
     }
+
+    public void prevDay() {
+        currentDate = datePicker.getValue();
+        currentDate = currentDate.minusDays(1);
+        datePicker.setValue(currentDate);
+        managementSystem.setDate(currentDate);
+    }
+
+
 
     public void showNewOrderView(ActionEvent actionEvent) {
         NewOrderView orderView = new NewOrderView();
@@ -217,6 +282,48 @@ public class StaffUI extends Application implements ScreeningObserver {
     public void test(ActionEvent actionEvent){
         managementSystem.setDate(currentDate);
     }
+
+    public void onMouseClicked(MouseEvent mouseEvent){
+
+    }
+
+    public void onMouseDragEntered(MouseEvent mouseEvent){
+
+    }
+
+    public void onMouseDragExited(MouseEvent mouseEvent){
+
+    }
+
+    private double start_x=0;
+    private double start_y=0;
+    private boolean is_dragging=false;
+    private double dragged_x=0;
+    private double dragged_y=0;
+    public void onMouseDragged(MouseEvent mouseEvent){
+        is_dragging=true;
+        dragged_x=mouseEvent.getX();
+        dragged_y=mouseEvent.getY();
+        update();
+    }
+
+    public void onMouseReleased(MouseEvent mouseEvent){
+        is_dragging=false;
+        if(managementSystem.getSelectedScreening()!=null){
+            System.out.println(managementSystem.updateSelected(xToTime((int) (timeToX(LocalTime.parse(managementSystem.getSelectedScreening().getStartTime()))-start_x+dragged_x)),yToScreen((int) dragged_y)));
+        }
+    }
+
+    public void onMousePressed(MouseEvent mouseEvent){
+        System.out.printf("%s,%s\n",mouseEvent.getX(),mouseEvent.getY());
+        start_x=mouseEvent.getX();
+        start_y=mouseEvent.getY();
+        LocalTime time=xToTime((int) mouseEvent.getX());
+        int screen=yToScreen((int) mouseEvent.getY());
+        managementSystem.changeSelected(time,screen);
+    }
+
+
 
 
 }

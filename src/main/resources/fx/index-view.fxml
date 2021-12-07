@@ -53,7 +53,7 @@
                         <Button mnemonicParsing="false" onAction="#prevDay" text="&lt;" />
                         <DatePicker fx:id="datePicker" onAction="#showDate" />
                         <Button mnemonicParsing="false" onAction="#nextDay" text="&gt;" />
-                        <Button fx:id="addButton" mnemonicParsing="false" onAction="#showNewOrderView" text="New Order" />
+                        <Button fx:id="addButton" mnemonicParsing="false" onAction="#showScheduleScreeningDialog" text="Schedule" />
                         <Button mnemonicParsing="false" onAction="#showAddMovieView" text="Add Movie" />
                         <Button mnemonicParsing="false" onAction="#showAddArraignmentView" text="Add Arraignment" />
                         <Button mnemonicParsing="false" onAction="#CancelOrder" text="Cancel Order" />
@@ -70,7 +70,10 @@
                     <children>
                         <Pane layoutX="87.0" layoutY="-33.0" prefHeight="333.0" prefWidth="638.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <Canvas fx:id="canvas" height="512.0" width="1024.0" />
+                                <Canvas fx:id="canvas" height="512.0" width="1024.0" onMouseClicked="#onMouseClicked"
+                                        onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed"
+                                        onMouseDragEntered="#onMouseDragEntered" onMouseDragReleased="#onMouseDragExited"
+                                onMouseReleased="#onMouseReleased"/>
                             </children>
                         </Pane>
                     </children>

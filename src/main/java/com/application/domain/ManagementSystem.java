@@ -69,10 +69,15 @@ public class ManagementSystem {
             observerMessage("overlap",false);
             return false;
         }else{
-            selectedScreening.setStartTime(time.toString());
-            cinema.updateScreening(selectedScreening);
-            notifyObservers();
-            return true;
+
+            if(observerMessage("ReSchedule?",false)) {
+                selectedScreening.setStartTime(time.toString());
+                selectedScreening.setScreenId(screen_no);
+                cinema.updateScreening(selectedScreening);
+                notifyObservers();
+                return true;
+            }
+            return false;
         }
     }
 
@@ -103,19 +108,20 @@ public class ManagementSystem {
         for(Screening screening:screenings){
             if(screening.getScreen().getId()==screen_no){
                 LocalTime over_time=start_time.plusSeconds(duration);
-                if(over_time.isBefore(LocalTime.parse(screening.getStartTime()))||start_time.isAfter(LocalTime.parse(screening.getStartTime()).plusSeconds(screening.getMovie().getDuration()))){
+                if(screen_no==selectedScreening.getScreenId()||over_time.isBefore(LocalTime.parse(screening.getStartTime()))||start_time.isAfter(LocalTime.parse(screening.getStartTime()).plusSeconds(screening.getMovie().getDuration()))){
 
                 }else{
-                    return false;
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 
     public void setDate(LocalDate date){
         this.currentDate=date;
         displayScreenings=cinema.getScreenings(date);
+        System.out.println(displayScreenings.length);
         notifyObservers();
     }
 
@@ -123,8 +129,20 @@ public class ManagementSystem {
         return selectedScreening;
     }
 
-    public void changeSelected(LocalTime startTime, Screen screen){
-
+    public void changeSelected(LocalTime time, int screen){
+        label:
+        {
+            for (Screening screening : displayScreenings) {
+                if (screen==(screening.getScreen().getId())) {
+                    if (LocalTime.parse(screening.getStartTime()).isBefore(time) && LocalTime.parse(screening.getStartTime()).plusSeconds(screening.getMovie().getDuration()).isAfter(time)) {
+                        selectedScreening = screening;
+                        break label;
+                    }
+                }
+            }
+            selectedScreening=null;
+        }
+        notifyObservers();
     }
 
     public Screening[] getScreenings(){
