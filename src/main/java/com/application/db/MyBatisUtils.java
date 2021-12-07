@@ -18,7 +18,7 @@ import java.io.Reader;
 
 /**
  * MyBatisUtilsgoon工具类，创建全局唯一的SqlSessionFactory对象
- * */
+ */
 
 public class MyBatisUtils {
     //利用static（静态）属于类不属于对象，且全局唯一，static属性本身就属于全局唯一
@@ -38,11 +38,12 @@ public class MyBatisUtils {
     }
 
     //定义返回SqlSession对象的方法
-    public static SqlSession openSession(){
+    public static SqlSession openSession() {
         return sqlSessionFactory.openSession();
     }
+
     //释放SqlSession对象
-    public static void closeSession(SqlSession session){
+    public static void closeSession(SqlSession session) {
         if (session != null) {
             session.close();
         }
