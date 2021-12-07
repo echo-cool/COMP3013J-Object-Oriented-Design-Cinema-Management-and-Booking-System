@@ -86,5 +86,4 @@ public interface MovieMapper {
     * @return int int
     */
     int updateByPrimaryKey(Movie record);
-
 }
