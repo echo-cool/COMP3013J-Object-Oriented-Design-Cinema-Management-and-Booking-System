@@ -1,5 +1,8 @@
 package com.application.models;
 
+import com.application.db.mappers.MovieMapperImpl;
+import com.application.db.mappers.ScreenMapperImpl;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -17,6 +20,10 @@ public class Screening {
 
     private Integer ticketSold;
 
+    private Movie movie;
+
+    private Screen screen;
+
     public Screening() {
     }
 
@@ -26,6 +33,8 @@ public class Screening {
         this.ticketSold = i;
         this.movieId = movie.getId();
         this.screenId = screen.getId();
+        this.movie=movie;
+        this.screen=screen;
     }
 
     public Integer getId() {
@@ -34,6 +43,7 @@ public class Screening {
 
     public void setId(Integer id) {
         this.id = id;
+        this.screen=new ScreenMapperImpl().getScreenForOid(id);
     }
 
     public Integer getMovieId() {
@@ -42,6 +52,7 @@ public class Screening {
 
     public void setMovieId(Integer movieId) {
         this.movieId = movieId;
+        this.movie=new MovieMapperImpl().getMovieForOid(id);
     }
 
     public Integer getScreenId() {
@@ -74,6 +85,14 @@ public class Screening {
 
     public void setTicketSold(Integer ticketSold) {
         this.ticketSold = ticketSold;
+    }
+
+    public Screen getScreen() {
+        return screen;
+    }
+
+    public Movie getMovie() {
+        return movie;
     }
 
     /**

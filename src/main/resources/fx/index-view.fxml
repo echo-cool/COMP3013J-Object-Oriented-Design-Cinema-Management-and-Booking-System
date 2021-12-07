@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.canvas.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="box" maxHeight="512.0" maxWidth="1024.0" minHeight="512.0" minWidth="1024.0" prefHeight="512.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.presentation.StaffUI">
+<VBox fx:id="box" maxHeight="512.0" maxWidth="1024.0" minHeight="512.0" minWidth="1024.0" prefHeight="512.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.presentation.StaffUI">
     <children>
 <!--        <MenuBar VBox.vgrow="NEVER">-->
 <!--            <menus>-->
@@ -60,6 +57,7 @@
                         <Button mnemonicParsing="false" onAction="#showAddMovieView" text="Add Movie" />
                         <Button mnemonicParsing="false" onAction="#showAddArraignmentView" text="Add Arraignment" />
                         <Button mnemonicParsing="false" onAction="#CancelOrder" text="Cancel Order" />
+                  <Button mnemonicParsing="false" text="test" onAction="#test"/>
                     </children>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

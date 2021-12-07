@@ -32,7 +32,8 @@ public class StaffUI extends Application implements ScreeningObserver {
 
     public StaffUI(){
         managementSystem=new ManagementSystem();
-        managementSystem.setDate(currentDate);
+        managementSystem.addObserver(this);
+
     }
 
     @Override
@@ -164,7 +165,18 @@ public class StaffUI extends Application implements ScreeningObserver {
 
         for(Screening screening:currentScreenings){
             gc.setFill(Color.RED);
-            gc.fillRect(timeToX(LocalTime.parse(screening.getStartTime())),screenToY(screening.getScreen().getId()),COL_WIDTH*SLOTS*((screening.getMovie().getDuration())/3600f*24f),ROW_HEIGHT);
+            gc.fillRect(
+                    timeToX(LocalTime.parse(screening.getStartTime())),
+                    screenToY(screening.getScreen().getId()),
+                    COL_WIDTH*SLOTS*((screening.getMovie().getDuration())/(3600f*24f)),
+                    ROW_HEIGHT);
+            gc.setFill(Color.BLACK);
+            gc.fillText(screening.getMovie().getName(),timeToX(LocalTime.parse(screening.getStartTime()))+5,
+                    screenToY(screening.getScreen().getId())+ROW_HEIGHT*0.7);
+            gc.strokeRect(timeToX(LocalTime.parse(screening.getStartTime())),
+                    screenToY(screening.getScreen().getId()),
+                    COL_WIDTH*SLOTS*((screening.getMovie().getDuration())/(3600f*24f)),
+                    ROW_HEIGHT);
         }
 
 
@@ -200,6 +212,10 @@ public class StaffUI extends Application implements ScreeningObserver {
 
     public void CancelOrder(ActionEvent actionEvent) {
 
+    }
+
+    public void test(ActionEvent actionEvent){
+        managementSystem.setDate(currentDate);
     }
 
 
