@@ -70,7 +70,7 @@ public class ManagementSystem {
             return false;
         }else{
 
-            if(observerMessage("ReSchedule?",false)) {
+            if(observerMessage("ReSchedule?",true)) {
                 selectedScreening.setStartTime(time.toString());
                 selectedScreening.setScreenId(screen_no);
                 cinema.updateScreening(selectedScreening);
