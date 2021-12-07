@@ -32,9 +32,10 @@ public class Movie {
     }
 
     /**
-    * toString
-    * @return String String
-    */
+     * toString
+     *
+     * @return String String
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -49,10 +50,11 @@ public class Movie {
     }
 
     /**
-    * equals
-    * @param that that
-    * @return boolean boolean
-    */
+     * equals
+     *
+     * @param that that
+     * @return boolean boolean
+     */
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -66,14 +68,15 @@ public class Movie {
         }
         Movie other = (Movie) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getDuration() == null ? other.getDuration() == null : this.getDuration().equals(other.getDuration()));
+                && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+                && (this.getDuration() == null ? other.getDuration() == null : this.getDuration().equals(other.getDuration()));
     }
 
     /**
-    * hashCode
-    * @return int int
-    */
+     * hashCode
+     *
+     * @return int int
+     */
     @Override
     public int hashCode() {
         final int prime = 31;

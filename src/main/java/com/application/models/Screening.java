@@ -11,15 +11,15 @@ public class Screening {
     Movie movie;
     Screen screen;
 
-    public Screening(LocalDate date,LocalTime start_time,int ticket_sold,Movie movie,Screen screen){
-        this.date=date;
-        this.start_time=start_time;
-        this.ticket_sold=ticket_sold;
-        this.movie=movie;
-        this.screen=screen;
+    public Screening(LocalDate date, LocalTime start_time, int ticket_sold, Movie movie, Screen screen) {
+        this.date = date;
+        this.start_time = start_time;
+        this.ticket_sold = ticket_sold;
+        this.movie = movie;
+        this.screen = screen;
     }
 
-    public void PersistentScreening(int oid,LocalDate date,LocalTime start_time,int ticket_sold,Movie movie,Screen screen){
+    public void PersistentScreening(int oid, LocalDate date, LocalTime start_time, int ticket_sold, Movie movie, Screen screen) {
 
     }
 
@@ -63,8 +63,8 @@ public class Screening {
         this.screen = screen;
     }
 
-    public void changeTicketSold(int newTicketSold){
-        this.ticket_sold=newTicketSold;
+    public void changeTicketSold(int newTicketSold) {
+        this.ticket_sold = newTicketSold;
     }
 
     //    /**
