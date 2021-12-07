@@ -19,14 +19,17 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.DatePicker;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -123,7 +126,25 @@ public class StaffUI extends Application implements ScreeningObserver {
     }
 
     public void sellTicket(){
+        List<String> choices = new ArrayList<>();
+        choices.add("1");
+        choices.add("2");
+        choices.add("3");
+        choices.add("4");
 
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("1", choices);
+        dialog.setTitle("Sell Dialog");
+        dialog.setHeaderText("Choose number");
+//        dialog.setContentText("Choose your letter:");
+
+// Traditional way to get the response value.
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            managementSystem.sellTicket(Integer.parseInt(result.get()));
+        }
+
+//// The Java 8 way to get the response value (with lambda expression).
+//        result.ifPresent(letter -> System.out.println("Your choice: " + letter));
     }
 
     public void showSellTicketDialog(){
@@ -207,6 +228,7 @@ public class StaffUI extends Application implements ScreeningObserver {
         //
         for (int i = 0; i < data.size(); i++) {
             int y = TOP_MARGIN + (i + 1) * ROW_HEIGHT;
+            gc.setFont(new Font(15));
             gc.fillText(data.get(i), 0, y - ROW_HEIGHT / 3);
             gc.strokeLine(LEFT_MARGIN, y, canvas.getWidth(), y);
         }
@@ -220,8 +242,9 @@ public class StaffUI extends Application implements ScreeningObserver {
                     COL_WIDTH*SLOTS*((screening.getMovie().getDuration())/(3600f*24f)),
                     ROW_HEIGHT);
             gc.setFill(Color.BLACK);
-            gc.fillText(screening.getMovie().getName(),timeToX(LocalTime.parse(screening.getStartTime()))+5,
-                    screenToY(screening.getScreen().getId())+ROW_HEIGHT*0.7);
+            gc.setFont(new Font(10));
+            gc.fillText(screening.getMovie().getName()+"\nsell: "+screening.getTicketSold(),timeToX(LocalTime.parse(screening.getStartTime()))+5,
+                    screenToY(screening.getScreen().getId())+ROW_HEIGHT*0.4);
             gc.strokeRect(timeToX(LocalTime.parse(screening.getStartTime())),
                     screenToY(screening.getScreen().getId()),
                     COL_WIDTH*SLOTS*((screening.getMovie().getDuration())/(3600f*24f)),
