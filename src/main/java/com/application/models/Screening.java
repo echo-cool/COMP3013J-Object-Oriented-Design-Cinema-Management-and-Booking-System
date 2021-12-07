@@ -17,13 +17,16 @@ public class Screening {
 
     private Integer ticketSold;
 
-//    public Screening(LocalDate date, LocalTime start_time, int i, Movie movie, Screen screen) {
-//        this.date = date.format(DateTimeFormatter.ISO_DATE);
-//        this.startTime = start_time.format(DateTimeFormatter.ISO_TIME);
-//        this.ticketSold = i;
-//        this.movieId = movie.getId();
-//        this.screenId = screen.getId();
-//    }
+    public Screening() {
+    }
+
+    public Screening(LocalDate date, LocalTime start_time, int i, Movie movie, Screen screen) {
+        this.date = date.format(DateTimeFormatter.ISO_DATE);
+        this.startTime = start_time.format(DateTimeFormatter.ISO_TIME);
+        this.ticketSold = i;
+        this.movieId = movie.getId();
+        this.screenId = screen.getId();
+    }
 
     public Integer getId() {
         return id;
