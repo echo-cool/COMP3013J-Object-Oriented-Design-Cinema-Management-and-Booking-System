@@ -23,6 +23,18 @@ public class Screening {
 
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public LocalTime getStart_time() {
+        return start_time;
+    }
+
+    public int getTicket_sold() {
+        return ticket_sold;
+    }
+
     public Movie getMovie() {
         return movie;
     }

@@ -87,10 +87,4 @@ public interface MovieMapper {
     */
     int updateByPrimaryKey(Movie record);
 
-    Movie getMovieForOid(int mno);
-
-
-    Movie getMovie(String movie_name);
-
-    boolean addMovie(Movie movie);
 }

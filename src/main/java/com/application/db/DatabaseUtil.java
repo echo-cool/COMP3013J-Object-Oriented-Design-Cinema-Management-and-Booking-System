@@ -10,20 +10,45 @@ import org.apache.ibatis.session.SqlSession;
  * @Description:
  **/
 public class DatabaseUtil {
-    public static void query(QueryStatement queryListener){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                SqlSession sqlSession = null;
-                try {
-                    sqlSession = MyBatisUtils.openSession();
-                    queryListener.query_commands(sqlSession);
-                } catch (Exception e) {
-                    throw e;
-                } finally {
-                    MyBatisUtils.closeSession(sqlSession);
-                }
-            }
-        }).start();
+    public static void query(QueryStatement queryListener) {
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = MyBatisUtils.openSession();
+            queryListener.query_commands(sqlSession);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            MyBatisUtils.closeSession(sqlSession);
+        }
+
     }
+
+    public static void insert(QueryStatement queryListener) {
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = MyBatisUtils.openSession();
+            queryListener.query_commands(sqlSession);
+            sqlSession.commit();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            MyBatisUtils.closeSession(sqlSession);
+        }
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                SqlSession sqlSession = null;
+//                try {
+//                    sqlSession = MyBatisUtils.openSession();
+//                    queryListener.query_commands(sqlSession);
+//                    sqlSession.commit();
+//                } catch (Exception e) {
+//                    throw e;
+//                } finally {
+//                    MyBatisUtils.closeSession(sqlSession);
+//                }
+//            }
+//        }).start();
+    }
+
 }
