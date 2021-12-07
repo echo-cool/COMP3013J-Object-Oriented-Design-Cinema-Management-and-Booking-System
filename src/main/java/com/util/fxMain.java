@@ -1,7 +1,6 @@
 package com.util;
 
 import cn.hutool.core.io.resource.ResourceUtil;
-import com.view.fxlogin.FxLoginView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -30,9 +29,9 @@ public class fxMain extends Application{
         primaryStage.setTitle("Cinema Management System");
         primaryStage.setScene(scene);
         primaryStage.show();
-
-        FxLoginView view = new FxLoginView();
-        view.show();
+//
+//        FxLoginView view = new FxLoginView();
+//        view.show();
 
     }
 

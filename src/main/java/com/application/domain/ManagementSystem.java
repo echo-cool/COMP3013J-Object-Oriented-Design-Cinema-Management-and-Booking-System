@@ -78,6 +78,7 @@ public class ManagementSystem {
 
     public boolean removeScreening(Screening screening){
         cinema.deleteScreening(screening);
+        return true;
     }
 
     public boolean cancelSelected(){
