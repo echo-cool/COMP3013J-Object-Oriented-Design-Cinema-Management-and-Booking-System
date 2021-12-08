@@ -275,7 +275,7 @@
           <configuration>
             <archive>
               <manifest>
-                <mainClass>com.util.old.Main</mainClass>
+                <mainClass>com.presentation.StaffUI</mainClass>
               </manifest>
             </archive>
           </configuration>
