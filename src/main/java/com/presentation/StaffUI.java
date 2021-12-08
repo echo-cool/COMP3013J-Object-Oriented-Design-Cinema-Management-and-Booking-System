@@ -229,7 +229,7 @@ public class StaffUI extends Application implements ScreeningObserver {
         for (int i = 0; i < screens.size(); i++) {
             int y = TOP_MARGIN + (i + 1) * ROW_HEIGHT;
             gc.setFont(new Font(15));
-            gc.fillText(screens.get(i), 0, y - ROW_HEIGHT / 3);
+            gc.fillText(screens.get(i), 5, y - ROW_HEIGHT / 3 - 7);
             gc.strokeLine(0, y, canvas.getWidth(), y);
         }
         LocalTime start = LocalTime.of(0, 0);
@@ -237,7 +237,7 @@ public class StaffUI extends Application implements ScreeningObserver {
             LocalTime show = start.plusMinutes(i * 120);
             String tmp = show.getHour() + ":" + (show.getMinute() > 9 ? show.getMinute() : "0" + show.getMinute());
             int x = LEFT_MARGIN + i * COL_WIDTH;
-            gc.fillText(tmp, x + 15, 40);
+            gc.fillText(tmp, x - 15, 40);
             gc.strokeLine(x, TOP_MARGIN, x, canvas.getHeight());
         }
 
