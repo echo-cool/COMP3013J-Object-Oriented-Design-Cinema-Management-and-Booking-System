@@ -1,28 +1,41 @@
 package com.presentation;
 
+import com.application.models.Movie;
+import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.*;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 @SuppressWarnings("restriction")
 public class ReservationDialog extends Dialog<CusInfo> {
 
-    private TextField nameField = new TextField();
+    //    private TextField nameField = new TextField();
+    private ObservableList<String> MovieNames = new ObservableListWrapper<>(new ArrayList<>());
+    private ChoiceBox<String> nameField = new ChoiceBox<String>(MovieNames);
     private String[] times = {"00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
     private ChoiceBox<String> timeBox = new ChoiceBox<String>(FXCollections.observableArrayList(times));
     private Integer[] st = {0, 1, 2, 3, 4, 5};
     private ChoiceBox<Integer> coversBox = new ChoiceBox<Integer>(FXCollections.observableArrayList(st));
     private ButtonType buttonTypeOk = new ButtonType("Ok", ButtonData.OK_DONE);
 
-    public ReservationDialog(CusInfo c) {
+    public ReservationDialog(Movie[] movies) {
         this();
-        nameField.setText(c.getName());
-        timeBox.getSelectionModel().select(c.getTime().toString());
-        coversBox.getSelectionModel().select(Integer.valueOf(c.getScreen()));
+//        nameField.setText(c.getName());
+        MovieNames.clear();
+        for (Movie movie : movies) {
+            MovieNames.add(movie.getName());
+        }
+//        timeBox.getSelectionModel().select(c.getTime().toString());
+//        coversBox.getSelectionModel().select(Integer.valueOf(c.getScreen()));
     }
 
     public ReservationDialog() {
@@ -36,14 +49,17 @@ public class ReservationDialog extends Dialog<CusInfo> {
             @Override
             public CusInfo call(ButtonType b) {
                 if (b == buttonTypeOk) {
-                    return new CusInfo(nameField.getText(), LocalTime.parse(timeBox.getValue()), coversBox.getValue());
+                    return new CusInfo(nameField.getValue(), LocalTime.parse(timeBox.getValue()), coversBox.getValue());
                 }
                 return null;
             }
         });
         setTitle("New Reservation");
         setHeaderText("Please enter the details for the new Reservation");
-        nameField.textProperty().addListener((observable, oldValue, newValue) -> {
+//        nameField.textProperty().addListener((observable, oldValue, newValue) -> {
+//            validateInput();
+//        });
+        nameField.getSelectionModel().selectedIndexProperty().addListener((e) -> {
             validateInput();
         });
         timeBox.getSelectionModel().selectedIndexProperty().addListener((e) -> {
@@ -67,7 +83,7 @@ public class ReservationDialog extends Dialog<CusInfo> {
     }
 
     private void validateInput() {
-        boolean disable = nameField.getText().length() > 0 && !timeBox.getSelectionModel().isEmpty()
+        boolean disable = !nameField.getSelectionModel().isEmpty() && !timeBox.getSelectionModel().isEmpty()
                 && !coversBox.getSelectionModel().isEmpty();
         getDialogPane().lookupButton(buttonTypeOk).setDisable(!disable);
     }

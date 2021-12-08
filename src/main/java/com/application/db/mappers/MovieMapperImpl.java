@@ -21,6 +21,7 @@ public class MovieMapperImpl {
     private HashMap<Integer, Movie> id_cache = new LinkedHashMap();
     private HashMap<String, Movie> name_cache = new LinkedHashMap();
     private Movie result;
+    private Movie[] resultList = null;
 
     public boolean addMovie(Movie movie) {
         DatabaseUtil.insert(new QueryStatement() {
@@ -66,8 +67,25 @@ public class MovieMapperImpl {
             }
         });
         return result;
-
     }
+
+    public Movie[] getMovies() {
+        resultList = null;
+        DatabaseUtil.query(new QueryStatement() {
+            @Override
+            public void query_commands(SqlSession sqlSession) {
+                MovieMapper movieMapper = sqlSession.getMapper(MovieMapper.class);
+                MovieExample movieExample = new MovieExample();
+                movieExample
+                        .createCriteria()
+                        .andIdIsNotNull();
+
+                resultList = movieMapper.selectByExample(movieExample).toArray(new Movie[]{});
+            }
+        });
+        return resultList;
+    }
+
 
     public Movie getFromCacheByName(String movie_name) {
         return name_cache.get(movie_name);

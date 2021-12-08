@@ -1,7 +1,6 @@
 package com.application.domain;
 
 import com.application.models.Movie;
-import com.application.models.Screen;
 import com.application.models.Screening;
 
 import java.time.LocalDate;
@@ -9,53 +8,53 @@ import java.time.LocalTime;
 import java.util.LinkedList;
 
 /**
-* @generated
-*/
+ * @generated
+ */
 public class ManagementSystem {
     LocalDate currentDate;
-    LinkedList<ScreeningObserver> observers=new LinkedList<>();
+    LinkedList<ScreeningObserver> observers = new LinkedList<>();
     Screening[] displayScreenings;
     Screening selectedScreening;
-    Cinema cinema=new Cinema();
+    Cinema cinema = new Cinema();
 
-    public void addObserver(ScreeningObserver observer){
+    public void addObserver(ScreeningObserver observer) {
         observers.add(observer);
     }
 
-    public void notifyObservers(){
-        for (ScreeningObserver observer:observers){
+    public void notifyObservers() {
+        for (ScreeningObserver observer : observers) {
             observer.update();
         }
     }
 
-    public boolean observerMessage(String message,boolean isConfirmation){
-        return observers.get(0).message(message,isConfirmation);
+    public boolean observerMessage(String message, boolean isConfirmation) {
+        return observers.get(0).message(message, isConfirmation);
     }
 
-    public boolean addMovie(Movie movie){
+    public boolean addMovie(Movie movie) {
         return cinema.addMovie(movie);
     }
 
 
-    public boolean sellTicket(int num){
-        int capacity=selectedScreening.getScreen().getCapacity();
-        int ticket_sold=selectedScreening.getTicketSold();
-        if(!checkInsufficientTicket(selectedScreening,num)){
-            selectedScreening.setTicketSold(ticket_sold+num);
+    public boolean sellTicket(int num) {
+        int capacity = selectedScreening.getScreen().getCapacity();
+        int ticket_sold = selectedScreening.getTicketSold();
+        if (!checkInsufficientTicket(selectedScreening, num)) {
+            selectedScreening.setTicketSold(ticket_sold + num);
             cinema.updateScreening(selectedScreening);
             notifyObservers();
             return true;
-        }else{
-            observerMessage("no sufficient tickets!",true);
+        } else {
+            observerMessage("no sufficient tickets!", true);
             return false;
         }
 
     }
 
 
-    public boolean scheduleScreening(LocalDate date,LocalTime start_time,int screen_no,String movie_name){
-        Movie movie=cinema.getMovie(movie_name);
-        if(movie!=null) {
+    public boolean scheduleScreening(LocalDate date, LocalTime start_time, int screen_no, String movie_name) {
+        Movie movie = cinema.getMovie(movie_name);
+        if (movie != null) {
             if (checkOverlapScreening(date, start_time, screen_no, movie.getDuration())) {
                 observerMessage("overlap", false);
                 return false;
@@ -69,13 +68,13 @@ public class ManagementSystem {
         return false;
     }
 
-    public boolean updateSelected(LocalTime time,int screen_no){
-        if(checkOverlapScreening(LocalDate.parse(selectedScreening.getDate()),time,screen_no,selectedScreening.getMovie().getDuration())){
-            observerMessage("overlap",false);
+    public boolean updateSelected(LocalTime time, int screen_no) {
+        if (checkOverlapScreening(LocalDate.parse(selectedScreening.getDate()), time, screen_no, selectedScreening.getMovie().getDuration())) {
+            observerMessage("overlap", false);
             return false;
-        }else{
+        } else {
 
-            if(observerMessage("ReSchedule?",true)) {
+            if (observerMessage("ReSchedule?", true)) {
                 selectedScreening.setStartTime(time.toString());
                 selectedScreening.setScreenId(screen_no);
                 cinema.updateScreening(selectedScreening);
@@ -86,42 +85,43 @@ public class ManagementSystem {
         }
     }
 
-    public boolean removeScreening(Screening screening){
+    public boolean removeScreening(Screening screening) {
         cinema.deleteScreening(screening);
         return true;
     }
 
-    public boolean cancelSelected(){
+    public boolean cancelSelected() {
 
-            if (selectedScreening.getTicketSold()>0){
-                observerMessage("cannot cancel this",false);
-                notifyObservers();
-                return false;
-            }else{
-                if(observerMessage("cancel?",true)){
-                boolean temp=removeScreening(selectedScreening);
+        if (selectedScreening.getTicketSold() > 0) {
+            observerMessage("cannot cancel this", false);
+            notifyObservers();
+            return false;
+        } else {
+            if (observerMessage("cancel?", true)) {
+                boolean temp = removeScreening(selectedScreening);
                 setDate(currentDate);
                 notifyObservers();
-                return temp;}
+                return temp;
             }
-            return false;
         }
-
-
-    private boolean checkInsufficientTicket(Screening screening,int num){
-        return screening.getScreen().getCapacity() - screening.getTicketSold() -num < 0;
+        return false;
     }
 
-    private boolean checkOverlapScreening(LocalDate date,LocalTime start_time,int screen_no,int duration){
-        Screening[] screenings=cinema.getScreenings(date);
-        for(Screening screening:screenings){
-            if(screening.getScreen().getId()==screen_no){
-                LocalTime over_time=start_time.plusSeconds(duration);
-                if(over_time.isBefore(LocalTime.parse(screening.getStartTime()))||start_time.isAfter(LocalTime.parse(screening.getStartTime()).plusSeconds(screening.getMovie().getDuration()))){
 
-                }else{
-                    if(selectedScreening!=null){
-                        if(screen_no==selectedScreening.getScreenId()){
+    private boolean checkInsufficientTicket(Screening screening, int num) {
+        return screening.getScreen().getCapacity() - screening.getTicketSold() - num < 0;
+    }
+
+    private boolean checkOverlapScreening(LocalDate date, LocalTime start_time, int screen_no, int duration) {
+        Screening[] screenings = cinema.getScreenings(date);
+        for (Screening screening : screenings) {
+            if (screening.getScreen().getId() == screen_no) {
+                LocalTime over_time = start_time.plusSeconds(duration);
+                if (over_time.isBefore(LocalTime.parse(screening.getStartTime())) || start_time.isAfter(LocalTime.parse(screening.getStartTime()).plusSeconds(screening.getMovie().getDuration()))) {
+
+                } else {
+                    if (selectedScreening != null) {
+                        if (screen_no == selectedScreening.getScreenId()) {
                             continue;
                         }
                     }
@@ -132,39 +132,43 @@ public class ManagementSystem {
         return false;
     }
 
-    public void setDate(LocalDate date){
-        this.currentDate=date;
-        displayScreenings=cinema.getScreenings(date);
+    public void setDate(LocalDate date) {
+        this.currentDate = date;
+        displayScreenings = cinema.getScreenings(date);
         System.out.println(displayScreenings.length);
         notifyObservers();
     }
 
-    public Screening getSelectedScreening(){
+    public Screening getSelectedScreening() {
         return selectedScreening;
     }
 
-    public void changeSelected(LocalTime time, int screen){
+    public void changeSelected(LocalTime time, int screen) {
         label:
         {
             for (Screening screening : displayScreenings) {
-                if (screen==(screening.getScreen().getId())) {
+                if (screen == (screening.getScreen().getId())) {
                     if (LocalTime.parse(screening.getStartTime()).isBefore(time) && LocalTime.parse(screening.getStartTime()).plusSeconds(screening.getMovie().getDuration()).isAfter(time)) {
                         selectedScreening = screening;
                         break label;
                     }
                 }
             }
-            selectedScreening=null;
+            selectedScreening = null;
         }
         notifyObservers();
     }
 
-    public Screening[] getScreenings(){
+    public Screening[] getScreenings() {
         return displayScreenings;
     }
 
     public LocalDate getCurrentDate() {
         return currentDate;
+    }
+
+    public Movie[] getAllMovies() {
+        return cinema.getMovies();
     }
 
 

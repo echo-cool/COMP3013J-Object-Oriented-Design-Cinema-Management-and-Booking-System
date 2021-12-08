@@ -55,5 +55,9 @@ public class Cinema {
         return movieMapper.addMovie(movie);
     }
 
+    public Movie[] getMovies(){
+        return movieMapper.getMovies();
+    }
+
 
 }

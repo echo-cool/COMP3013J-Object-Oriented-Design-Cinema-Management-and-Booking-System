@@ -6,7 +6,6 @@ import com.application.domain.ScreeningObserver;
 import com.application.models.Movie;
 import com.application.models.Screening;
 import com.view.fxaddarrangement.AddArrangementView;
-import com.view.fxaddmovie.AddMovieView;
 import com.view.fxneworder.NewOrderView;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -36,8 +35,25 @@ import java.util.Optional;
 
 
 public class StaffUI extends Application implements ScreeningObserver {
-    ManagementSystem managementSystem;
+    final static int LEFT_MARGIN = 60;
+    final static int TOP_MARGIN = 50;
+    final static int BOTTOM_MARGIN = 50;
+    final static int ROW_HEIGHT = 30;
+    final static int COL_WIDTH = 60;
+    final static int SLOTS = 12;                    // Number of booking slots shown
     private static Stage primaryStage;
+    public LocalDate currentDate = LocalDate.now();
+    public Screening[] currentScreenings = new Screening[0];
+    ManagementSystem managementSystem;
+    @FXML
+    private DatePicker datePicker;
+    @FXML
+    private Canvas canvas;
+    private double start_x = 0;
+    private double start_y = 0;
+    private boolean is_dragging = false;
+    private double dragged_x = 0;
+    private double dragged_y = 0;
 
     public StaffUI() {
         managementSystem = new ManagementSystem();
@@ -96,7 +112,6 @@ public class StaffUI extends Application implements ScreeningObserver {
             return true;
         }
     }
-
 
     private int timeToX(LocalTime time) {
         return (int) ((time.getHour() * 60 + time.getMinute()) / (60 * 24f) * (SLOTS * COL_WIDTH) + LEFT_MARGIN);
@@ -157,7 +172,7 @@ public class StaffUI extends Application implements ScreeningObserver {
     }
 
     public void showScheduleScreeningDialog() {
-        ReservationDialog addRes = new ReservationDialog();
+        ReservationDialog addRes = new ReservationDialog(managementSystem.getAllMovies());
         Optional<CusInfo> result = addRes.showAndWait();
 
         if (result.isPresent()) {
@@ -177,23 +192,6 @@ public class StaffUI extends Application implements ScreeningObserver {
 
     public void showAddMovieDialog() {
     }
-
-
-    public LocalDate currentDate = LocalDate.now();
-    public Screening[] currentScreenings = new Screening[0];
-
-
-    final static int LEFT_MARGIN = 60;
-    final static int TOP_MARGIN = 50;
-    final static int BOTTOM_MARGIN = 50;
-    final static int ROW_HEIGHT = 30;
-    final static int COL_WIDTH = 60;
-    final static int SLOTS = 12;                    // Number of booking slots shown
-
-    @FXML
-    private DatePicker datePicker;
-    @FXML
-    private Canvas canvas;
 
     public void initialize() {
         datePicker.setValue(LocalDate.now());
@@ -278,7 +276,6 @@ public class StaffUI extends Application implements ScreeningObserver {
 
     }
 
-
     public void showDate(ActionEvent actionEvent) {
 
     }
@@ -296,7 +293,6 @@ public class StaffUI extends Application implements ScreeningObserver {
         datePicker.setValue(currentDate);
         managementSystem.setDate(currentDate);
     }
-
 
     public void showNewOrderView(ActionEvent actionEvent) {
         NewOrderView orderView = new NewOrderView();
@@ -359,7 +355,7 @@ public class StaffUI extends Application implements ScreeningObserver {
 //            System.out.println("Username=" + usernamePassword.getKey() + ", Password=" + usernamePassword.getValue());
             Movie movie = new Movie();
             movie.setName(input.getKey());
-            movie.setDuration(input.getValue());
+            movie.setDuration(input.getValue() * 60);
             managementSystem.addMovie(movie);
         });
     }
@@ -388,12 +384,6 @@ public class StaffUI extends Application implements ScreeningObserver {
     public void onMouseDragExited(MouseEvent mouseEvent) {
 
     }
-
-    private double start_x = 0;
-    private double start_y = 0;
-    private boolean is_dragging = false;
-    private double dragged_x = 0;
-    private double dragged_y = 0;
 
     public void onMouseDragged(MouseEvent mouseEvent) {
         is_dragging = true;
