@@ -10,19 +10,24 @@ import com.view.fxaddarrangement.AddArrangementView;
 import com.view.fxaddmovie.AddMovieView;
 import com.view.fxneworder.NewOrderView;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -300,21 +305,65 @@ public class StaffUI extends Application implements ScreeningObserver {
     }
 
     public void showAddMovieView(ActionEvent actionEvent) {
-//        TextInputDialog dialog = new TextInputDialog("walter");
-//        dialog.setTitle("Add movie");
-//        dialog.setHeaderText("Add a movie");
-////        dialog.setContentText("Please enter your name:");
-//
-//// Traditional way to get the response value.
-//        Optional<String> result = dialog.showAndWait();
-//        if (result.isPresent()){
-//            Movie movie=new Movie();
-//            movie.setName();
-//            managementSystem.addMovie(movie);
-//        }
+        Dialog<Pair<String, Integer>> dialog = new Dialog<>();
+        dialog.setTitle("Add movie dialog");
+        dialog.setHeaderText("add a movie");
 
-// The Java 8 way to get the response value (with lambda expression).
-//        result.ifPresent(name -> System.out.println("Your name: " + name));
+
+
+// Set the button types.
+        ButtonType loginButtonType = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+
+// Create the movie_name and password labels and fields.
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        TextField movie_name = new TextField();
+        movie_name.setPromptText("movie name");
+
+        TextField duration=new TextField();
+
+        duration.setPromptText("duration");
+
+        grid.add(new Label("movie name:"), 0, 0);
+        grid.add(movie_name, 1, 0);
+        grid.add(new Label("duration:"), 0, 1);
+        grid.add(duration, 1, 1);
+
+// Enable/Disable login button depending on whether a movie_name was entered.
+        Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
+        loginButton.setDisable(true);
+
+// Do some validation (using the Java 8 lambda syntax).
+        movie_name.textProperty().addListener((observable, oldValue, newValue) -> {
+            loginButton.setDisable(newValue.trim().isEmpty());
+        });
+
+        dialog.getDialogPane().setContent(grid);
+
+// Request focus on the movie_name field by default.
+        Platform.runLater(() -> movie_name.requestFocus());
+
+// Convert the result to a movie_name-password-pair when the login button is clicked.
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == loginButtonType) {
+                return new Pair<>(movie_name.getText(), Integer.parseInt(duration.getText()));
+            }
+            return null;
+        });
+
+        Optional<Pair<String, Integer>> result = dialog.showAndWait();
+
+        result.ifPresent(input -> {
+//            System.out.println("Username=" + usernamePassword.getKey() + ", Password=" + usernamePassword.getValue());
+            Movie movie=new Movie();
+            movie.setName(input.getKey());
+            movie.setDuration(input.getValue());
+            managementSystem.addMovie(movie);
+        });
     }
 
     public void showAddArraignmentView(ActionEvent actionEvent) {
