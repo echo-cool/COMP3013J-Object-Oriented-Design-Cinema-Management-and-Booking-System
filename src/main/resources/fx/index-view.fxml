@@ -56,8 +56,8 @@
                         <Button fx:id="addButton" mnemonicParsing="false" onAction="#showScheduleScreeningDialog" text="Schedule" />
                         <Button mnemonicParsing="false" onAction="#showAddMovieView" text="Add Movie" />
                         <Button mnemonicParsing="false" onAction="#showAddArraignmentView" text="Add Arraignment" />
-                        <Button mnemonicParsing="false" onAction="#CancelOrder" text="Cancel Order" />
-                  <Button mnemonicParsing="false" text="sell" onAction="#sellTicket"/>
+                        <Button mnemonicParsing="false" onAction="#cancelSchedule" text="Cancel" />
+                  <Button mnemonicParsing="false" onAction="#sellTicket" text="sell" />
                     </children>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -70,10 +70,7 @@
                     <children>
                         <Pane layoutX="87.0" layoutY="-33.0" prefHeight="333.0" prefWidth="638.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <Canvas fx:id="canvas" height="512.0" width="1024.0" onMouseClicked="#onMouseClicked"
-                                        onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed"
-                                        onMouseDragEntered="#onMouseDragEntered" onMouseDragReleased="#onMouseDragExited"
-                                onMouseReleased="#onMouseReleased"/>
+                                <Canvas fx:id="canvas" height="512.0" onMouseClicked="#onMouseClicked" onMouseDragEntered="#onMouseDragEntered" onMouseDragReleased="#onMouseDragExited" onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" onMouseReleased="#onMouseReleased" width="1024.0" />
                             </children>
                         </Pane>
                     </children>

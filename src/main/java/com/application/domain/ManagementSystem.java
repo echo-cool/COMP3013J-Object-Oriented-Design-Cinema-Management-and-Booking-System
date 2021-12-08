@@ -92,17 +92,21 @@ public class ManagementSystem {
     }
 
     public boolean cancelSelected(){
-        if(observerMessage("cancel?",true)){
+
             if (selectedScreening.getTicketSold()>0){
+                observerMessage("cannot cancel this",false);
                 notifyObservers();
                 return false;
             }else{
+                if(observerMessage("cancel?",true)){
                 boolean temp=removeScreening(selectedScreening);
+                setDate(currentDate);
                 notifyObservers();
-                return temp;
+                return temp;}
             }
-        }return false;
-    }
+            return false;
+        }
+
 
     private boolean checkInsufficientTicket(Screening screening,int num){
         return screening.getScreen().getCapacity() - screening.getTicketSold() -num < 0;

@@ -4,6 +4,7 @@ package com.presentation;
 import cn.hutool.core.io.resource.ResourceUtil;
 import com.application.domain.ManagementSystem;
 import com.application.domain.ScreeningObserver;
+import com.application.models.Movie;
 import com.application.models.Screening;
 import com.view.fxaddarrangement.AddArrangementView;
 import com.view.fxaddmovie.AddMovieView;
@@ -17,10 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -302,8 +300,21 @@ public class StaffUI extends Application implements ScreeningObserver {
     }
 
     public void showAddMovieView(ActionEvent actionEvent) {
-        AddMovieView movieView = new AddMovieView();
-        movieView.show();
+//        TextInputDialog dialog = new TextInputDialog("walter");
+//        dialog.setTitle("Add movie");
+//        dialog.setHeaderText("Add a movie");
+////        dialog.setContentText("Please enter your name:");
+//
+//// Traditional way to get the response value.
+//        Optional<String> result = dialog.showAndWait();
+//        if (result.isPresent()){
+//            Movie movie=new Movie();
+//            movie.setName();
+//            managementSystem.addMovie(movie);
+//        }
+
+// The Java 8 way to get the response value (with lambda expression).
+//        result.ifPresent(name -> System.out.println("Your name: " + name));
     }
 
     public void showAddArraignmentView(ActionEvent actionEvent) {
@@ -311,8 +322,8 @@ public class StaffUI extends Application implements ScreeningObserver {
         addArrangementView.show();
     }
 
-    public void CancelOrder(ActionEvent actionEvent) {
-
+    public void cancelSchedule(ActionEvent actionEvent) {
+        managementSystem.cancelSelected();
     }
 
     public void test(ActionEvent actionEvent){
