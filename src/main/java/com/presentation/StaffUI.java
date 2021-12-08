@@ -118,7 +118,7 @@ public class StaffUI extends Application implements ScreeningObserver {
     }
 
     private LocalTime xToTime(int x) {
-        return LocalTime.ofSecondOfDay((long) (60 * ((24 * 60f * (x - LEFT_MARGIN) / (SLOTS * COL_WIDTH)))));
+        return LocalTime.ofSecondOfDay(Math.min(3600*24-1,Math.max((long) (60 * ((24 * 60f * (x - LEFT_MARGIN) / (SLOTS * COL_WIDTH)))),0)));
     }
 
     private int screenToY(int screen) {
@@ -126,7 +126,7 @@ public class StaffUI extends Application implements ScreeningObserver {
     }
 
     private int yToScreen(int y) {
-        return (y - TOP_MARGIN) / ROW_HEIGHT;
+        return Math.min(Math.max((y - TOP_MARGIN) / ROW_HEIGHT,0),5);
     }
 
     public void mousePressed(int x, int y) {
@@ -267,7 +267,7 @@ public class StaffUI extends Application implements ScreeningObserver {
 //                    COL_WIDTH*SLOTS*((managementSystem.getSelectedScreening().getMovie().getDuration())/(3600f*24f)),
 //                    ROW_HEIGHT);
             gc.fillRect(
-                    timeToX(LocalTime.parse(managementSystem.getSelectedScreening().getStartTime())) - start_x + dragged_x,
+                    Math.min(timeToX(xToTime((int) (timeToX(LocalTime.parse(managementSystem.getSelectedScreening().getStartTime())) - start_x + dragged_x))),-1+LEFT_MARGIN+COL_WIDTH*SLOTS-COL_WIDTH * SLOTS * ((managementSystem.getSelectedScreening().getMovie().getDuration()) / (3600f * 24f))),
                     screenToY(yToScreen((int) dragged_y)),
                     COL_WIDTH * SLOTS * ((managementSystem.getSelectedScreening().getMovie().getDuration()) / (3600f * 24f)),
                     ROW_HEIGHT);
@@ -395,15 +395,16 @@ public class StaffUI extends Application implements ScreeningObserver {
     public void onMouseReleased(MouseEvent mouseEvent) {
         if (managementSystem.getSelectedScreening() != null && is_dragging) {
             is_dragging = false;
-            System.out.println(managementSystem.updateSelected(xToTime((int) (timeToX(LocalTime.parse(managementSystem.getSelectedScreening().getStartTime())) - start_x + dragged_x)), yToScreen((int) dragged_y)));
+            System.out.println(managementSystem.updateSelected(xToTime((int) (Math.min(timeToX(xToTime((int) (timeToX(LocalTime.parse(managementSystem.getSelectedScreening().getStartTime())) - start_x + dragged_x))),-1+LEFT_MARGIN+COL_WIDTH*SLOTS-COL_WIDTH * SLOTS * ((managementSystem.getSelectedScreening().getMovie().getDuration()) / (3600f * 24f))))), yToScreen((int) dragged_y)));
         }
     }
 
     public void onMousePressed(MouseEvent mouseEvent) {
-        System.out.printf("%s,%s\n", mouseEvent.getX(), mouseEvent.getY());
+
         start_x = mouseEvent.getX();
         start_y = mouseEvent.getY();
         LocalTime time = xToTime((int) mouseEvent.getX());
+        System.out.printf("%s,%s\n", time, mouseEvent.getY());
         int screen = yToScreen((int) mouseEvent.getY());
         managementSystem.changeSelected(time, screen);
     }
