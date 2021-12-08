@@ -243,7 +243,7 @@ public class StaffUI extends Application implements ScreeningObserver {
         }
 
         for (Screening screening : currentScreenings) {
-            if(screening.getTicketSold() > 0)
+            if (screening.getTicketSold() > 0)
                 gc.setFill(Color.LIGHTGREEN);
             else
                 gc.setFill(Color.LIGHTPINK);
@@ -269,7 +269,12 @@ public class StaffUI extends Application implements ScreeningObserver {
         }
 
         if (managementSystem.getSelectedScreening() != null && is_dragging) {
-            gc.setFill(Color.rgb(0, 255, 0, 0.7));
+            if (managementSystem.getSelectedScreening().getTicketSold() > 0) {
+                gc.setFill(Color.rgb(0, 255, 0, 0.7));
+            } else {
+                gc.setFill(Color.rgb(255, 182, 193, 0.7));
+            }
+
 //            gc.fillRect(
 //                    timeToX(LocalTime.parse(managementSystem.getSelectedScreening().getStartTime()))-start_x+dragged_x,
 //                    screenToY(managementSystem.getSelectedScreening().getScreen().getId())-start_y+dragged_y,

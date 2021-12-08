@@ -45,18 +45,16 @@ public class ManagementSystem {
             notifyObservers();
             return true;
         } else {
-            observerMessage("no sufficient tickets!", true);
+            observerMessage("Sorry no sufficient tickets!", true);
             return false;
         }
-
     }
-
 
     public boolean scheduleScreening(LocalDate date, LocalTime start_time, int screen_no, String movie_name) {
         Movie movie = cinema.getMovie(movie_name);
         if (movie != null) {
             if (checkOverlapScreening(date, start_time, screen_no, movie.getDuration())) {
-                observerMessage("overlap", false);
+                observerMessage("Sorry the intended screening overlaps with the current one!", false);
                 return false;
             } else {
                 cinema.scheduleScreening(date, start_time, screen_no, movie_name);
@@ -70,9 +68,9 @@ public class ManagementSystem {
 
     public boolean updateSelected(LocalTime time, int screen_no) {
         if (checkOverlapScreening(LocalDate.parse(selectedScreening.getDate()), time, screen_no, selectedScreening.getMovie().getDuration())) {
-            observerMessage("Sorry the intended screening overlaps with the current one.", false);
+            observerMessage("Sorry the intended screening overlaps with the current one!", false);
         } else if (selectedScreening.getTicketSold() > 0) {
-            observerMessage("Sorry you cannot reschedule a screening with tickets sold.", false);
+            observerMessage("Sorry you cannot reschedule a screening with tickets sold!", false);
         } else {
             if (observerMessage("Are you sure to reschedule this screening?", true)) {
                 selectedScreening.setStartTime(time.toString());
@@ -92,7 +90,7 @@ public class ManagementSystem {
 
     public boolean cancelSelected() {
         if (selectedScreening.getTicketSold() > 0) {
-            observerMessage("Sorry you cannot cancel this screening with tickets sold.", false);
+            observerMessage("Sorry you cannot cancel this screening with tickets sold!", false);
             notifyObservers();
             return false;
         } else {

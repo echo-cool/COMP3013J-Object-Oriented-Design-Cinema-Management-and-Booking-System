@@ -78,7 +78,7 @@
                                         onMouseDragEntered="#onMouseDragEntered"
                                         onMouseDragReleased="#onMouseDragExited" onMouseDragged="#onMouseDragged"
                                         onMousePressed="#onMousePressed" onMouseReleased="#onMouseReleased"
-                                        width="1024.0"/>
+                                        width="1070.0"/>
                             </children>
                         </Pane>
                     </children>

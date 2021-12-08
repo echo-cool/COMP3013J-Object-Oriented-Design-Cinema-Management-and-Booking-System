@@ -54,8 +54,8 @@ public class ReservationDialog extends Dialog<CusInfo> {
                 return null;
             }
         });
-        setTitle("New Reservation");
-        setHeaderText("Please enter the details for the new Reservation");
+        setTitle("New Scheduled Screening");
+        setHeaderText("Please enter the details for the newly scheduled screening");
 //        nameField.textProperty().addListener((observable, oldValue, newValue) -> {
 //            validateInput();
 //        });
