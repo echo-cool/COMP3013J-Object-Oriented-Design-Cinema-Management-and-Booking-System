@@ -38,7 +38,7 @@ public class StaffUI extends Application implements ScreeningObserver {
     final static int TOP_MARGIN = 50;
     final static int BOTTOM_MARGIN = 50;
     final static int ROW_HEIGHT = 60;
-    final static int COL_WIDTH = 80;
+    final static int COL_WIDTH = 75;
     final static int SLOTS = 12;                    // Number of booking slots shown
     private static Stage primaryStage;
     public LocalDate currentDate = LocalDate.now();
@@ -214,8 +214,8 @@ public class StaffUI extends Application implements ScreeningObserver {
         screens.add("Screen 6");
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        canvas.setHeight(TOP_MARGIN + screens.size() * ROW_HEIGHT);
-        canvas.setWidth(LEFT_MARGIN + (SLOTS * COL_WIDTH));
+        canvas.setHeight(TOP_MARGIN + screens.size() * ROW_HEIGHT + 10);
+        canvas.setWidth(LEFT_MARGIN + (SLOTS * COL_WIDTH) + 50);
 //        gc.setFill(Color.WHITE);
 //        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         gc.setLineWidth(2.0);
