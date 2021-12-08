@@ -70,10 +70,12 @@ public class ManagementSystem {
 
     public boolean updateSelected(LocalTime time, int screen_no) {
         if (checkOverlapScreening(LocalDate.parse(selectedScreening.getDate()), time, screen_no, selectedScreening.getMovie().getDuration())) {
-            observerMessage("overlap", false);
-            return false;
-        } else {
-
+            observerMessage("Sorry the intended screening overlaps with the current one.", false);
+        }
+        else if (selectedScreening.getTicketSold() > 0) {
+            observerMessage("Sorry you cannot reschedule a screening with tickets sold.", false);
+        }
+        else {
             if (observerMessage("ReSchedule?", true)) {
                 selectedScreening.setStartTime(time.toString());
                 selectedScreening.setScreenId(screen_no);
@@ -81,8 +83,8 @@ public class ManagementSystem {
                 notifyObservers();
                 return true;
             }
-            return false;
         }
+        return false;
     }
 
     public boolean removeScreening(Screening screening) {
@@ -91,7 +93,6 @@ public class ManagementSystem {
     }
 
     public boolean cancelSelected() {
-
         if (selectedScreening.getTicketSold() > 0) {
             observerMessage("cannot cancel this", false);
             notifyObservers();

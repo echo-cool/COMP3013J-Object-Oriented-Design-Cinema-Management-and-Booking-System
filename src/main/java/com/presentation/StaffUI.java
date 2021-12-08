@@ -244,7 +244,7 @@ public class StaffUI extends Application implements ScreeningObserver {
 
 
         for (Screening screening : currentScreenings) {
-            gc.setFill(Color.RED);
+            gc.setFill(Color.LIGHTGREEN);
             gc.fillRect(
                     timeToX(LocalTime.parse(screening.getStartTime())),
                     screenToY(screening.getScreen().getId()),
