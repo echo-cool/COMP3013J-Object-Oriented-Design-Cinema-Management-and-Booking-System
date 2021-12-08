@@ -55,7 +55,6 @@
                         <Button mnemonicParsing="false" onAction="#nextDay" text="&gt;" />
                         <Button fx:id="addButton" mnemonicParsing="false" onAction="#showScheduleScreeningDialog" text="Schedule" />
                         <Button mnemonicParsing="false" onAction="#showAddMovieView" text="Add Movie" />
-                        <Button mnemonicParsing="false" onAction="#showAddArraignmentView" text="Add Arraignment" />
                         <Button mnemonicParsing="false" onAction="#cancelSchedule" text="Cancel" />
                   <Button mnemonicParsing="false" onAction="#sellTicket" text="sell" />
                     </children>
