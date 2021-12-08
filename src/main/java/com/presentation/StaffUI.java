@@ -414,6 +414,7 @@ public class StaffUI extends Application implements ScreeningObserver {
     }
 
     public void onMousePressed(MouseEvent mouseEvent) {
+        start_x = mouseEvent.getX();
         start_y = mouseEvent.getY();
         LocalTime time = xToTime((int) mouseEvent.getX());
         System.out.printf("%s,%s\n", time, mouseEvent.getY());
