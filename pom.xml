@@ -30,16 +30,16 @@
   <dependencies>
 
 
-<!--    <dependency>-->
-<!--      <groupId>org.openjfx</groupId>-->
-<!--      <artifactId>javafx-controls</artifactId>-->
-<!--      <version>11.0.2</version>-->
-<!--    </dependency>-->
-<!--    <dependency>-->
-<!--      <groupId>org.openjfx</groupId>-->
-<!--      <artifactId>javafx-fxml</artifactId>-->
-<!--      <version>11.0.2</version>-->
-<!--    </dependency>-->
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-controls</artifactId>
+      <version>11.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-fxml</artifactId>
+      <version>11.0.2</version>
+    </dependency>
 
 
     <!--引入mybatis框架-->
@@ -310,7 +310,7 @@
           <!-- MainClass in mainfest make a executable jar -->
           <archive>
             <manifest>
-              <mainClass>com.util.old.Main</mainClass>
+              <mainClass>com.presentation.StaffUI</mainClass>
             </manifest>
           </archive>
 
