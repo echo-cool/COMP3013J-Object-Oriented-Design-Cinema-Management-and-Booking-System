@@ -6,7 +6,7 @@ import com.application.domain.ScreeningObserver;
 import com.application.models.Movie;
 import com.application.models.Screening;
 import com.view.fxaddarrangement.AddArrangementView;
-import com.view.fxneworder.NewOrderView;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -299,11 +299,6 @@ public class StaffUI extends Application implements ScreeningObserver {
         currentDate = currentDate.minusDays(1);
         datePicker.setValue(currentDate);
         managementSystem.setDate(currentDate);
-    }
-
-    public void showNewOrderView(ActionEvent actionEvent) {
-        NewOrderView orderView = new NewOrderView();
-        orderView.show();
     }
 
     public void showAddMovieView(ActionEvent actionEvent) {
