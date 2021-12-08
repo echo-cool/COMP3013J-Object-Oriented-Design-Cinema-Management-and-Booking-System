@@ -38,8 +38,8 @@ public class StaffUI extends Application implements ScreeningObserver {
     final static int LEFT_MARGIN = 60;
     final static int TOP_MARGIN = 50;
     final static int BOTTOM_MARGIN = 50;
-    final static int ROW_HEIGHT = 30;
-    final static int COL_WIDTH = 60;
+    final static int ROW_HEIGHT = 60;
+    final static int COL_WIDTH = 80;
     final static int SLOTS = 12;                    // Number of booking slots shown
     private static Stage primaryStage;
     public LocalDate currentDate = LocalDate.now();
@@ -213,7 +213,6 @@ public class StaffUI extends Application implements ScreeningObserver {
         screens.add("Screen 4");
         screens.add("Screen 5");
         screens.add("Screen 6");
-        screens.add("Screen 7");
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         canvas.setHeight(TOP_MARGIN + screens.size() * ROW_HEIGHT);
@@ -233,6 +232,14 @@ public class StaffUI extends Application implements ScreeningObserver {
             gc.setFont(new Font(15));
             gc.fillText(screens.get(i), 0, y - ROW_HEIGHT / 3);
             gc.strokeLine(LEFT_MARGIN, y, canvas.getWidth(), y);
+        }
+        LocalTime start = LocalTime.of(0, 0);
+        for (int i = 0; i < SLOTS + 1; i++) {
+            LocalTime show = start.plusMinutes(i * 120);
+            String tmp = show.getHour() + ":" + (show.getMinute() > 9 ? show.getMinute() : "0" + show.getMinute());
+            int x = LEFT_MARGIN + i * COL_WIDTH;
+            gc.fillText(tmp, x + 15, 40);
+            gc.strokeLine(x, TOP_MARGIN, x, canvas.getHeight());
         }
 
 
@@ -320,11 +327,11 @@ public class StaffUI extends Application implements ScreeningObserver {
 
         TextField duration = new TextField();
 
-        duration.setPromptText("Duration");
+        duration.setPromptText("Duration (Minutes)");
 
         grid.add(new Label("Movie Name:"), 0, 0);
         grid.add(movie_name, 1, 0);
-        grid.add(new Label("Duration:"), 0, 1);
+        grid.add(new Label("Duration(Minutes):"), 0, 1);
         grid.add(duration, 1, 1);
 
 // Enable/Disable login button depending on whether a movie_name was entered.
