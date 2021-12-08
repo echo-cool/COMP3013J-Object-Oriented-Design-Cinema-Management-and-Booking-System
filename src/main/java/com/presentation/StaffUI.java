@@ -213,7 +213,6 @@ public class StaffUI extends Application implements ScreeningObserver {
         screens.add("Screen 4");
         screens.add("Screen 5");
         screens.add("Screen 6");
-        screens.add("Screen 7");
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         canvas.setHeight(TOP_MARGIN + screens.size() * ROW_HEIGHT);
@@ -328,11 +327,11 @@ public class StaffUI extends Application implements ScreeningObserver {
 
         TextField duration = new TextField();
 
-        duration.setPromptText("Duration");
+        duration.setPromptText("Duration (Minutes)");
 
         grid.add(new Label("Movie Name:"), 0, 0);
         grid.add(movie_name, 1, 0);
-        grid.add(new Label("Duration:"), 0, 1);
+        grid.add(new Label("Duration(Minutes):"), 0, 1);
         grid.add(duration, 1, 1);
 
 // Enable/Disable login button depending on whether a movie_name was entered.
