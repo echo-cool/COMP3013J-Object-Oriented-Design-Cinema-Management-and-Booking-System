@@ -6,7 +6,6 @@ import com.application.domain.ScreeningObserver;
 import com.application.models.Movie;
 import com.application.models.Screening;
 import com.view.fxaddarrangement.AddArrangementView;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -231,7 +230,7 @@ public class StaffUI extends Application implements ScreeningObserver {
             int y = TOP_MARGIN + (i + 1) * ROW_HEIGHT;
             gc.setFont(new Font(15));
             gc.fillText(screens.get(i), 0, y - ROW_HEIGHT / 3);
-            gc.strokeLine(LEFT_MARGIN, y, canvas.getWidth(), y);
+            gc.strokeLine(0, y, canvas.getWidth(), y);
         }
         LocalTime start = LocalTime.of(0, 0);
         for (int i = 0; i < SLOTS + 1; i++) {
@@ -242,9 +241,11 @@ public class StaffUI extends Application implements ScreeningObserver {
             gc.strokeLine(x, TOP_MARGIN, x, canvas.getHeight());
         }
 
-
         for (Screening screening : currentScreenings) {
-            gc.setFill(Color.RED);
+            if (screening.getTicketSold() > 0)
+                gc.setFill(Color.LIGHTGREEN);
+            else
+                gc.setFill(Color.LIGHTPINK);
             gc.fillRect(
                     timeToX(LocalTime.parse(screening.getStartTime())),
                     screenToY(screening.getScreen().getId()),
@@ -252,7 +253,13 @@ public class StaffUI extends Application implements ScreeningObserver {
                     ROW_HEIGHT);
             gc.setFill(Color.BLACK);
             gc.setFont(new Font(10));
-            gc.fillText(screening.getMovie().getName() + "\nsell: " + screening.getTicketSold(), timeToX(LocalTime.parse(screening.getStartTime())) + 5,
+            String movie_name = screening.getMovie().getName();
+            Integer scale_factor = 8 * 60;
+//            System.out.println(screening.getMovie().getDuration() / scale_factor);
+            if (movie_name.length() >= screening.getMovie().getDuration() / scale_factor) {
+                movie_name = movie_name.substring(0, screening.getMovie().getDuration() / scale_factor) + "...";
+            }
+            gc.fillText(movie_name + "\nsell: " + screening.getTicketSold(), timeToX(LocalTime.parse(screening.getStartTime())) + 5,
                     screenToY(screening.getScreen().getId()) + ROW_HEIGHT * 0.4);
             gc.strokeRect(timeToX(LocalTime.parse(screening.getStartTime())),
                     screenToY(screening.getScreen().getId()),
@@ -267,7 +274,12 @@ public class StaffUI extends Application implements ScreeningObserver {
         }
 
         if (managementSystem.getSelectedScreening() != null && is_dragging) {
-            gc.setFill(Color.rgb(255, 0, 0, 0.5));
+            if (managementSystem.getSelectedScreening().getTicketSold() > 0) {
+                gc.setFill(Color.rgb(0, 255, 0, 0.7));
+            } else {
+                gc.setFill(Color.rgb(255, 182, 193, 0.7));
+            }
+
 //            gc.fillRect(
 //                    timeToX(LocalTime.parse(managementSystem.getSelectedScreening().getStartTime()))-start_x+dragged_x,
 //                    screenToY(managementSystem.getSelectedScreening().getScreen().getId())-start_y+dragged_y,
