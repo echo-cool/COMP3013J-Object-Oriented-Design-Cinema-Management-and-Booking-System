@@ -35,7 +35,7 @@ public class ScreeningMapperImpl {
                 example
                         .createCriteria()
                         .andDateEqualTo(date.format(dtf));
-                result = mapper.selectByExample(example);
+                result = mapper.selectBySQL(example);
             }
         });
         return result.toArray(new Screening[result.size()]);

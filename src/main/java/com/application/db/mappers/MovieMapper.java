@@ -10,18 +10,18 @@ import java.util.List;
 @Mapper
 public interface MovieMapper {
     /**
-    * countByExample
+    * countBySQL
     * @param example example
     * @return long long
     */
-    long countByExample(MovieSqlBuilder example);
+    long countBySQL(MovieSqlBuilder example);
 
     /**
-    * deleteByExample
+    * deleteBySQL
     * @param example example
     * @return int int
     */
-    int deleteByExample(MovieSqlBuilder example);
+    int deleteBySQL(MovieSqlBuilder example);
 
     /**
     * deleteByPrimaryKey
@@ -45,11 +45,11 @@ public interface MovieMapper {
     int insertSelective(Movie record);
 
     /**
-    * selectByExample
+    * selectBySQL
     * @param example example
     * @return List<Movie> List<Movie>
     */
-    List<Movie> selectByExample(MovieSqlBuilder example);
+    List<Movie> selectBySQL(MovieSqlBuilder example);
 
     /**
     * selectByPrimaryKey
@@ -59,20 +59,20 @@ public interface MovieMapper {
     Movie selectByPrimaryKey(Integer id);
 
     /**
-    * updateByExampleSelective
+    * updateBySQLSelective
     * @param record record
     * @param example example
     * @return int int
     */
-    int updateByExampleSelective(@Param("record") Movie record, @Param("example") MovieSqlBuilder example);
+    int updateBySQLSelective(@Param("record") Movie record, @Param("example") MovieSqlBuilder example);
 
     /**
-    * updateByExample
+    * updateBySQL
     * @param record record
     * @param example example
     * @return int int
     */
-    int updateByExample(@Param("record") Movie record, @Param("example") MovieSqlBuilder example);
+    int updateBySQL(@Param("record") Movie record, @Param("example") MovieSqlBuilder example);
 
     /**
     * updateByPrimaryKeySelective

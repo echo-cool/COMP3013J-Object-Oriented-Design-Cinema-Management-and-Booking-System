@@ -10,18 +10,18 @@ import java.util.List;
 @Mapper
 public interface ScreenMapper {
     /**
-    * countByExample
+    * countBySQL
     * @param example example
     * @return long long
     */
-    long countByExample(ScreenSqlBuilder example);
+    long countBySQL(ScreenSqlBuilder example);
 
     /**
-    * deleteByExample
+    * deleteBySQL
     * @param example example
     * @return int int
     */
-    int deleteByExample(ScreenSqlBuilder example);
+    int deleteBySQL(ScreenSqlBuilder example);
 
     /**
     * deleteByPrimaryKey
@@ -45,11 +45,11 @@ public interface ScreenMapper {
     int insertSelective(Screen record);
 
     /**
-    * selectByExample
+    * selectBySQL
     * @param example example
     * @return List<Screen> List<Screen>
     */
-    List<Screen> selectByExample(ScreenSqlBuilder example);
+    List<Screen> selectBySQL(ScreenSqlBuilder example);
 
     /**
     * selectByPrimaryKey
@@ -59,20 +59,20 @@ public interface ScreenMapper {
     Screen selectByPrimaryKey(Integer id);
 
     /**
-    * updateByExampleSelective
+    * updateBySQLSelective
     * @param record record
     * @param example example
     * @return int int
     */
-    int updateByExampleSelective(@Param("record") Screen record, @Param("example") ScreenSqlBuilder example);
+    int updateBySQLSelective(@Param("record") Screen record, @Param("example") ScreenSqlBuilder example);
 
     /**
-    * updateByExample
+    * updateBySQL
     * @param record record
     * @param example example
     * @return int int
     */
-    int updateByExample(@Param("record") Screen record, @Param("example") ScreenSqlBuilder example);
+    int updateBySQL(@Param("record") Screen record, @Param("example") ScreenSqlBuilder example);
 
     /**
     * updateByPrimaryKeySelective

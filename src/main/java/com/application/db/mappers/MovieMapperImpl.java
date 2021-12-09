@@ -59,7 +59,7 @@ public class MovieMapperImpl {
                         .createCriteria()
                         .andNameEqualTo(movie_name);
 
-                List<Movie> tmp = movieMapper.selectByExample(movieSqlBuilder);
+                List<Movie> tmp = movieMapper.selectBySQL(movieSqlBuilder);
                 if (tmp.size() > 0) {
                     result = tmp.get(0);
                     name_cache.put(movie_name, result);
@@ -80,7 +80,7 @@ public class MovieMapperImpl {
                         .createCriteria()
                         .andIdIsNotNull();
 
-                resultList = movieMapper.selectByExample(movieSqlBuilder).toArray(new Movie[]{});
+                resultList = movieMapper.selectBySQL(movieSqlBuilder).toArray(new Movie[]{});
             }
         });
         return resultList;
