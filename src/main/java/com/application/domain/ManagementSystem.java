@@ -13,12 +13,15 @@ import java.util.LinkedList;
  * @generated
  */
 public class ManagementSystem {
+    private static ManagementSystem uniqueInstance = null;
     private LocalDate currentDate;
     private LinkedList<ScreeningObserver> observers = new LinkedList<>();
     private Screening[] displayScreenings;
     private Screening selectedScreening;
     private Cinema cinema = new Cinema();
-    private static ManagementSystem uniqueInstance;
+
+    public ManagementSystem() {
+    }
 
     public static ManagementSystem getInstance() {
         if (uniqueInstance == null) {
@@ -187,6 +190,7 @@ public class ManagementSystem {
     public Movie[] getAllMovies() {
         return cinema.getMovies();
     }
+
     public Screen[] getScreens() {
         return cinema.getScreens();
     }

@@ -23,7 +23,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Pair;
@@ -58,11 +57,24 @@ public class StaffUI extends Application implements ScreeningObserver {
     private double dragged_y = 0;
 
     public StaffUI() {
-        managementSystem = new ManagementSystem();
-//        managementSystem = ManagementSystem.getInstance();
+//        managementSystem = new ManagementSystem();
+
+//        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//        System.out.println(managementSystem);
+    }
+
+    public void initialize() {
+        managementSystem = ManagementSystem.getInstance();
         managementSystem.addObserver(this);
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(managementSystem);
+        datePicker.setValue(LocalDate.now());
+        managementSystem.setDate(LocalDate.now());
+        datePicker.valueProperty().addListener(new ChangeListener<LocalDate>() {
+            @Override
+            public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
+                managementSystem.setDate(newValue);
+            }
+        });
+        this.draw();
     }
 
     @Override
@@ -198,17 +210,7 @@ public class StaffUI extends Application implements ScreeningObserver {
     public void showAddMovieDialog() {
     }
 
-    public void initialize() {
-        datePicker.setValue(LocalDate.now());
-        managementSystem.setDate(LocalDate.now());
-        datePicker.valueProperty().addListener(new ChangeListener<LocalDate>() {
-            @Override
-            public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
-                managementSystem.setDate(newValue);
-            }
-        });
-        this.draw();
-    }
+
 
     public void draw() {
         ArrayList<Screen> screens = new ArrayList();
