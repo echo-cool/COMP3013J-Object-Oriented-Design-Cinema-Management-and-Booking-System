@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  * @Package: com.presentation
  * @Description:
  **/
-public class CinemaManagementSystem extends Application {
+public class CinemaManagementSystemApp extends Application {
     private static Stage primaryStage;
 
     public static void main(String[] args) {

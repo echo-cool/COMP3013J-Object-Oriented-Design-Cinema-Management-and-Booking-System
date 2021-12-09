@@ -1,22 +1,18 @@
 package com.presentation;
 
-import cn.hutool.core.io.resource.ResourceUtil;
 import com.application.domain.ManagementSystem;
 import com.application.domain.ScreeningObserver;
 import com.application.models.Movie;
 import com.application.models.Screen;
 import com.application.models.Screening;
 import com.view.fxaddarrangement.AddArrangementView;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -24,7 +20,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.time.LocalDate;
@@ -34,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 public class StaffUI implements ScreeningObserver {
     final static int LEFT_MARGIN = 70;
     final static int TOP_MARGIN = 50;
@@ -42,7 +36,6 @@ public class StaffUI implements ScreeningObserver {
     final static int ROW_HEIGHT = 60;
     final static int COL_WIDTH = 75;
     final static int SLOTS = 12;                    // Number of booking slots shown
-
     public LocalDate currentDate = LocalDate.now();
     public Screening[] currentScreenings = new Screening[0];
     ManagementSystem managementSystem;
@@ -57,13 +50,11 @@ public class StaffUI implements ScreeningObserver {
     private double dragged_y = 0;
 
     public StaffUI() {
-//        managementSystem = new ManagementSystem();
 
-//        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!");
-//        System.out.println(managementSystem);
     }
 
     public void initialize() {
+        // singleton design
         managementSystem = ManagementSystem.getInstance();
         managementSystem.addObserver(this);
         datePicker.setValue(LocalDate.now());
@@ -81,7 +72,6 @@ public class StaffUI implements ScreeningObserver {
     @Override
     public void update() {
         currentScreenings = managementSystem.getScreenings();
-
         draw();
     }
 
@@ -429,6 +419,5 @@ public class StaffUI implements ScreeningObserver {
         int screen = yToScreen((int) mouseEvent.getY());
         managementSystem.changeSelected(time, screen);
     }
-
 
 }
