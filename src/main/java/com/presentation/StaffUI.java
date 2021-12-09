@@ -35,14 +35,14 @@ import java.util.List;
 import java.util.Optional;
 
 
-public class StaffUI extends Application implements ScreeningObserver {
+public class StaffUI implements ScreeningObserver {
     final static int LEFT_MARGIN = 70;
     final static int TOP_MARGIN = 50;
     final static int BOTTOM_MARGIN = 50;
     final static int ROW_HEIGHT = 60;
     final static int COL_WIDTH = 75;
     final static int SLOTS = 12;                    // Number of booking slots shown
-    private static Stage primaryStage;
+
     public LocalDate currentDate = LocalDate.now();
     public Screening[] currentScreenings = new Screening[0];
     ManagementSystem managementSystem;
@@ -77,23 +77,6 @@ public class StaffUI extends Application implements ScreeningObserver {
         this.draw();
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(ResourceUtil.getResource("fx/index-view.fxml"));
-        Scene scene = null;
-        scene = new Scene(fxmlLoader.load());
-        primaryStage.setTitle("Cinema Management System");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    public void show() {
-        try {
-            start(primaryStage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void update() {
