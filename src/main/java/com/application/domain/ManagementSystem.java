@@ -67,6 +67,7 @@ public class ManagementSystem {
 
     public boolean scheduleScreening(LocalDate date, LocalTime start_time, int screen_no, String movie_name) {
         Movie movie = cinema.getMovie(movie_name);
+        selectedScreening=null;
         if (movie != null) {
             // in this system, we do not allow screening to be scheduled spanning different days
             int durationHour = movie.getDuration() / 3600;
