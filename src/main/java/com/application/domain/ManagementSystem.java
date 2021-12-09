@@ -15,10 +15,10 @@ import java.util.LinkedList;
 public class ManagementSystem {
     private static ManagementSystem uniqueInstance = null;
     private LocalDate currentDate;
-    private LinkedList<ScreeningObserver> observers = new LinkedList<>();
+    private final LinkedList<ScreeningObserver> observers = new LinkedList<>();
     private Screening[] displayScreenings;
     private Screening selectedScreening;
-    private Cinema cinema = new Cinema();
+    private final Cinema cinema = new Cinema();
 
     public ManagementSystem() {
     }

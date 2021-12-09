@@ -3,7 +3,7 @@ package com.application.db.mappers;
 import com.application.db.DatabaseUtil;
 import com.application.db.QueryStatement;
 import com.application.models.Screen;
-import com.application.models.ScreenExample;
+import com.application.models.ScreenSqlBuilder;
 import org.apache.ibatis.session.SqlSession;
 
 /**
@@ -23,7 +23,7 @@ public class ScreenMapperImpl {
         DatabaseUtil.query(new QueryStatement() {
             @Override
             public void query_commands(SqlSession sqlSession) {
-                ScreenExample example = new ScreenExample();
+                ScreenSqlBuilder example = new ScreenSqlBuilder();
                 example.createCriteria()
                         .andIdIsNotNull();
                 example.setOrderByClause("id");

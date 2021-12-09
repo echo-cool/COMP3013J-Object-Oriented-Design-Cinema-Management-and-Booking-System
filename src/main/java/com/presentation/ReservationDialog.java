@@ -19,13 +19,13 @@ import java.util.ArrayList;
 public class ReservationDialog extends Dialog<CusInfo> {
 
     //    private TextField nameField = new TextField();
-    private ObservableList<String> MovieNames = new ObservableListWrapper<>(new ArrayList<>());
-    private ChoiceBox<String> nameField = new ChoiceBox<String>(MovieNames);
-    private String[] times = {"00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
-    private ChoiceBox<String> timeBox = new ChoiceBox<String>(FXCollections.observableArrayList(times));
-    private String[] st = {"Screen 1", "Screen 2", "Screen 3", "Screen 4", "Screen 5","Screen 6"};
-    private ChoiceBox<String> coversBox = new ChoiceBox<String>(FXCollections.observableArrayList(st));
-    private ButtonType buttonTypeOk = new ButtonType("Ok", ButtonData.OK_DONE);
+    private final ObservableList<String> MovieNames = new ObservableListWrapper<>(new ArrayList<>());
+    private final ChoiceBox<String> nameField = new ChoiceBox<String>(MovieNames);
+    private final String[] times = {"00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
+    private final ChoiceBox<String> timeBox = new ChoiceBox<String>(FXCollections.observableArrayList(times));
+    private final String[] st = {"Screen 1", "Screen 2", "Screen 3", "Screen 4", "Screen 5","Screen 6"};
+    private final ChoiceBox<String> coversBox = new ChoiceBox<String>(FXCollections.observableArrayList(st));
+    private final ButtonType buttonTypeOk = new ButtonType("Ok", ButtonData.OK_DONE);
 
     public ReservationDialog(Movie[] movies) {
         this();

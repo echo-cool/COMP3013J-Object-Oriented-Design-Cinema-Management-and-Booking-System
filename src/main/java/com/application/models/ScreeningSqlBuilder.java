@@ -3,14 +3,14 @@ package com.application.models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScreeningExample {
+public class ScreeningSqlBuilder {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public ScreeningExample() {
+    public ScreeningSqlBuilder() {
         oredCriteria = new ArrayList<>();
     }
 
@@ -492,7 +492,7 @@ public class ScreeningExample {
     }
 
     public static class Criterion {
-        private String condition;
+        private final String condition;
 
         private Object value;
 
@@ -506,7 +506,7 @@ public class ScreeningExample {
 
         private boolean listValue;
 
-        private String typeHandler;
+        private final String typeHandler;
 
         public String getCondition() {
             return condition;

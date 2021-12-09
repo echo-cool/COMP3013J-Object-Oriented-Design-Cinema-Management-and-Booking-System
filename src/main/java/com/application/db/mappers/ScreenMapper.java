@@ -1,10 +1,11 @@
 package com.application.db.mappers;
 
 import com.application.models.Screen;
-import com.application.models.ScreenExample;
-import java.util.List;
+import com.application.models.ScreenSqlBuilder;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface ScreenMapper {
@@ -13,14 +14,14 @@ public interface ScreenMapper {
     * @param example example
     * @return long long
     */
-    long countByExample(ScreenExample example);
+    long countByExample(ScreenSqlBuilder example);
 
     /**
     * deleteByExample
     * @param example example
     * @return int int
     */
-    int deleteByExample(ScreenExample example);
+    int deleteByExample(ScreenSqlBuilder example);
 
     /**
     * deleteByPrimaryKey
@@ -48,7 +49,7 @@ public interface ScreenMapper {
     * @param example example
     * @return List<Screen> List<Screen>
     */
-    List<Screen> selectByExample(ScreenExample example);
+    List<Screen> selectByExample(ScreenSqlBuilder example);
 
     /**
     * selectByPrimaryKey
@@ -63,7 +64,7 @@ public interface ScreenMapper {
     * @param example example
     * @return int int
     */
-    int updateByExampleSelective(@Param("record") Screen record, @Param("example") ScreenExample example);
+    int updateByExampleSelective(@Param("record") Screen record, @Param("example") ScreenSqlBuilder example);
 
     /**
     * updateByExample
@@ -71,7 +72,7 @@ public interface ScreenMapper {
     * @param example example
     * @return int int
     */
-    int updateByExample(@Param("record") Screen record, @Param("example") ScreenExample example);
+    int updateByExample(@Param("record") Screen record, @Param("example") ScreenSqlBuilder example);
 
     /**
     * updateByPrimaryKeySelective
