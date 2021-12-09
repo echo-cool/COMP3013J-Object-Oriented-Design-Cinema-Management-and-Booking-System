@@ -1,4 +1,6 @@
-package com.application.models;
+package com.application.models.persistent;
+
+import com.application.models.Movie;
 
 /**
  * @Author: WangYuyang
@@ -7,7 +9,7 @@ package com.application.models;
  * @Package: com.application.models
  * @Description:
  **/
-public class MoviePersistent extends Movie{
+public class MoviePersistent extends Movie {
     private Integer id;
     public MoviePersistent(String name, Integer duration) {
         super(name, duration);

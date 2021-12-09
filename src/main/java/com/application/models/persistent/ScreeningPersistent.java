@@ -1,4 +1,8 @@
-package com.application.models;
+package com.application.models.persistent;
+
+import com.application.models.Movie;
+import com.application.models.Screen;
+import com.application.models.Screening;
 
 /**
  * @Author: WangYuyang
@@ -7,7 +11,7 @@ package com.application.models;
  * @Package: com.application.models
  * @Description:
  **/
-public class ScreeningPersistent extends Screening{
+public class ScreeningPersistent extends Screening {
     private Integer id;
 
     public ScreeningPersistent(String startTime, String date, Integer ticketSold, Movie movie, Screen screen) {
