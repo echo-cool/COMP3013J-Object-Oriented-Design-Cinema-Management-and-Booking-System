@@ -54,7 +54,7 @@ public class StaffUI implements ScreeningObserver {
     }
 
     public void initialize() {
-        // singleton design
+        // utilize singleton design
         managementSystem = ManagementSystem.getInstance();
         managementSystem.addObserver(this);
         datePicker.setValue(LocalDate.now());
@@ -146,16 +146,10 @@ public class StaffUI implements ScreeningObserver {
         ChoiceDialog<String> dialog = new ChoiceDialog<>("1", choices);
         dialog.setTitle("Sell Dialog");
         dialog.setHeaderText("Choose Number");
-//        dialog.setContentText("Choose your letter:");
-
-// Traditional way to get the response value.
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
             managementSystem.sellTicket(Integer.parseInt(result.get()));
         }
-
-//// The Java 8 way to get the response value (with lambda expression).
-//        result.ifPresent(letter -> System.out.println("Your choice: " + letter));
     }
 
     public void showSellTicketDialog() {
@@ -163,6 +157,7 @@ public class StaffUI implements ScreeningObserver {
     }
 
     public void cancelScreening() {
+
     }
 
     public void showScheduleScreeningDialog() {
