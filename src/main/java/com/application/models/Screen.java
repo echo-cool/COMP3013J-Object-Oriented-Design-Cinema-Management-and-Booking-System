@@ -15,4 +15,12 @@ public class Screen {
         this.name = name;
         this.capacity = capacity;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public Integer getCapacity() {
+        return capacity;
+    }
 }

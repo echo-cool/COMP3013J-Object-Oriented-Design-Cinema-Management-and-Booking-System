@@ -4,7 +4,11 @@ import com.application.db.DatabaseUtil;
 import com.application.db.QueryStatement;
 import com.application.db.builders.ScreenSqlBuilder;
 import com.application.db.dao.ScreenDAO;
+import com.application.models.Screen;
 import org.apache.ibatis.session.SqlSession;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author: WangYuyang
@@ -15,10 +19,10 @@ import org.apache.ibatis.session.SqlSession;
  **/
 public class ScreenMapperImpl {
 
-    private ScreenDAO result;
-    private ScreenDAO[] resultArray;
+    private Screen result;
+    private Screen[] resultArray;
 
-    public ScreenDAO[] getScreens() {
+    public Screen[] getScreens() {
         resultArray = null;
         DatabaseUtil.query(new QueryStatement() {
             @Override
@@ -27,18 +31,31 @@ public class ScreenMapperImpl {
                 example.createCriteria()
                         .andIdIsNotNull();
                 example.setOrderByClause("id");
-                resultArray = sqlSession.getMapper(ScreenMapper.class).selectBySQL(example).toArray(new ScreenDAO[]{});
+                List<ScreenDAO> tmp = sqlSession.getMapper(ScreenMapper.class).selectBySQL(example);
+                ArrayList<Screen> screens = new ArrayList<>();
+                for (ScreenDAO dao : tmp) {
+                    Screen screen = new Screen(
+                            dao.getName(),
+                            dao.getCapacity()
+                    );
+                    screens.add(screen);
+                }
+                resultArray = screens.toArray(new Screen[]{});
             }
         });
         return resultArray;
     }
 
-    public ScreenDAO getScreenForOid(int sno) {
+    public Screen getScreenForOid(int sno) {
         result = null;
         DatabaseUtil.query(new QueryStatement() {
             @Override
             public void query_commands(SqlSession sqlSession) {
-                result = sqlSession.getMapper(ScreenMapper.class).selectByPrimaryKey(sno);
+                ScreenDAO tmp = sqlSession.getMapper(ScreenMapper.class).selectByPrimaryKey(sno);
+                result = new Screen(
+                        tmp.getName(),
+                        tmp.getCapacity()
+                );
             }
         });
         return result;

@@ -5,6 +5,8 @@ import com.application.domain.ScreeningObserver;
 import com.application.db.dao.MovieDAO;
 import com.application.db.dao.ScreenDAO;
 import com.application.db.dao.ScreeningDAO;
+import com.application.models.Screen;
+import com.application.models.persistent.MoviePersistent;
 import com.view.fxaddarrangement.AddArrangementView;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -184,9 +186,9 @@ public class StaffUI implements ScreeningObserver {
 
 
     public void draw() {
-        ArrayList<ScreenDAO> screenDAOS = new ArrayList();
-        for (ScreenDAO s : managementSystem.getScreens()) {
-            screenDAOS.add(s);
+        ArrayList<Screen> screens = new ArrayList();
+        for (Screen s : managementSystem.getScreens()) {
+            screens.add(s);
         }
 //        screens.add("Screen 1");
 //        screens.add("Screen 2");
@@ -196,7 +198,7 @@ public class StaffUI implements ScreeningObserver {
 //        screens.add("Screen 6");
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        canvas.setHeight(TOP_MARGIN + screenDAOS.size() * ROW_HEIGHT + 2);
+        canvas.setHeight(TOP_MARGIN + screens.size() * ROW_HEIGHT + 2);
         canvas.setWidth(LEFT_MARGIN + (SLOTS * COL_WIDTH) + 50);
 //        gc.setFill(Color.WHITE);
 //        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -208,19 +210,19 @@ public class StaffUI implements ScreeningObserver {
         gc.strokeLine(LEFT_MARGIN, TOP_MARGIN, LEFT_MARGIN, canvas.getHeight());
         gc.strokeLine(0, TOP_MARGIN, canvas.getWidth(), TOP_MARGIN);
         //
-        for (int i = 0; i < screenDAOS.size(); i++) {
+        for (int i = 0; i < screens.size(); i++) {
             int y = TOP_MARGIN + (i + 1) * ROW_HEIGHT;
             gc.setFont(new Font(15));
             if (managementSystem.getSelectedScreening() != null)
-                if (screenDAOS.get(i).equals(managementSystem.getSelectedScreening().getScreen())) {
+                if (screens.get(i).equals(managementSystem.getSelectedScreening().getScreen())) {
                     gc.setFill(Color.RED);
                 } else {
                     gc.setFill(Color.BLACK);
                 }
-            gc.fillText(screenDAOS.get(i).getName(), 5, y - ROW_HEIGHT / 3 - 7);
+            gc.fillText(screens.get(i).getName(), 5, y - ROW_HEIGHT / 3 - 7);
             gc.setFill(Color.BLACK);
             gc.setFont(new Font(10));
-            gc.fillText("Capacity: " + screenDAOS.get(i).getCapacity(), 5, y - ROW_HEIGHT / 3 + 10);
+            gc.fillText("Capacity: " + screens.get(i).getCapacity(), 5, y - ROW_HEIGHT / 3 + 10);
             gc.strokeLine(0, y, canvas.getWidth(), y);
         }
         gc.setFont(new Font(15));
@@ -364,10 +366,11 @@ public class StaffUI implements ScreeningObserver {
 
         result.ifPresent(input -> {
 //            System.out.println("Username=" + usernamePassword.getKey() + ", Password=" + usernamePassword.getValue());
-            MovieDAO movieDAO = new MovieDAO();
-            movieDAO.setName(input.getKey());
-            movieDAO.setDuration(input.getValue() * 60);
-            managementSystem.addMovie(movieDAO);
+            MoviePersistent moviePersistent = new MoviePersistent(
+                    input.getKey(),
+                    input.getValue() * 60
+            );
+            managementSystem.addMovie(moviePersistent);
         });
     }
 

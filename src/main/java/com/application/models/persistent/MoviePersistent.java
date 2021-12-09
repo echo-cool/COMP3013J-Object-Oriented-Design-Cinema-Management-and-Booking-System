@@ -11,9 +11,12 @@ import com.application.models.Movie;
  **/
 public class MoviePersistent extends Movie {
     private Integer id;
-    public MoviePersistent(String name, Integer duration) {
+
+    public MoviePersistent(String name, Integer duration, Integer id) {
         super(name, duration);
+        this.id = id;
     }
+
 
     public Integer getId() {
         return id;

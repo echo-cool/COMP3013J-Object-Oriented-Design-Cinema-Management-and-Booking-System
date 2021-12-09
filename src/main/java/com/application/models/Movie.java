@@ -1,5 +1,7 @@
 package com.application.models;
 
+import java.util.Objects;
+
 /**
  * @Author: WangYuyang
  * @Date: 2021/12/9-17:00
@@ -22,5 +24,18 @@ public class Movie {
 
     public Integer getDuration() {
         return duration;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Movie movie = (Movie) o;
+        return name.equals(movie.name) && duration.equals(movie.duration);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, duration);
     }
 }

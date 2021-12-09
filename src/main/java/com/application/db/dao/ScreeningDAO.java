@@ -20,9 +20,9 @@ public class ScreeningDAO {
 
     private Integer ticketSold;
 
-    private MovieDAO movieDAO;
-
-    private ScreenDAO screenDAO;
+//    private MovieDAO movieDAO;
+//
+//    private ScreenDAO screenDAO;
 
     public ScreeningDAO() {
     }
@@ -33,8 +33,8 @@ public class ScreeningDAO {
         this.ticketSold = i;
         this.movieId = movieDAO.getId();
         this.screenId = screenDAO.getId();
-        this.movieDAO = movieDAO;
-        this.screenDAO = screenDAO;
+//        this.movieDAO = movieDAO;
+//        this.screenDAO = screenDAO;
     }
 
     public Integer getId() {
@@ -51,7 +51,7 @@ public class ScreeningDAO {
 
     public void setMovieId(Integer movieId) {
         this.movieId = movieId;
-        this.movieDAO =new MovieMapperImpl().getMovieForOid(movieId);
+//        this.movieDAO =new MovieMapperImpl().getMovieForOid(movieId);
     }
 
     public Integer getScreenId() {
@@ -60,7 +60,7 @@ public class ScreeningDAO {
 
     public void setScreenId(Integer screenId) {
         this.screenId = screenId;
-        this.screenDAO =new ScreenMapperImpl().getScreenForOid(screenId);
+//        this.screenDAO =new ScreenMapperImpl().getScreenForOid(screenId);
     }
 
 
@@ -86,14 +86,6 @@ public class ScreeningDAO {
 
     public void setTicketSold(Integer ticketSold) {
         this.ticketSold = ticketSold;
-    }
-
-    public ScreenDAO getScreen() {
-        return screenDAO;
-    }
-
-    public MovieDAO getMovie() {
-        return movieDAO;
     }
 
     /**

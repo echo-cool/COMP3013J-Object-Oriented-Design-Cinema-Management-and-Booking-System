@@ -6,6 +6,10 @@ import com.application.db.mappers.ScreeningMapperImpl;
 import com.application.db.dao.MovieDAO;
 import com.application.db.dao.ScreenDAO;
 import com.application.db.dao.ScreeningDAO;
+import com.application.models.Movie;
+import com.application.models.Screen;
+import com.application.models.Screening;
+import com.application.models.persistent.MoviePersistent;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -19,44 +23,40 @@ public class Cinema {
     ScreeningMapperImpl screeningMapper = new ScreeningMapperImpl();
 
     public void scheduleScreening(LocalDate date, LocalTime start_time, int screen_no, String movie_name) {
-        ScreenDAO screenDAO = screenMapper.getScreenForOid(screen_no);
-        MovieDAO movieDAO = movieMapper.getMovie(movie_name);
-        screeningMapper.scheduleScreening(date, start_time, screenDAO, movieDAO);
+        Screen screen = screenMapper.getScreenForOid(screen_no);
+        Movie movie = movieMapper.getMovie(movie_name);
+        screeningMapper.scheduleScreening(date, start_time, screen, movie);
     }
 
-    public void updateScreening(ScreeningDAO selected) {
+    public void updateScreening(Screening selected) {
         screeningMapper.updateScreening(selected);
     }
 
-    public void deleteScreening(ScreeningDAO screeningDAO) {
+    public void deleteScreening(Screening screeningDAO) {
         screeningMapper.deleteScreening(screeningDAO);
     }
 
-    public MovieDAO getMovie(int mno) {
-        return movieMapper.getMovieForOid(mno);
-    }
-
-    public MovieDAO getMovie(String name) {
+    public Movie getMovie(String name) {
         return movieMapper.getMovie(name);
     }
 
-    public ScreenDAO getScreen(int sno) {
+    public Screen getScreen(int sno) {
         return screenMapper.getScreenForOid(sno);
     }
 
-    public ScreeningDAO[] getScreenings(LocalDate date) {
+    public Screening[] getScreenings(LocalDate date) {
         return screeningMapper.getScreenings(date);
     }
 
-    public ScreenDAO[] getScreens() {
+    public Screen[] getScreens() {
         return screenMapper.getScreens();
     }
 
-    public boolean addMovie(MovieDAO movieDAO) {
-        return movieMapper.addMovie(movieDAO);
+    public boolean addMovie(MoviePersistent moviePersistent) {
+        return movieMapper.addMovie(moviePersistent);
     }
 
-    public MovieDAO[] getMovies() {
+    public Movie[] getMovies() {
         return movieMapper.getMovies();
     }
 

@@ -4,6 +4,9 @@ import com.application.models.Movie;
 import com.application.models.Screen;
 import com.application.models.Screening;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 /**
  * @Author: WangYuyang
  * @Date: 2021/12/9-17:02
@@ -14,8 +17,9 @@ import com.application.models.Screening;
 public class ScreeningPersistent extends Screening {
     private Integer id;
 
-    public ScreeningPersistent(String startTime, String date, Integer ticketSold, Movie movie, Screen screen) {
+    public ScreeningPersistent(LocalTime startTime, LocalDate date, Integer ticketSold, Movie movie, Screen screen, Integer id) {
         super(startTime, date, ticketSold, movie, screen);
+        this.id = id;
     }
 
     public Integer getId() {
