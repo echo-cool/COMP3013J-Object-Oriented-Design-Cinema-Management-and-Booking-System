@@ -138,6 +138,10 @@ public class StaffUI implements ScreeningObserver {
         choices.add("2");
         choices.add("3");
         choices.add("4");
+        choices.add("5");
+        choices.add("6");
+        choices.add("7");
+        choices.add("8");
 
         ChoiceDialog<String> dialog = new ChoiceDialog<>("1", choices);
         dialog.setTitle("Sell Dialog");
