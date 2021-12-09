@@ -25,30 +25,30 @@ public class DatabaseUtil {
 
     public static void insert(QueryStatement queryListener) {
         SqlSession sqlSession = null;
-//        try {
-//            sqlSession = MyBatisUtils.openSession();
-//            queryListener.query_commands(sqlSession);
-//            sqlSession.commit();
-//        } catch (Exception e) {
-//            throw e;
-//        } finally {
-//            MyBatisUtils.closeSession(sqlSession);
-//        }
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                SqlSession sqlSession = null;
-                try {
-                    sqlSession = MyBatisUtils.openSession();
-                    queryListener.query_commands(sqlSession);
-                    sqlSession.commit();
-                } catch (Exception e) {
-                    throw e;
-                } finally {
-                    MyBatisUtils.closeSession(sqlSession);
-                }
-            }
-        }).start();
+        try {
+            sqlSession = MyBatisUtils.openSession();
+            queryListener.query_commands(sqlSession);
+            sqlSession.commit();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            MyBatisUtils.closeSession(sqlSession);
+        }
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                SqlSession sqlSession = null;
+//                try {
+//                    sqlSession = MyBatisUtils.openSession();
+//                    queryListener.query_commands(sqlSession);
+//                    sqlSession.commit();
+//                } catch (Exception e) {
+//                    throw e;
+//                } finally {
+//                    MyBatisUtils.closeSession(sqlSession);
+//                }
+//            }
+//        }).start();
     }
 
 }
