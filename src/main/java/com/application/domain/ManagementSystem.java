@@ -48,16 +48,20 @@ public class ManagementSystem {
     }
 
     public boolean sellTicket(int num) {
-        int capacity = selectedScreening.getScreen().getCapacity();
-        int ticket_sold = selectedScreening.getTicketSold();
-        if (!checkInsufficientTicket(selectedScreening, num)) {
-            selectedScreening.setTicketSold(ticket_sold + num);
-            cinema.updateScreening(selectedScreening);
-            notifyObservers();
-            return true;
-        } else {
-            observerMessage("Sorry no sufficient tickets!", true);
+        if (selectedScreening == null) {
+            observerMessage("Sorry you have not chosen a screening yet!", true);
             return false;
+        } else {
+            int ticket_sold = selectedScreening.getTicketSold();
+            if (!checkInsufficientTicket(selectedScreening, num)) {
+                selectedScreening.setTicketSold(ticket_sold + num);
+                cinema.updateScreening(selectedScreening);
+                notifyObservers();
+                return true;
+            } else {
+                observerMessage("Sorry no sufficient tickets!", true);
+                return false;
+            }
         }
     }
 
@@ -116,16 +120,22 @@ public class ManagementSystem {
     }
 
     public boolean cancelSelected() {
-        if (selectedScreening.getTicketSold() > 0) {
-            observerMessage("Sorry you cannot cancel this screening with tickets sold!", false);
+        if (selectedScreening == null) {
+            observerMessage("Sorry you have not chosen a screening yet!", false);
             notifyObservers();
             return false;
         } else {
-            if (observerMessage("Are you sure to cancel this screening?", true)) {
-                boolean temp = removeScreening(selectedScreening);
-                setDate(currentDate);
+            if (selectedScreening.getTicketSold() > 0) {
+                observerMessage("Sorry you cannot cancel this screening with tickets sold!", false);
                 notifyObservers();
-                return temp;
+                return false;
+            } else {
+                if (observerMessage("Are you sure to cancel this screening?", true)) {
+                    boolean temp = removeScreening(selectedScreening);
+                    setDate(currentDate);
+                    notifyObservers();
+                    return temp;
+                }
             }
         }
         return false;
