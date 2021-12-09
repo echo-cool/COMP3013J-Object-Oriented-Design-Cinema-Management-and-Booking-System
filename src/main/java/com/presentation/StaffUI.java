@@ -56,7 +56,10 @@ public class StaffUI extends Application implements ScreeningObserver {
 
     public StaffUI() {
         managementSystem = new ManagementSystem();
+        //managementSystem = ManagementSystem.getInstance();
         managementSystem.addObserver(this);
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(managementSystem);
     }
 
     @Override
@@ -291,8 +294,6 @@ public class StaffUI extends Application implements ScreeningObserver {
                     COL_WIDTH * SLOTS * ((managementSystem.getSelectedScreening().getMovie().getDuration()) / (3600f * 24f)),
                     ROW_HEIGHT);
         }
-
-
     }
 
     public void showDate(ActionEvent actionEvent) {
@@ -318,7 +319,6 @@ public class StaffUI extends Application implements ScreeningObserver {
         dialog.setTitle("Add Movie Dialog");
         dialog.setHeaderText("Add a Movie");
 
-
 // Set the button types.
         ButtonType loginButtonType = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
@@ -334,11 +334,11 @@ public class StaffUI extends Application implements ScreeningObserver {
 
         TextField duration = new TextField();
 
-        duration.setPromptText("Duration (Minutes)");
+        duration.setPromptText("Duration (minutes)");
 
         grid.add(new Label("Movie Name:"), 0, 0);
         grid.add(movie_name, 1, 0);
-        grid.add(new Label("Duration(Minutes):"), 0, 1);
+        grid.add(new Label("Duration(minutes):"), 0, 1);
         grid.add(duration, 1, 1);
 
 // Enable/Disable login button depending on whether a movie_name was entered.

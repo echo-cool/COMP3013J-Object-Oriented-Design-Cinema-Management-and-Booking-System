@@ -57,7 +57,7 @@
                         <Button fx:id="addButton" mnemonicParsing="false" onAction="#showScheduleScreeningDialog" text="Schedule" />
                         <Button mnemonicParsing="false" onAction="#showAddMovieView" text="Add Movie" />
                         <Button mnemonicParsing="false" onAction="#cancelSchedule" text="Cancel" />
-                        <Button mnemonicParsing="false" onAction="#sellTicket" text="sell" />
+                        <Button mnemonicParsing="false" onAction="#sellTicket" text="Sell" />
                     </children>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
