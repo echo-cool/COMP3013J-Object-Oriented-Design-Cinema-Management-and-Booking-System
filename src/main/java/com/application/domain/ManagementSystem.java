@@ -44,8 +44,8 @@ public class ManagementSystem {
         return observers.get(0).message(message, isConfirmation);
     }
 
-    public boolean addMovie(MoviePersistent moviePersistent) {
-        return cinema.addMovie(moviePersistent);
+    public boolean addMovie(Movie movie) {
+        return cinema.addMovie(movie);
     }
 
     public boolean sellTicket(int num) {
@@ -174,16 +174,16 @@ public class ManagementSystem {
         notifyObservers();
     }
 
-    public ScreeningDAO getSelectedScreening() {
+    public Screening getSelectedScreening() {
         return selectedScreening;
     }
 
-    public void changeSelected(LocalTime time, int screen) {
+    public void changeSelected(LocalTime time, String screen) {
         label:
         {
-            for (ScreeningDAO screeningDAO : displayScreenings) {
-                if (screen == (screeningDAO.getScreen().getId())) {
-                    if (LocalTime.parse(screeningDAO.getStartTime()).isBefore(time) && LocalTime.parse(screeningDAO.getStartTime()).plusSeconds(screeningDAO.getMovie().getDuration()).isAfter(time)) {
+            for (Screening screeningDAO : displayScreenings) {
+                if (screen == (screeningDAO.getScreen().getName())) {
+                    if (screeningDAO.getStartTime().isBefore(time) && screeningDAO.getStartTime().plusSeconds(screeningDAO.getMovie().getDuration()).isAfter(time)) {
                         selectedScreening = screeningDAO;
                         break label;
                     }
@@ -194,7 +194,7 @@ public class ManagementSystem {
         notifyObservers();
     }
 
-    public ScreeningDAO[] getScreenings() {
+    public Screening[] getScreenings() {
         return displayScreenings;
     }
 

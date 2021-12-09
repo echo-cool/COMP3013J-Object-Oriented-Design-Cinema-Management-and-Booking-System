@@ -52,8 +52,8 @@ public class Cinema {
         return screenMapper.getScreens();
     }
 
-    public boolean addMovie(MoviePersistent moviePersistent) {
-        return movieMapper.addMovie(moviePersistent);
+    public boolean addMovie(Movie movie) {
+        return movieMapper.addMovie(movie);
     }
 
     public Movie[] getMovies() {

@@ -1,6 +1,7 @@
 package com.presentation;
 
 import com.application.db.dao.MovieDAO;
+import com.application.models.Movie;
 import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,11 +28,11 @@ public class ScheduleDialog extends Dialog<ScheduleInfo> {
     private final ChoiceBox<String> coversBox = new ChoiceBox<String>(FXCollections.observableArrayList(st));
     private final ButtonType buttonTypeOk = new ButtonType("Ok", ButtonData.OK_DONE);
 
-    public ScheduleDialog(MovieDAO[] movieDAOS) {
+    public ScheduleDialog(Movie[] movieDAOS) {
         this();
 //        nameField.setText(c.getName());
         MovieNames.clear();
-        for (MovieDAO movieDAO : movieDAOS) {
+        for (Movie movieDAO : movieDAOS) {
             MovieNames.add(movieDAO.getName());
         }
 //        timeBox.getSelectionModel().select(c.getTime().toString());

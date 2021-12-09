@@ -26,7 +26,7 @@ public class MovieMapperImpl {
     private Movie result;
     private Movie[] resultList = null;
 
-    public boolean addMovie(MoviePersistent movie) {
+    public boolean addMovie(Movie movie) {
         DatabaseUtil.insert(new QueryStatement() {
             @Override
             public void query_commands(SqlSession sqlSession) {
