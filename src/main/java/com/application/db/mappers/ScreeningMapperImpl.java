@@ -5,7 +5,7 @@ import com.application.db.QueryStatement;
 import com.application.models.Movie;
 import com.application.models.Screen;
 import com.application.models.Screening;
-import com.application.models.ScreeningExample;
+import com.application.models.ScreeningSqlBuilder;
 import org.apache.ibatis.session.SqlSession;
 
 import java.time.LocalDate;
@@ -29,13 +29,13 @@ public class ScreeningMapperImpl {
             @Override
             public void query_commands(SqlSession sqlSession) {
                 ScreeningMapper mapper = sqlSession.getMapper(ScreeningMapper.class);
-                ScreeningExample example = new ScreeningExample();
+                ScreeningSqlBuilder example = new ScreeningSqlBuilder();
                 DateTimeFormatter dtf = DateTimeFormatter.ISO_DATE;
                 System.out.println(date.format(dtf));
                 example
                         .createCriteria()
                         .andDateEqualTo(date.format(dtf));
-                result = mapper.selectByExample(example);
+                result = mapper.selectBySQL(example);
             }
         });
         return result.toArray(new Screening[result.size()]);

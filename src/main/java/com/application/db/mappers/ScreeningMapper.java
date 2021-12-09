@@ -1,26 +1,27 @@
 package com.application.db.mappers;
 
 import com.application.models.Screening;
-import com.application.models.ScreeningExample;
-import java.util.List;
+import com.application.models.ScreeningSqlBuilder;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface ScreeningMapper {
     /**
-    * countByExample
+    * countBySQL
     * @param example example
     * @return long long
     */
-    long countByExample(ScreeningExample example);
+    long countBySQL(ScreeningSqlBuilder example);
 
     /**
-    * deleteByExample
+    * deleteBySQL
     * @param example example
     * @return int int
     */
-    int deleteByExample(ScreeningExample example);
+    int deleteBySQL(ScreeningSqlBuilder example);
 
     /**
     * deleteByPrimaryKey
@@ -44,11 +45,11 @@ public interface ScreeningMapper {
     int insertSelective(Screening record);
 
     /**
-    * selectByExample
+    * selectBySQL
     * @param example example
     * @return List<Screening> List<Screening>
     */
-    List<Screening> selectByExample(ScreeningExample example);
+    List<Screening> selectBySQL(ScreeningSqlBuilder example);
 
     /**
     * selectByPrimaryKey
@@ -58,20 +59,20 @@ public interface ScreeningMapper {
     Screening selectByPrimaryKey(Integer id);
 
     /**
-    * updateByExampleSelective
+    * updateBySQLSelective
     * @param record record
     * @param example example
     * @return int int
     */
-    int updateByExampleSelective(@Param("record") Screening record, @Param("example") ScreeningExample example);
+    int updateBySQLSelective(@Param("record") Screening record, @Param("example") ScreeningSqlBuilder example);
 
     /**
-    * updateByExample
+    * updateBySQL
     * @param record record
     * @param example example
     * @return int int
     */
-    int updateByExample(@Param("record") Screening record, @Param("example") ScreeningExample example);
+    int updateBySQL(@Param("record") Screening record, @Param("example") ScreeningSqlBuilder example);
 
     /**
     * updateByPrimaryKeySelective

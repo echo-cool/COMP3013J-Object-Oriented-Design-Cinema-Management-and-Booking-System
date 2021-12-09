@@ -1,26 +1,27 @@
 package com.application.db.mappers;
 
 import com.application.models.Movie;
-import com.application.models.MovieExample;
-import java.util.List;
+import com.application.models.MovieSqlBuilder;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface MovieMapper {
     /**
-    * countByExample
+    * countBySQL
     * @param example example
     * @return long long
     */
-    long countByExample(MovieExample example);
+    long countBySQL(MovieSqlBuilder example);
 
     /**
-    * deleteByExample
+    * deleteBySQL
     * @param example example
     * @return int int
     */
-    int deleteByExample(MovieExample example);
+    int deleteBySQL(MovieSqlBuilder example);
 
     /**
     * deleteByPrimaryKey
@@ -44,11 +45,11 @@ public interface MovieMapper {
     int insertSelective(Movie record);
 
     /**
-    * selectByExample
+    * selectBySQL
     * @param example example
     * @return List<Movie> List<Movie>
     */
-    List<Movie> selectByExample(MovieExample example);
+    List<Movie> selectBySQL(MovieSqlBuilder example);
 
     /**
     * selectByPrimaryKey
@@ -58,20 +59,20 @@ public interface MovieMapper {
     Movie selectByPrimaryKey(Integer id);
 
     /**
-    * updateByExampleSelective
+    * updateBySQLSelective
     * @param record record
     * @param example example
     * @return int int
     */
-    int updateByExampleSelective(@Param("record") Movie record, @Param("example") MovieExample example);
+    int updateBySQLSelective(@Param("record") Movie record, @Param("example") MovieSqlBuilder example);
 
     /**
-    * updateByExample
+    * updateBySQL
     * @param record record
     * @param example example
     * @return int int
     */
-    int updateByExample(@Param("record") Movie record, @Param("example") MovieExample example);
+    int updateBySQL(@Param("record") Movie record, @Param("example") MovieSqlBuilder example);
 
     /**
     * updateByPrimaryKeySelective

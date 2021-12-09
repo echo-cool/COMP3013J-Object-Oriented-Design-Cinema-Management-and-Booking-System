@@ -1,26 +1,27 @@
 package com.application.db.mappers;
 
 import com.application.models.Screen;
-import com.application.models.ScreenExample;
-import java.util.List;
+import com.application.models.ScreenSqlBuilder;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface ScreenMapper {
     /**
-    * countByExample
+    * countBySQL
     * @param example example
     * @return long long
     */
-    long countByExample(ScreenExample example);
+    long countBySQL(ScreenSqlBuilder example);
 
     /**
-    * deleteByExample
+    * deleteBySQL
     * @param example example
     * @return int int
     */
-    int deleteByExample(ScreenExample example);
+    int deleteBySQL(ScreenSqlBuilder example);
 
     /**
     * deleteByPrimaryKey
@@ -44,11 +45,11 @@ public interface ScreenMapper {
     int insertSelective(Screen record);
 
     /**
-    * selectByExample
+    * selectBySQL
     * @param example example
     * @return List<Screen> List<Screen>
     */
-    List<Screen> selectByExample(ScreenExample example);
+    List<Screen> selectBySQL(ScreenSqlBuilder example);
 
     /**
     * selectByPrimaryKey
@@ -58,20 +59,20 @@ public interface ScreenMapper {
     Screen selectByPrimaryKey(Integer id);
 
     /**
-    * updateByExampleSelective
+    * updateBySQLSelective
     * @param record record
     * @param example example
     * @return int int
     */
-    int updateByExampleSelective(@Param("record") Screen record, @Param("example") ScreenExample example);
+    int updateBySQLSelective(@Param("record") Screen record, @Param("example") ScreenSqlBuilder example);
 
     /**
-    * updateByExample
+    * updateBySQL
     * @param record record
     * @param example example
     * @return int int
     */
-    int updateByExample(@Param("record") Screen record, @Param("example") ScreenExample example);
+    int updateBySQL(@Param("record") Screen record, @Param("example") ScreenSqlBuilder example);
 
     /**
     * updateByPrimaryKeySelective

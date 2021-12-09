@@ -3,31 +3,31 @@ package com.application.models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieExample {
+public class ScreenSqlBuilder {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public MovieExample() {
+    public ScreenSqlBuilder() {
         oredCriteria = new ArrayList<>();
-    }
-
-    public void setOrderByClause(String orderByClause) {
-        this.orderByClause = orderByClause;
     }
 
     public String getOrderByClause() {
         return orderByClause;
     }
 
-    public void setDistinct(boolean distinct) {
-        this.distinct = distinct;
+    public void setOrderByClause(String orderByClause) {
+        this.orderByClause = orderByClause;
     }
 
     public boolean isDistinct() {
         return distinct;
+    }
+
+    public void setDistinct(boolean distinct) {
+        this.distinct = distinct;
     }
 
     public List<Criteria> getOredCriteria() {
@@ -234,63 +234,63 @@ public class MovieExample {
             return (Criteria) this;
         }
 
-        public Criteria andDurationIsNull() {
-            addCriterion("duration is null");
+        public Criteria andCapacityIsNull() {
+            addCriterion("capacity is null");
             return (Criteria) this;
         }
 
-        public Criteria andDurationIsNotNull() {
-            addCriterion("duration is not null");
+        public Criteria andCapacityIsNotNull() {
+            addCriterion("capacity is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDurationEqualTo(Integer value) {
-            addCriterion("duration =", value, "duration");
+        public Criteria andCapacityEqualTo(Integer value) {
+            addCriterion("capacity =", value, "capacity");
             return (Criteria) this;
         }
 
-        public Criteria andDurationNotEqualTo(Integer value) {
-            addCriterion("duration <>", value, "duration");
+        public Criteria andCapacityNotEqualTo(Integer value) {
+            addCriterion("capacity <>", value, "capacity");
             return (Criteria) this;
         }
 
-        public Criteria andDurationGreaterThan(Integer value) {
-            addCriterion("duration >", value, "duration");
+        public Criteria andCapacityGreaterThan(Integer value) {
+            addCriterion("capacity >", value, "capacity");
             return (Criteria) this;
         }
 
-        public Criteria andDurationGreaterThanOrEqualTo(Integer value) {
-            addCriterion("duration >=", value, "duration");
+        public Criteria andCapacityGreaterThanOrEqualTo(Integer value) {
+            addCriterion("capacity >=", value, "capacity");
             return (Criteria) this;
         }
 
-        public Criteria andDurationLessThan(Integer value) {
-            addCriterion("duration <", value, "duration");
+        public Criteria andCapacityLessThan(Integer value) {
+            addCriterion("capacity <", value, "capacity");
             return (Criteria) this;
         }
 
-        public Criteria andDurationLessThanOrEqualTo(Integer value) {
-            addCriterion("duration <=", value, "duration");
+        public Criteria andCapacityLessThanOrEqualTo(Integer value) {
+            addCriterion("capacity <=", value, "capacity");
             return (Criteria) this;
         }
 
-        public Criteria andDurationIn(List<Integer> values) {
-            addCriterion("duration in", values, "duration");
+        public Criteria andCapacityIn(List<Integer> values) {
+            addCriterion("capacity in", values, "capacity");
             return (Criteria) this;
         }
 
-        public Criteria andDurationNotIn(List<Integer> values) {
-            addCriterion("duration not in", values, "duration");
+        public Criteria andCapacityNotIn(List<Integer> values) {
+            addCriterion("capacity not in", values, "capacity");
             return (Criteria) this;
         }
 
-        public Criteria andDurationBetween(Integer value1, Integer value2) {
-            addCriterion("duration between", value1, value2, "duration");
+        public Criteria andCapacityBetween(Integer value1, Integer value2) {
+            addCriterion("capacity between", value1, value2, "capacity");
             return (Criteria) this;
         }
 
-        public Criteria andDurationNotBetween(Integer value1, Integer value2) {
-            addCriterion("duration not between", value1, value2, "duration");
+        public Criteria andCapacityNotBetween(Integer value1, Integer value2) {
+            addCriterion("capacity not between", value1, value2, "capacity");
             return (Criteria) this;
         }
     }
@@ -302,7 +302,7 @@ public class MovieExample {
     }
 
     public static class Criterion {
-        private String condition;
+        private final String condition;
 
         private Object value;
 
@@ -316,39 +316,7 @@ public class MovieExample {
 
         private boolean listValue;
 
-        private String typeHandler;
-
-        public String getCondition() {
-            return condition;
-        }
-
-        public Object getValue() {
-            return value;
-        }
-
-        public Object getSecondValue() {
-            return secondValue;
-        }
-
-        public boolean isNoValue() {
-            return noValue;
-        }
-
-        public boolean isSingleValue() {
-            return singleValue;
-        }
-
-        public boolean isBetweenValue() {
-            return betweenValue;
-        }
-
-        public boolean isListValue() {
-            return listValue;
-        }
-
-        public String getTypeHandler() {
-            return typeHandler;
-        }
+        private final String typeHandler;
 
         protected Criterion(String condition) {
             super();
@@ -384,6 +352,38 @@ public class MovieExample {
 
         protected Criterion(String condition, Object value, Object secondValue) {
             this(condition, value, secondValue, null);
+        }
+
+        public String getCondition() {
+            return condition;
+        }
+
+        public Object getValue() {
+            return value;
+        }
+
+        public Object getSecondValue() {
+            return secondValue;
+        }
+
+        public boolean isNoValue() {
+            return noValue;
+        }
+
+        public boolean isSingleValue() {
+            return singleValue;
+        }
+
+        public boolean isBetweenValue() {
+            return betweenValue;
+        }
+
+        public boolean isListValue() {
+            return listValue;
+        }
+
+        public String getTypeHandler() {
+            return typeHandler;
         }
     }
 }

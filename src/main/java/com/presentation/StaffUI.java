@@ -1,22 +1,18 @@
 package com.presentation;
 
-import cn.hutool.core.io.resource.ResourceUtil;
 import com.application.domain.ManagementSystem;
 import com.application.domain.ScreeningObserver;
 import com.application.models.Movie;
+import com.application.models.Screen;
 import com.application.models.Screening;
 import com.view.fxaddarrangement.AddArrangementView;
-
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -24,24 +20,22 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
-public class StaffUI extends Application implements ScreeningObserver {
-    final static int LEFT_MARGIN = 60;
+public class StaffUI implements ScreeningObserver {
+    final static int LEFT_MARGIN = 70;
     final static int TOP_MARGIN = 50;
     final static int BOTTOM_MARGIN = 50;
     final static int ROW_HEIGHT = 60;
-    final static int COL_WIDTH = 80;
+    final static int COL_WIDTH = 75;
     final static int SLOTS = 12;                    // Number of booking slots shown
-    private static Stage primaryStage;
     public LocalDate currentDate = LocalDate.now();
     public Screening[] currentScreenings = new Screening[0];
     ManagementSystem managementSystem;
@@ -56,32 +50,28 @@ public class StaffUI extends Application implements ScreeningObserver {
     private double dragged_y = 0;
 
     public StaffUI() {
-        managementSystem = new ManagementSystem();
+
+    }
+
+    public void initialize() {
+        // utilize singleton design
+        managementSystem = ManagementSystem.getInstance();
         managementSystem.addObserver(this);
+        datePicker.setValue(LocalDate.now());
+        managementSystem.setDate(LocalDate.now());
+        datePicker.valueProperty().addListener(new ChangeListener<LocalDate>() {
+            @Override
+            public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
+                managementSystem.setDate(newValue);
+            }
+        });
+        this.draw();
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(ResourceUtil.getResource("fx/index-view.fxml"));
-        Scene scene = null;
-        scene = new Scene(fxmlLoader.load());
-        primaryStage.setTitle("Cinema Management System");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    public void show() {
-        try {
-            start(primaryStage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void update() {
         currentScreenings = managementSystem.getScreenings();
-
         draw();
     }
 
@@ -148,20 +138,18 @@ public class StaffUI extends Application implements ScreeningObserver {
         choices.add("2");
         choices.add("3");
         choices.add("4");
+        choices.add("5");
+        choices.add("6");
+        choices.add("7");
+        choices.add("8");
 
         ChoiceDialog<String> dialog = new ChoiceDialog<>("1", choices);
         dialog.setTitle("Sell Dialog");
         dialog.setHeaderText("Choose Number");
-//        dialog.setContentText("Choose your letter:");
-
-// Traditional way to get the response value.
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
             managementSystem.sellTicket(Integer.parseInt(result.get()));
         }
-
-//// The Java 8 way to get the response value (with lambda expression).
-//        result.ifPresent(letter -> System.out.println("Your choice: " + letter));
     }
 
     public void showSellTicketDialog() {
@@ -169,14 +157,15 @@ public class StaffUI extends Application implements ScreeningObserver {
     }
 
     public void cancelScreening() {
+
     }
 
     public void showScheduleScreeningDialog() {
-        ReservationDialog addRes = new ReservationDialog(managementSystem.getAllMovies());
-        Optional<CusInfo> result = addRes.showAndWait();
+        ScheduleDialog addRes = new ScheduleDialog(managementSystem.getAllMovies());
+        Optional<ScheduleInfo> result = addRes.showAndWait();
 
         if (result.isPresent()) {
-            CusInfo c = result.get();
+            ScheduleInfo c = result.get();
             if (!managementSystem.scheduleScreening(currentDate, c.getTime(), c.getScreen(), c.getName())) {
                 showScheduleScreeningDialog();
             }
@@ -193,30 +182,22 @@ public class StaffUI extends Application implements ScreeningObserver {
     public void showAddMovieDialog() {
     }
 
-    public void initialize() {
-        datePicker.setValue(LocalDate.now());
-        managementSystem.setDate(LocalDate.now());
-        datePicker.valueProperty().addListener(new ChangeListener<LocalDate>() {
-            @Override
-            public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
-                managementSystem.setDate(newValue);
-            }
-        });
-        this.draw();
-    }
 
     public void draw() {
-        ArrayList<String> screens = new ArrayList();
-        screens.add("Screen 1");
-        screens.add("Screen 2");
-        screens.add("Screen 3");
-        screens.add("Screen 4");
-        screens.add("Screen 5");
-        screens.add("Screen 6");
+        ArrayList<Screen> screens = new ArrayList();
+        for (Screen s : managementSystem.getScreens()) {
+            screens.add(s);
+        }
+//        screens.add("Screen 1");
+//        screens.add("Screen 2");
+//        screens.add("Screen 3");
+//        screens.add("Screen 4");
+//        screens.add("Screen 5");
+//        screens.add("Screen 6");
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        canvas.setHeight(TOP_MARGIN + screens.size() * ROW_HEIGHT);
-        canvas.setWidth(LEFT_MARGIN + (SLOTS * COL_WIDTH));
+        canvas.setHeight(TOP_MARGIN + screens.size() * ROW_HEIGHT + 2);
+        canvas.setWidth(LEFT_MARGIN + (SLOTS * COL_WIDTH) + 50);
 //        gc.setFill(Color.WHITE);
 //        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         gc.setLineWidth(2.0);
@@ -224,26 +205,36 @@ public class StaffUI extends Application implements ScreeningObserver {
         //
         // // Draw screen outlines
         //
-        gc.strokeLine(LEFT_MARGIN, 0, LEFT_MARGIN, canvas.getHeight());
+        gc.strokeLine(LEFT_MARGIN, TOP_MARGIN, LEFT_MARGIN, canvas.getHeight());
         gc.strokeLine(0, TOP_MARGIN, canvas.getWidth(), TOP_MARGIN);
         //
         for (int i = 0; i < screens.size(); i++) {
             int y = TOP_MARGIN + (i + 1) * ROW_HEIGHT;
             gc.setFont(new Font(15));
-            gc.fillText(screens.get(i), 0, y - ROW_HEIGHT / 3);
-            gc.strokeLine(LEFT_MARGIN, y, canvas.getWidth(), y);
+            if (managementSystem.getSelectedScreening() != null)
+                if (screens.get(i).equals(managementSystem.getSelectedScreening().getScreen())) {
+                    gc.setFill(Color.RED);
+                } else {
+                    gc.setFill(Color.BLACK);
+                }
+            gc.fillText(screens.get(i).getName(), 5, y - ROW_HEIGHT / 3 - 7);
+            gc.setFill(Color.BLACK);
+            gc.setFont(new Font(10));
+            gc.fillText("Capacity: " + screens.get(i).getCapacity(), 5, y - ROW_HEIGHT / 3 + 10);
+            gc.strokeLine(0, y, canvas.getWidth(), y);
         }
+        gc.setFont(new Font(15));
         LocalTime start = LocalTime.of(0, 0);
         for (int i = 0; i < SLOTS + 1; i++) {
             LocalTime show = start.plusMinutes(i * 120);
             String tmp = show.getHour() + ":" + (show.getMinute() > 9 ? show.getMinute() : "0" + show.getMinute());
             int x = LEFT_MARGIN + i * COL_WIDTH;
-            gc.fillText(tmp, x + 15, 40);
+            gc.fillText(tmp, x - 15, 40);
             gc.strokeLine(x, TOP_MARGIN, x, canvas.getHeight());
         }
 
         for (Screening screening : currentScreenings) {
-            if(screening.getTicketSold() > 0)
+            if (screening.getTicketSold() > 0)
                 gc.setFill(Color.LIGHTGREEN);
             else
                 gc.setFill(Color.LIGHTPINK);
@@ -254,7 +245,13 @@ public class StaffUI extends Application implements ScreeningObserver {
                     ROW_HEIGHT);
             gc.setFill(Color.BLACK);
             gc.setFont(new Font(10));
-            gc.fillText(screening.getMovie().getName() + "\nsell: " + screening.getTicketSold(), timeToX(LocalTime.parse(screening.getStartTime())) + 5,
+            String movie_name = screening.getMovie().getName();
+            Integer scale_factor = 8 * 60;
+//            System.out.println(screening.getMovie().getDuration() / scale_factor);
+            if (movie_name.length() >= screening.getMovie().getDuration() / scale_factor) {
+                movie_name = movie_name.substring(0, screening.getMovie().getDuration() / scale_factor) + "...";
+            }
+            gc.fillText(movie_name + "\nsell: " + screening.getTicketSold(), timeToX(LocalTime.parse(screening.getStartTime())) + 5,
                     screenToY(screening.getScreen().getId()) + ROW_HEIGHT * 0.4);
             gc.strokeRect(timeToX(LocalTime.parse(screening.getStartTime())),
                     screenToY(screening.getScreen().getId()),
@@ -269,20 +266,31 @@ public class StaffUI extends Application implements ScreeningObserver {
         }
 
         if (managementSystem.getSelectedScreening() != null && is_dragging) {
-            gc.setFill(Color.rgb(0, 255, 0, 0.7));
+            if (managementSystem.getSelectedScreening().getTicketSold() > 0) {
+                gc.setFill(Color.rgb(0, 255, 0, 0.7));
+            } else {
+                gc.setFill(Color.rgb(255, 182, 193, 0.7));
+            }
+
 //            gc.fillRect(
 //                    timeToX(LocalTime.parse(managementSystem.getSelectedScreening().getStartTime()))-start_x+dragged_x,
 //                    screenToY(managementSystem.getSelectedScreening().getScreen().getId())-start_y+dragged_y,
 //                    COL_WIDTH*SLOTS*((managementSystem.getSelectedScreening().getMovie().getDuration())/(3600f*24f)),
 //                    ROW_HEIGHT);
+            float x = Math.min(timeToX(xToTime((int) (timeToX(LocalTime.parse(managementSystem.getSelectedScreening().getStartTime())) - start_x + dragged_x))), -1 + LEFT_MARGIN + COL_WIDTH * SLOTS - COL_WIDTH * SLOTS * ((managementSystem.getSelectedScreening().getMovie().getDuration()) / (3600f * 24f)));
+            float y = screenToY(yToScreen((int) dragged_y));
             gc.fillRect(
-                    Math.min(timeToX(xToTime((int) (timeToX(LocalTime.parse(managementSystem.getSelectedScreening().getStartTime())) - start_x + dragged_x))), -1 + LEFT_MARGIN + COL_WIDTH * SLOTS - COL_WIDTH * SLOTS * ((managementSystem.getSelectedScreening().getMovie().getDuration()) / (3600f * 24f))),
-                    screenToY(yToScreen((int) dragged_y)),
+                    x,
+                    y,
                     COL_WIDTH * SLOTS * ((managementSystem.getSelectedScreening().getMovie().getDuration()) / (3600f * 24f)),
                     ROW_HEIGHT);
+
+            gc.setStroke(Color.RED);
+            gc.strokeLine(x, TOP_MARGIN, x, canvas.getHeight());
+            gc.setStroke(Color.BLACK);
+            gc.fillText(xToTime((int) x).format(DateTimeFormatter.ISO_TIME), x - 15, 40);
+            gc.fillText(xToTime((int) x).format(DateTimeFormatter.ISO_TIME), x - 45, y + ROW_HEIGHT * 0.5);
         }
-
-
     }
 
     public void showDate(ActionEvent actionEvent) {
@@ -308,7 +316,6 @@ public class StaffUI extends Application implements ScreeningObserver {
         dialog.setTitle("Add Movie Dialog");
         dialog.setHeaderText("Add a Movie");
 
-
 // Set the button types.
         ButtonType loginButtonType = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
@@ -324,11 +331,11 @@ public class StaffUI extends Application implements ScreeningObserver {
 
         TextField duration = new TextField();
 
-        duration.setPromptText("Duration (Minutes)");
+        duration.setPromptText("Duration (seconds)");
 
         grid.add(new Label("Movie Name:"), 0, 0);
         grid.add(movie_name, 1, 0);
-        grid.add(new Label("Duration(Minutes):"), 0, 1);
+        grid.add(new Label("Duration(seconds):"), 0, 1);
         grid.add(duration, 1, 1);
 
 // Enable/Disable login button depending on whether a movie_name was entered.
@@ -404,7 +411,6 @@ public class StaffUI extends Application implements ScreeningObserver {
     }
 
     public void onMousePressed(MouseEvent mouseEvent) {
-
         start_x = mouseEvent.getX();
         start_y = mouseEvent.getY();
         LocalTime time = xToTime((int) mouseEvent.getX());
@@ -412,6 +418,5 @@ public class StaffUI extends Application implements ScreeningObserver {
         int screen = yToScreen((int) mouseEvent.getY());
         managementSystem.changeSelected(time, screen);
     }
-
 
 }
