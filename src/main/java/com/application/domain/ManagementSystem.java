@@ -99,10 +99,10 @@ public class ManagementSystem {
     }
 
     public boolean updateSelected(LocalTime time, int screen_no) {
-        if (checkOverlapScreening(LocalDate.parse(selectedScreening.getDate()), time, screen_no, selectedScreening.getMovie().getDuration())) {
-            observerMessage("Sorry the intended screening overlaps with the current one!", false);
-        } else if (selectedScreening.getTicketSold() > 0) {
+        if (selectedScreening.getTicketSold() > 0) {
             observerMessage("Sorry you cannot reschedule a screening with tickets sold!", false);
+        } else if (checkOverlapScreening(LocalDate.parse(selectedScreening.getDate()), time, screen_no, selectedScreening.getMovie().getDuration())) {
+            observerMessage("Sorry the intended screening overlaps with the current one!", false);
         } else {
             if (observerMessage("Are you sure to reschedule this screening?", true)) {
                 selectedScreening.setStartTime(time.toString());
