@@ -155,7 +155,7 @@ public class ManagementSystem {
 
                 } else {
                     if (selectedScreening != null) {
-                        if (screen_no == selectedScreening.getScreenId()) {
+                        if (screening.getId().equals(selectedScreening.getId())) {
                             continue;
                         }
                     }
