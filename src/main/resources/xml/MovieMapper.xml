@@ -73,7 +73,7 @@
     <!--@mbg.generated -->
     ID, "name", duration
   </sql>
-  <select id="selectByExample" parameterType="com.application.models.MovieExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.application.models.MovieSqlBuilder" resultMap="BaseResultMap">
     <!--@mbg.generated -->
     select
     <if test="distinct">
@@ -100,7 +100,7 @@
     delete from Movie
     where ID = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.application.models.MovieExample">
+  <delete id="deleteByExample" parameterType="com.application.models.MovieSqlBuilder">
     <!--@mbg.generated -->
     delete from Movie
     <if test="_parameter != null">
@@ -140,7 +140,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.application.models.MovieExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.application.models.MovieSqlBuilder" resultType="java.lang.Long">
     <!--@mbg.generated -->
     select count(*) from Movie
     <if test="_parameter != null">

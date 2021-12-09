@@ -1,7 +1,7 @@
 package com.application.db.mappers;
 
 import com.application.models.Screening;
-import com.application.models.ScreeningExample;
+import com.application.models.ScreeningSqlBuilder;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -14,14 +14,14 @@ public interface ScreeningMapper {
     * @param example example
     * @return long long
     */
-    long countByExample(ScreeningExample example);
+    long countByExample(ScreeningSqlBuilder example);
 
     /**
     * deleteByExample
     * @param example example
     * @return int int
     */
-    int deleteByExample(ScreeningExample example);
+    int deleteByExample(ScreeningSqlBuilder example);
 
     /**
     * deleteByPrimaryKey
@@ -49,7 +49,7 @@ public interface ScreeningMapper {
     * @param example example
     * @return List<Screening> List<Screening>
     */
-    List<Screening> selectByExample(ScreeningExample example);
+    List<Screening> selectByExample(ScreeningSqlBuilder example);
 
     /**
     * selectByPrimaryKey
@@ -64,7 +64,7 @@ public interface ScreeningMapper {
     * @param example example
     * @return int int
     */
-    int updateByExampleSelective(@Param("record") Screening record, @Param("example") ScreeningExample example);
+    int updateByExampleSelective(@Param("record") Screening record, @Param("example") ScreeningSqlBuilder example);
 
     /**
     * updateByExample
@@ -72,7 +72,7 @@ public interface ScreeningMapper {
     * @param example example
     * @return int int
     */
-    int updateByExample(@Param("record") Screening record, @Param("example") ScreeningExample example);
+    int updateByExample(@Param("record") Screening record, @Param("example") ScreeningSqlBuilder example);
 
     /**
     * updateByPrimaryKeySelective

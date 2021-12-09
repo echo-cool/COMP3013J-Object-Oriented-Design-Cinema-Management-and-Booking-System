@@ -3,14 +3,14 @@ package com.application.models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieExample {
+public class MovieSqlBuilder {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public MovieExample() {
+    public MovieSqlBuilder() {
         oredCriteria = new ArrayList<>();
     }
 

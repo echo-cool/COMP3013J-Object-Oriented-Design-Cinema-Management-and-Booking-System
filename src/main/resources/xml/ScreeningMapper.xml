@@ -76,7 +76,7 @@
     <!--@mbg.generated -->
     ID, movie_id, screen_id, "date", start_time, ticket_sold
   </sql>
-  <select id="selectByExample" parameterType="com.application.models.ScreeningExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.application.models.ScreeningSqlBuilder" resultMap="BaseResultMap">
     <!--@mbg.generated -->
     select
     <if test="distinct">
@@ -103,7 +103,7 @@
     delete from Screening
     where ID = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.application.models.ScreeningExample">
+  <delete id="deleteByExample" parameterType="com.application.models.ScreeningSqlBuilder">
     <!--@mbg.generated -->
     delete from Screening
     <if test="_parameter != null">
@@ -163,7 +163,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.application.models.ScreeningExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.application.models.ScreeningSqlBuilder" resultType="java.lang.Long">
     <!--@mbg.generated -->
     select count(*) from Screening
     <if test="_parameter != null">

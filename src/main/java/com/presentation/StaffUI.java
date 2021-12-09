@@ -211,7 +211,6 @@ public class StaffUI extends Application implements ScreeningObserver {
     }
 
 
-
     public void draw() {
         ArrayList<Screen> screens = new ArrayList();
         for (Screen s : managementSystem.getScreens()) {
@@ -240,7 +239,14 @@ public class StaffUI extends Application implements ScreeningObserver {
         for (int i = 0; i < screens.size(); i++) {
             int y = TOP_MARGIN + (i + 1) * ROW_HEIGHT;
             gc.setFont(new Font(15));
+            if (managementSystem.getSelectedScreening() != null)
+                if (screens.get(i).equals(managementSystem.getSelectedScreening().getScreen())) {
+                    gc.setFill(Color.RED);
+                } else {
+                    gc.setFill(Color.BLACK);
+                }
             gc.fillText(screens.get(i).getName(), 5, y - ROW_HEIGHT / 3 - 7);
+            gc.setFill(Color.BLACK);
             gc.setFont(new Font(10));
             gc.fillText("Capacity: " + screens.get(i).getCapacity(), 5, y - ROW_HEIGHT / 3 + 10);
             gc.strokeLine(0, y, canvas.getWidth(), y);

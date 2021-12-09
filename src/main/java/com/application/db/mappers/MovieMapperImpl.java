@@ -3,7 +3,7 @@ package com.application.db.mappers;
 import com.application.db.DatabaseUtil;
 import com.application.db.QueryStatement;
 import com.application.models.Movie;
-import com.application.models.MovieExample;
+import com.application.models.MovieSqlBuilder;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.HashMap;
@@ -54,12 +54,12 @@ public class MovieMapperImpl {
             @Override
             public void query_commands(SqlSession sqlSession) {
                 MovieMapper movieMapper = sqlSession.getMapper(MovieMapper.class);
-                MovieExample movieExample = new MovieExample();
-                movieExample
+                MovieSqlBuilder movieSqlBuilder = new MovieSqlBuilder();
+                movieSqlBuilder
                         .createCriteria()
                         .andNameEqualTo(movie_name);
 
-                List<Movie> tmp = movieMapper.selectByExample(movieExample);
+                List<Movie> tmp = movieMapper.selectByExample(movieSqlBuilder);
                 if (tmp.size() > 0) {
                     result = tmp.get(0);
                     name_cache.put(movie_name, result);
@@ -75,12 +75,12 @@ public class MovieMapperImpl {
             @Override
             public void query_commands(SqlSession sqlSession) {
                 MovieMapper movieMapper = sqlSession.getMapper(MovieMapper.class);
-                MovieExample movieExample = new MovieExample();
-                movieExample
+                MovieSqlBuilder movieSqlBuilder = new MovieSqlBuilder();
+                movieSqlBuilder
                         .createCriteria()
                         .andIdIsNotNull();
 
-                resultList = movieMapper.selectByExample(movieExample).toArray(new Movie[]{});
+                resultList = movieMapper.selectByExample(movieSqlBuilder).toArray(new Movie[]{});
             }
         });
         return resultList;
