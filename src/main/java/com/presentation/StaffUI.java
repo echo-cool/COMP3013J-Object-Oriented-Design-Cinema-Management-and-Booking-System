@@ -34,7 +34,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 public class StaffUI extends Application implements ScreeningObserver {
     final static int LEFT_MARGIN = 70;
     final static int TOP_MARGIN = 50;
@@ -209,7 +208,6 @@ public class StaffUI extends Application implements ScreeningObserver {
 
     public void showAddMovieDialog() {
     }
-
 
 
     public void draw() {
