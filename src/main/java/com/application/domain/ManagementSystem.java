@@ -6,7 +6,6 @@ import com.application.models.Screening;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Arrays;
 import java.util.LinkedList;
 
 /**
@@ -30,17 +29,6 @@ public class ManagementSystem {
         return uniqueInstance;
     }
 
-    @Override
-    public String toString() {
-        return "ManagementSystem{" +
-                "currentDate=" + currentDate +
-                ", observers=" + observers +
-                ", displayScreenings=" + Arrays.toString(displayScreenings) +
-                ", selectedScreening=" + selectedScreening +
-                ", cinema=" + cinema +
-                '}';
-    }
-
     public void addObserver(ScreeningObserver observer) {
         observers.add(observer);
     }
@@ -59,7 +47,6 @@ public class ManagementSystem {
         return cinema.addMovie(movie);
     }
 
-
     public boolean sellTicket(int num) {
         int capacity = selectedScreening.getScreen().getCapacity();
         int ticket_sold = selectedScreening.getTicketSold();
@@ -77,10 +64,26 @@ public class ManagementSystem {
     public boolean scheduleScreening(LocalDate date, LocalTime start_time, int screen_no, String movie_name) {
         Movie movie = cinema.getMovie(movie_name);
         if (movie != null) {
+            // in this system, we do not allow screening to be scheduled spanning different days
+            int durationHour = movie.getDuration() / 3600;
+            int durationSec = movie.getDuration() % 3600;
+            String end_time = start_time.toString().split(":")[0];
+            if (end_time.charAt(0) == '0') {
+                if (Integer.parseInt(String.valueOf(end_time.charAt(0))) + durationHour > 24) {
+                    observerMessage("Sorry you cannot schedule screening spanning different days!", false);
+                    return false;
+                }
+            } else {
+                if (Integer.parseInt(end_time) + durationHour > 24 || (Integer.parseInt(end_time) + durationHour == 24 && durationSec > 0)) {
+                    observerMessage("Sorry you cannot schedule screening spanning different days!", false);
+                    return false;
+                }
+            }
             if (checkOverlapScreening(date, start_time, screen_no, movie.getDuration())) {
                 observerMessage("Sorry the intended screening overlaps with the current one!", false);
                 return false;
-            } else {
+            }
+            else {
                 cinema.scheduleScreening(date, start_time, screen_no, movie_name);
                 setDate(date);
                 notifyObservers();

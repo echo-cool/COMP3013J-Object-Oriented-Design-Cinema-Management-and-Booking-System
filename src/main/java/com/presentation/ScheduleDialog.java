@@ -16,7 +16,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 @SuppressWarnings("restriction")
-public class ReservationDialog extends Dialog<CusInfo> {
+public class ScheduleDialog extends Dialog<ScheduleInfo> {
 
     //    private TextField nameField = new TextField();
     private final ObservableList<String> MovieNames = new ObservableListWrapper<>(new ArrayList<>());
@@ -27,7 +27,7 @@ public class ReservationDialog extends Dialog<CusInfo> {
     private final ChoiceBox<String> coversBox = new ChoiceBox<String>(FXCollections.observableArrayList(st));
     private final ButtonType buttonTypeOk = new ButtonType("Ok", ButtonData.OK_DONE);
 
-    public ReservationDialog(Movie[] movies) {
+    public ScheduleDialog(Movie[] movies) {
         this();
 //        nameField.setText(c.getName());
         MovieNames.clear();
@@ -38,18 +38,18 @@ public class ReservationDialog extends Dialog<CusInfo> {
 //        coversBox.getSelectionModel().select(Integer.valueOf(c.getScreen()));
     }
 
-    public ReservationDialog() {
+    public ScheduleDialog() {
         super();
         Label moveName = new Label("Movie Name: ");
         Label time = new Label("Time: ");
         Label screen = new Label("Screen: ");
         getDialogPane().getButtonTypes().add(buttonTypeOk);
 
-        setResultConverter(new Callback<ButtonType, CusInfo>() {
+        setResultConverter(new Callback<ButtonType, ScheduleInfo>() {
             @Override
-            public CusInfo call(ButtonType b) {
+            public ScheduleInfo call(ButtonType b) {
                 if (b == buttonTypeOk) {
-                    return new CusInfo(nameField.getValue(), LocalTime.parse(timeBox.getValue()), Integer.parseInt(coversBox.getValue().split(" ")[1]) - 1);
+                    return new ScheduleInfo(nameField.getValue(), LocalTime.parse(timeBox.getValue()), Integer.parseInt(coversBox.getValue().split(" ")[1]) - 1);
                 }
                 return null;
             }

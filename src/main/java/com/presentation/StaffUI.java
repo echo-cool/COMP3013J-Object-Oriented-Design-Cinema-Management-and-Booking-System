@@ -162,11 +162,11 @@ public class StaffUI implements ScreeningObserver {
     }
 
     public void showScheduleScreeningDialog() {
-        ReservationDialog addRes = new ReservationDialog(managementSystem.getAllMovies());
-        Optional<CusInfo> result = addRes.showAndWait();
+        ScheduleDialog addRes = new ScheduleDialog(managementSystem.getAllMovies());
+        Optional<ScheduleInfo> result = addRes.showAndWait();
 
         if (result.isPresent()) {
-            CusInfo c = result.get();
+            ScheduleInfo c = result.get();
             if (!managementSystem.scheduleScreening(currentDate, c.getTime(), c.getScreen(), c.getName())) {
                 showScheduleScreeningDialog();
             }
@@ -332,11 +332,11 @@ public class StaffUI implements ScreeningObserver {
 
         TextField duration = new TextField();
 
-        duration.setPromptText("Duration (minutes)");
+        duration.setPromptText("Duration (seconds)");
 
         grid.add(new Label("Movie Name:"), 0, 0);
         grid.add(movie_name, 1, 0);
-        grid.add(new Label("Duration(minutes):"), 0, 1);
+        grid.add(new Label("Duration(seconds):"), 0, 1);
         grid.add(duration, 1, 1);
 
 // Enable/Disable login button depending on whether a movie_name was entered.
