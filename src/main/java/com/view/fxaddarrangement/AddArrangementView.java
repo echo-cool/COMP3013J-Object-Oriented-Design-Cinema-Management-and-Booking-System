@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  * @Description:
  **/
 public class AddArrangementView extends Application {
-    private Stage primaryStage = new Stage();
+    private final Stage primaryStage = new Stage();
 
 
     @Override

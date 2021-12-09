@@ -2,9 +2,10 @@ package com.application.db.mappers;
 
 import com.application.models.Screening;
 import com.application.models.ScreeningExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface ScreeningMapper {

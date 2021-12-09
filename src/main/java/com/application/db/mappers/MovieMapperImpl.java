@@ -18,8 +18,8 @@ import java.util.List;
  * @Description:
  **/
 public class MovieMapperImpl {
-    private HashMap<Integer, Movie> id_cache = new LinkedHashMap();
-    private HashMap<String, Movie> name_cache = new LinkedHashMap();
+    private final HashMap<Integer, Movie> id_cache = new LinkedHashMap();
+    private final HashMap<String, Movie> name_cache = new LinkedHashMap();
     private Movie result;
     private Movie[] resultList = null;
 

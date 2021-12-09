@@ -3,9 +3,9 @@ package com.presentation;
 import java.time.LocalTime;
 
 class CusInfo {
-    private String name;
-    private LocalTime time;
-    private int screen;
+    private final String name;
+    private final LocalTime time;
+    private final int screen;
 
     CusInfo(String movie_name, LocalTime t, int screen) {
         this.name = movie_name;
