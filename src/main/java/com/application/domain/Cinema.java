@@ -1,10 +1,11 @@
 package com.application.domain;
 
-import com.application.db.mappers.*;
+import com.application.db.mappers.MovieMapperImpl;
+import com.application.db.mappers.ScreenMapperImpl;
+import com.application.db.mappers.ScreeningMapperImpl;
 import com.application.models.Movie;
 import com.application.models.Screen;
 import com.application.models.Screening;
-
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -48,14 +49,14 @@ public class Cinema {
     }
 
     public Screen[] getScreens() {
-        return null;
+        return screenMapper.getScreens();
     }
 
     public boolean addMovie(Movie movie) {
         return movieMapper.addMovie(movie);
     }
 
-    public Movie[] getMovies(){
+    public Movie[] getMovies() {
         return movieMapper.getMovies();
     }
 
