@@ -2,8 +2,8 @@ package com.application.db.mappers;
 
 import com.application.db.DatabaseUtil;
 import com.application.db.QueryStatement;
-import com.application.models.Movie;
-import com.application.models.MovieSqlBuilder;
+import com.application.db.builders.MovieSqlBuilder;
+import com.application.db.dao.MovieDAO;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.HashMap;
@@ -18,24 +18,24 @@ import java.util.List;
  * @Description:
  **/
 public class MovieMapperImpl {
-    private final HashMap<Integer, Movie> id_cache = new LinkedHashMap();
-    private final HashMap<String, Movie> name_cache = new LinkedHashMap();
-    private Movie result;
-    private Movie[] resultList = null;
+    private final HashMap<Integer, MovieDAO> id_cache = new LinkedHashMap();
+    private final HashMap<String, MovieDAO> name_cache = new LinkedHashMap();
+    private MovieDAO result;
+    private MovieDAO[] resultList = null;
 
-    public boolean addMovie(Movie movie) {
+    public boolean addMovie(MovieDAO movieDAO) {
         DatabaseUtil.insert(new QueryStatement() {
             @Override
             public void query_commands(SqlSession sqlSession) {
                 MovieMapper movieMapper = sqlSession.getMapper(MovieMapper.class);
-                movieMapper.insert(movie);
+                movieMapper.insert(movieDAO);
                 System.out.println("insert success");
             }
         });
         return true;
     }
 
-    public Movie getMovieForOid(Integer movie_id) {
+    public MovieDAO getMovieForOid(Integer movie_id) {
         result = null;
         DatabaseUtil.query(new QueryStatement() {
             @Override
@@ -48,7 +48,7 @@ public class MovieMapperImpl {
         return result;
     }
 
-    public Movie getMovie(String movie_name) {
+    public MovieDAO getMovie(String movie_name) {
         result = null;
         DatabaseUtil.query(new QueryStatement() {
             @Override
@@ -59,7 +59,7 @@ public class MovieMapperImpl {
                         .createCriteria()
                         .andNameEqualTo(movie_name);
 
-                List<Movie> tmp = movieMapper.selectBySQL(movieSqlBuilder);
+                List<MovieDAO> tmp = movieMapper.selectBySQL(movieSqlBuilder);
                 if (tmp.size() > 0) {
                     result = tmp.get(0);
                     name_cache.put(movie_name, result);
@@ -69,7 +69,7 @@ public class MovieMapperImpl {
         return result;
     }
 
-    public Movie[] getMovies() {
+    public MovieDAO[] getMovies() {
         resultList = null;
         DatabaseUtil.query(new QueryStatement() {
             @Override
@@ -80,18 +80,18 @@ public class MovieMapperImpl {
                         .createCriteria()
                         .andIdIsNotNull();
 
-                resultList = movieMapper.selectBySQL(movieSqlBuilder).toArray(new Movie[]{});
+                resultList = movieMapper.selectBySQL(movieSqlBuilder).toArray(new MovieDAO[]{});
             }
         });
         return resultList;
     }
 
 
-    public Movie getFromCacheByName(String movie_name) {
+    public MovieDAO getFromCacheByName(String movie_name) {
         return name_cache.get(movie_name);
     }
 
-    public Movie getFromCacheByNumber(Integer movie_id) {
+    public MovieDAO getFromCacheByNumber(Integer movie_id) {
         return id_cache.get(movie_id);
     }
 

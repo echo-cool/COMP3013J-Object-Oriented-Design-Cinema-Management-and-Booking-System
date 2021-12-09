@@ -24,7 +24,7 @@ SU ->SU: start_time: xToTime: xTotime(x : Integer)
 
 activate MS
 SU->MS:selectScreening(screen_no : Integer, start_time: LocalTime)
-loop for all screenings on screen
+loop for all screeningDAOS on screenDAO
 MS->current：Screenings:s := getScreen()
 MS->current：Screenings:time := getStartTime()
 

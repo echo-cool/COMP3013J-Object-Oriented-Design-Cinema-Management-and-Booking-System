@@ -1,7 +1,7 @@
 package com.application.db.mappers;
 
-import com.application.models.Screening;
-import com.application.models.ScreeningSqlBuilder;
+import com.application.db.builders.ScreeningSqlBuilder;
+import com.application.db.dao.ScreeningDAO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -35,28 +35,28 @@ public interface ScreeningMapper {
     * @param record record
     * @return int int
     */
-    int insert(Screening record);
+    int insert(ScreeningDAO record);
 
     /**
     * insertSelective
     * @param record record
     * @return int int
     */
-    int insertSelective(Screening record);
+    int insertSelective(ScreeningDAO record);
 
     /**
     * selectBySQL
     * @param example example
     * @return List<Screening> List<Screening>
     */
-    List<Screening> selectBySQL(ScreeningSqlBuilder example);
+    List<ScreeningDAO> selectBySQL(ScreeningSqlBuilder example);
 
     /**
     * selectByPrimaryKey
     * @param id id
     * @return Screening Screening
     */
-    Screening selectByPrimaryKey(Integer id);
+    ScreeningDAO selectByPrimaryKey(Integer id);
 
     /**
     * updateBySQLSelective
@@ -64,7 +64,7 @@ public interface ScreeningMapper {
     * @param example example
     * @return int int
     */
-    int updateBySQLSelective(@Param("record") Screening record, @Param("example") ScreeningSqlBuilder example);
+    int updateBySQLSelective(@Param("record") ScreeningDAO record, @Param("example") ScreeningSqlBuilder example);
 
     /**
     * updateBySQL
@@ -72,19 +72,19 @@ public interface ScreeningMapper {
     * @param example example
     * @return int int
     */
-    int updateBySQL(@Param("record") Screening record, @Param("example") ScreeningSqlBuilder example);
+    int updateBySQL(@Param("record") ScreeningDAO record, @Param("example") ScreeningSqlBuilder example);
 
     /**
     * updateByPrimaryKeySelective
     * @param record record
     * @return int int
     */
-    int updateByPrimaryKeySelective(Screening record);
+    int updateByPrimaryKeySelective(ScreeningDAO record);
 
     /**
     * updateByPrimaryKey
     * @param record record
     * @return int int
     */
-    int updateByPrimaryKey(Screening record);
+    int updateByPrimaryKey(ScreeningDAO record);
 }

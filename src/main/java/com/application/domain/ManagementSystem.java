@@ -1,8 +1,8 @@
 package com.application.domain;
 
-import com.application.models.Movie;
-import com.application.models.Screen;
-import com.application.models.Screening;
+import com.application.db.dao.MovieDAO;
+import com.application.db.dao.ScreenDAO;
+import com.application.db.dao.ScreeningDAO;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,8 +15,8 @@ public class ManagementSystem {
     private static ManagementSystem uniqueInstance = null;
     private LocalDate currentDate;
     private final LinkedList<ScreeningObserver> observers = new LinkedList<>();
-    private Screening[] displayScreenings;
-    private Screening selectedScreening;
+    private ScreeningDAO[] displayScreeningDAOS;
+    private ScreeningDAO selectedScreeningDAO;
     private final Cinema cinema = new Cinema();
 
     public ManagementSystem() {
@@ -43,19 +43,19 @@ public class ManagementSystem {
         return observers.get(0).message(message, isConfirmation);
     }
 
-    public boolean addMovie(Movie movie) {
-        return cinema.addMovie(movie);
+    public boolean addMovie(MovieDAO movieDAO) {
+        return cinema.addMovie(movieDAO);
     }
 
     public boolean sellTicket(int num) {
-        if (selectedScreening == null) {
+        if (selectedScreeningDAO == null) {
             observerMessage("Sorry you have not chosen a screening yet!", true);
             return false;
         } else {
-            int ticket_sold = selectedScreening.getTicketSold();
-            if (!checkInsufficientTicket(selectedScreening, num)) {
-                selectedScreening.setTicketSold(ticket_sold + num);
-                cinema.updateScreening(selectedScreening);
+            int ticket_sold = selectedScreeningDAO.getTicketSold();
+            if (!checkInsufficientTicket(selectedScreeningDAO, num)) {
+                selectedScreeningDAO.setTicketSold(ticket_sold + num);
+                cinema.updateScreening(selectedScreeningDAO);
                 notifyObservers();
                 return true;
             } else {
@@ -66,12 +66,12 @@ public class ManagementSystem {
     }
 
     public boolean scheduleScreening(LocalDate date, LocalTime start_time, int screen_no, String movie_name) {
-        Movie movie = cinema.getMovie(movie_name);
-        selectedScreening=null;
-        if (movie != null) {
+        MovieDAO movieDAO = cinema.getMovie(movie_name);
+        selectedScreeningDAO =null;
+        if (movieDAO != null) {
             // in this system, we do not allow screening to be scheduled spanning different days
-            int durationHour = movie.getDuration() / 3600;
-            int durationSec = movie.getDuration() % 3600;
+            int durationHour = movieDAO.getDuration() / 3600;
+            int durationSec = movieDAO.getDuration() % 3600;
             String end_time = start_time.toString().split(":")[0];
             if (end_time.charAt(0) == '0') {
                 if (Integer.parseInt(String.valueOf(end_time.charAt(0))) + durationHour > 24) {
@@ -84,7 +84,7 @@ public class ManagementSystem {
                     return false;
                 }
             }
-            if (checkOverlapScreening(date, start_time, screen_no, movie.getDuration())) {
+            if (checkOverlapScreening(date, start_time, screen_no, movieDAO.getDuration())) {
                 observerMessage("Sorry the intended screening overlaps with the current one!", false);
                 return false;
             }
@@ -99,15 +99,15 @@ public class ManagementSystem {
     }
 
     public boolean updateSelected(LocalTime time, int screen_no) {
-        if (checkOverlapScreening(LocalDate.parse(selectedScreening.getDate()), time, screen_no, selectedScreening.getMovie().getDuration())) {
+        if (checkOverlapScreening(LocalDate.parse(selectedScreeningDAO.getDate()), time, screen_no, selectedScreeningDAO.getMovie().getDuration())) {
             observerMessage("Sorry the intended screening overlaps with the current one!", false);
-        } else if (selectedScreening.getTicketSold() > 0) {
+        } else if (selectedScreeningDAO.getTicketSold() > 0) {
             observerMessage("Sorry you cannot reschedule a screening with tickets sold!", false);
         } else {
             if (observerMessage("Are you sure to reschedule this screening?", true)) {
-                selectedScreening.setStartTime(time.toString());
-                selectedScreening.setScreenId(screen_no);
-                cinema.updateScreening(selectedScreening);
+                selectedScreeningDAO.setStartTime(time.toString());
+                selectedScreeningDAO.setScreenId(screen_no);
+                cinema.updateScreening(selectedScreeningDAO);
                 notifyObservers();
                 return true;
             }
@@ -115,24 +115,24 @@ public class ManagementSystem {
         return false;
     }
 
-    public boolean removeScreening(Screening screening) {
-        cinema.deleteScreening(screening);
+    public boolean removeScreening(ScreeningDAO screeningDAO) {
+        cinema.deleteScreening(screeningDAO);
         return true;
     }
 
     public boolean cancelSelected() {
-        if (selectedScreening == null) {
+        if (selectedScreeningDAO == null) {
             observerMessage("Sorry you have not chosen a screening yet!", false);
             notifyObservers();
             return false;
         } else {
-            if (selectedScreening.getTicketSold() > 0) {
+            if (selectedScreeningDAO.getTicketSold() > 0) {
                 observerMessage("Sorry you cannot cancel this screening with tickets sold!", false);
                 notifyObservers();
                 return false;
             } else {
                 if (observerMessage("Are you sure to cancel this screening?", true)) {
-                    boolean temp = removeScreening(selectedScreening);
+                    boolean temp = removeScreening(selectedScreeningDAO);
                     setDate(currentDate);
                     notifyObservers();
                     return temp;
@@ -142,20 +142,20 @@ public class ManagementSystem {
         return false;
     }
 
-    private boolean checkInsufficientTicket(Screening screening, int num) {
-        return screening.getScreen().getCapacity() - screening.getTicketSold() - num < 0;
+    private boolean checkInsufficientTicket(ScreeningDAO screeningDAO, int num) {
+        return screeningDAO.getScreen().getCapacity() - screeningDAO.getTicketSold() - num < 0;
     }
 
     private boolean checkOverlapScreening(LocalDate date, LocalTime start_time, int screen_no, int duration) {
-        Screening[] screenings = cinema.getScreenings(date);
-        for (Screening screening : screenings) {
-            if (screening.getScreen().getId() == screen_no) {
+        ScreeningDAO[] screeningDAOS = cinema.getScreenings(date);
+        for (ScreeningDAO screeningDAO : screeningDAOS) {
+            if (screeningDAO.getScreen().getId() == screen_no) {
                 LocalTime over_time = start_time.plusSeconds(duration);
-                if (over_time.isBefore(LocalTime.parse(screening.getStartTime())) || start_time.isAfter(LocalTime.parse(screening.getStartTime()).plusSeconds(screening.getMovie().getDuration()))) {
+                if (over_time.isBefore(LocalTime.parse(screeningDAO.getStartTime())) || start_time.isAfter(LocalTime.parse(screeningDAO.getStartTime()).plusSeconds(screeningDAO.getMovie().getDuration()))) {
 
                 } else {
-                    if (selectedScreening != null) {
-                        if (screening.getId().equals(selectedScreening.getId())) {
+                    if (selectedScreeningDAO != null) {
+                        if (screeningDAO.getId().equals(selectedScreeningDAO.getId())) {
                             continue;
                         }
                     }
@@ -168,44 +168,44 @@ public class ManagementSystem {
 
     public void setDate(LocalDate date) {
         this.currentDate = date;
-        displayScreenings = cinema.getScreenings(date);
-        System.out.println(displayScreenings.length);
+        displayScreeningDAOS = cinema.getScreenings(date);
+        System.out.println(displayScreeningDAOS.length);
         notifyObservers();
     }
 
-    public Screening getSelectedScreening() {
-        return selectedScreening;
+    public ScreeningDAO getSelectedScreening() {
+        return selectedScreeningDAO;
     }
 
     public void changeSelected(LocalTime time, int screen) {
         label:
         {
-            for (Screening screening : displayScreenings) {
-                if (screen == (screening.getScreen().getId())) {
-                    if (LocalTime.parse(screening.getStartTime()).isBefore(time) && LocalTime.parse(screening.getStartTime()).plusSeconds(screening.getMovie().getDuration()).isAfter(time)) {
-                        selectedScreening = screening;
+            for (ScreeningDAO screeningDAO : displayScreeningDAOS) {
+                if (screen == (screeningDAO.getScreen().getId())) {
+                    if (LocalTime.parse(screeningDAO.getStartTime()).isBefore(time) && LocalTime.parse(screeningDAO.getStartTime()).plusSeconds(screeningDAO.getMovie().getDuration()).isAfter(time)) {
+                        selectedScreeningDAO = screeningDAO;
                         break label;
                     }
                 }
             }
-            selectedScreening = null;
+            selectedScreeningDAO = null;
         }
         notifyObservers();
     }
 
-    public Screening[] getScreenings() {
-        return displayScreenings;
+    public ScreeningDAO[] getScreenings() {
+        return displayScreeningDAOS;
     }
 
     public LocalDate getCurrentDate() {
         return currentDate;
     }
 
-    public Movie[] getAllMovies() {
+    public MovieDAO[] getAllMovies() {
         return cinema.getMovies();
     }
 
-    public Screen[] getScreens() {
+    public ScreenDAO[] getScreens() {
         return cinema.getScreens();
     }
 

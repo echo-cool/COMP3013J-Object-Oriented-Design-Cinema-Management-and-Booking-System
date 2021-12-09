@@ -3,7 +3,7 @@ package com.application.db;
 import com.application.db.mappers.MovieMapperImpl;
 import com.application.db.mappers.ScreenMapperImpl;
 import com.application.db.mappers.ScreeningMapperImpl;
-import com.application.models.Movie;
+import com.application.db.dao.MovieDAO;
 
 /**
  * @Author: WangYuyang
@@ -18,9 +18,9 @@ public class DB_TEST {
         ScreeningMapperImpl screeningMapper = new ScreeningMapperImpl();
         ScreenMapperImpl screenMapper = new ScreenMapperImpl();
 
-        Movie movie = new Movie();
-        movie.setName("haha");
-        movie.setDuration(90);
-        movieMapper.addMovie(movie);
+        MovieDAO movieDAO = new MovieDAO();
+        movieDAO.setName("haha");
+        movieDAO.setDuration(90);
+        movieMapper.addMovie(movieDAO);
     }
 }

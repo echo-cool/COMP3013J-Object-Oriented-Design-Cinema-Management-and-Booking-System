@@ -2,10 +2,10 @@ package com.application.db.mappers;
 
 import com.application.db.DatabaseUtil;
 import com.application.db.QueryStatement;
-import com.application.models.Movie;
-import com.application.models.Screen;
-import com.application.models.Screening;
-import com.application.models.ScreeningSqlBuilder;
+import com.application.db.builders.ScreeningSqlBuilder;
+import com.application.db.dao.MovieDAO;
+import com.application.db.dao.ScreenDAO;
+import com.application.db.dao.ScreeningDAO;
 import org.apache.ibatis.session.SqlSession;
 
 import java.time.LocalDate;
@@ -21,9 +21,9 @@ import java.util.List;
  * @Description:
  **/
 public class ScreeningMapperImpl {
-    private List<Screening> result;
+    private List<ScreeningDAO> result;
 
-    public Screening[] getScreenings(LocalDate date) {
+    public ScreeningDAO[] getScreenings(LocalDate date) {
         result = null;
         DatabaseUtil.query(new QueryStatement() {
             @Override
@@ -38,10 +38,10 @@ public class ScreeningMapperImpl {
                 result = mapper.selectBySQL(example);
             }
         });
-        return result.toArray(new Screening[result.size()]);
+        return result.toArray(new ScreeningDAO[result.size()]);
     }
 
-    public void updateScreening(Screening selected) {
+    public void updateScreening(ScreeningDAO selected) {
         DatabaseUtil.insert(new QueryStatement() {
             @Override
             public void query_commands(SqlSession sqlSession) {
@@ -52,23 +52,23 @@ public class ScreeningMapperImpl {
 
     }
 
-    public void deleteScreening(Screening screening) {
+    public void deleteScreening(ScreeningDAO screeningDAO) {
         DatabaseUtil.insert(new QueryStatement() {
             @Override
             public void query_commands(SqlSession sqlSession) {
-                ScreeningMapper mapper = sqlSession.getMapper(ScreeningMapper.class);
-                mapper.deleteByPrimaryKey(screening.getId());
+//                ScreeningMapper mapper = sqlSession.getMapper(ScreeningMapper.class);
+//                mapper.deleteByPrimaryKey(screening.getId());
             }
         });
     }
 
-    public void scheduleScreening(LocalDate date, LocalTime start_time, Screen screen, Movie movie) {
+    public void scheduleScreening(LocalDate date, LocalTime start_time, ScreenDAO screenDAO, MovieDAO movieDAO) {
         DatabaseUtil.insert(new QueryStatement() {
             @Override
             public void query_commands(SqlSession sqlSession) {
                 ScreeningMapper mapper = sqlSession.getMapper(ScreeningMapper.class);
-                Screening screening = new Screening(date, start_time, 0, movie, screen);
-                mapper.insert(screening);
+                ScreeningDAO screeningDAO = new ScreeningDAO(date, start_time, 0, movieDAO, screenDAO);
+                mapper.insert(screeningDAO);
             }
         });
 

@@ -2,8 +2,8 @@ package com.application.db.mappers;
 
 import com.application.db.DatabaseUtil;
 import com.application.db.QueryStatement;
-import com.application.models.Screen;
-import com.application.models.ScreenSqlBuilder;
+import com.application.db.builders.ScreenSqlBuilder;
+import com.application.db.dao.ScreenDAO;
 import org.apache.ibatis.session.SqlSession;
 
 /**
@@ -15,10 +15,10 @@ import org.apache.ibatis.session.SqlSession;
  **/
 public class ScreenMapperImpl {
 
-    private Screen result;
-    private Screen[] resultArray;
+    private ScreenDAO result;
+    private ScreenDAO[] resultArray;
 
-    public Screen[] getScreens() {
+    public ScreenDAO[] getScreens() {
         resultArray = null;
         DatabaseUtil.query(new QueryStatement() {
             @Override
@@ -27,13 +27,13 @@ public class ScreenMapperImpl {
                 example.createCriteria()
                         .andIdIsNotNull();
                 example.setOrderByClause("id");
-                resultArray = sqlSession.getMapper(ScreenMapper.class).selectBySQL(example).toArray(new Screen[]{});
+                resultArray = sqlSession.getMapper(ScreenMapper.class).selectBySQL(example).toArray(new ScreenDAO[]{});
             }
         });
         return resultArray;
     }
 
-    public Screen getScreenForOid(int sno) {
+    public ScreenDAO getScreenForOid(int sno) {
         result = null;
         DatabaseUtil.query(new QueryStatement() {
             @Override
