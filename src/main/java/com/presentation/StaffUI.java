@@ -55,8 +55,8 @@ public class StaffUI extends Application implements ScreeningObserver {
     private double dragged_y = 0;
 
     public StaffUI() {
-        managementSystem = new ManagementSystem();
-        //managementSystem = ManagementSystem.getInstance();
+        //managementSystem = new ManagementSystem();
+        managementSystem = ManagementSystem.getInstance();
         managementSystem.addObserver(this);
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!");
         System.out.println(managementSystem);
