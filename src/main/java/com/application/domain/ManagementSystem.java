@@ -6,17 +6,37 @@ import com.application.models.Screening;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 /**
  * @generated
  */
 public class ManagementSystem {
-    LocalDate currentDate;
-    LinkedList<ScreeningObserver> observers = new LinkedList<>();
-    Screening[] displayScreenings;
-    Screening selectedScreening;
-    Cinema cinema = new Cinema();
+    private LocalDate currentDate;
+    private LinkedList<ScreeningObserver> observers = new LinkedList<>();
+    private Screening[] displayScreenings;
+    private Screening selectedScreening;
+    private Cinema cinema = new Cinema();
+    private static ManagementSystem uniqueInstance;
+
+    public static ManagementSystem getInstance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new ManagementSystem();
+        }
+        return uniqueInstance;
+    }
+
+    @Override
+    public String toString() {
+        return "ManagementSystem{" +
+                "currentDate=" + currentDate +
+                ", observers=" + observers +
+                ", displayScreenings=" + Arrays.toString(displayScreenings) +
+                ", selectedScreening=" + selectedScreening +
+                ", cinema=" + cinema +
+                '}';
+    }
 
     public void addObserver(ScreeningObserver observer) {
         observers.add(observer);
