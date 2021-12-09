@@ -4,6 +4,7 @@ import cn.hutool.core.io.resource.ResourceUtil;
 import com.application.domain.ManagementSystem;
 import com.application.domain.ScreeningObserver;
 import com.application.models.Movie;
+import com.application.models.Screen;
 import com.application.models.Screening;
 import com.view.fxaddarrangement.AddArrangementView;
 import javafx.application.Application;
@@ -22,12 +23,14 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -208,16 +211,19 @@ public class StaffUI extends Application implements ScreeningObserver {
     }
 
     public void draw() {
-        ArrayList<String> screens = new ArrayList();
-        screens.add("Screen 1");
-        screens.add("Screen 2");
-        screens.add("Screen 3");
-        screens.add("Screen 4");
-        screens.add("Screen 5");
-        screens.add("Screen 6");
+        ArrayList<Screen> screens = new ArrayList();
+        for (Screen s : managementSystem.getScreens()) {
+            screens.add(s);
+        }
+//        screens.add("Screen 1");
+//        screens.add("Screen 2");
+//        screens.add("Screen 3");
+//        screens.add("Screen 4");
+//        screens.add("Screen 5");
+//        screens.add("Screen 6");
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        canvas.setHeight(TOP_MARGIN + screens.size() * ROW_HEIGHT + 10);
+        canvas.setHeight(TOP_MARGIN + screens.size() * ROW_HEIGHT + 2);
         canvas.setWidth(LEFT_MARGIN + (SLOTS * COL_WIDTH) + 50);
 //        gc.setFill(Color.WHITE);
 //        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -226,15 +232,18 @@ public class StaffUI extends Application implements ScreeningObserver {
         //
         // // Draw screen outlines
         //
-        gc.strokeLine(LEFT_MARGIN, 0, LEFT_MARGIN, canvas.getHeight());
+        gc.strokeLine(LEFT_MARGIN, TOP_MARGIN, LEFT_MARGIN, canvas.getHeight());
         gc.strokeLine(0, TOP_MARGIN, canvas.getWidth(), TOP_MARGIN);
         //
         for (int i = 0; i < screens.size(); i++) {
             int y = TOP_MARGIN + (i + 1) * ROW_HEIGHT;
             gc.setFont(new Font(15));
-            gc.fillText(screens.get(i), 5, y - ROW_HEIGHT / 3 - 7);
+            gc.fillText(screens.get(i).getName(), 5, y - ROW_HEIGHT / 3 - 7);
+            gc.setFont(new Font(10));
+            gc.fillText("Capacity: " + screens.get(i).getCapacity(), 5, y - ROW_HEIGHT / 3 + 10);
             gc.strokeLine(0, y, canvas.getWidth(), y);
         }
+        gc.setFont(new Font(15));
         LocalTime start = LocalTime.of(0, 0);
         for (int i = 0; i < SLOTS + 1; i++) {
             LocalTime show = start.plusMinutes(i * 120);
@@ -288,11 +297,19 @@ public class StaffUI extends Application implements ScreeningObserver {
 //                    screenToY(managementSystem.getSelectedScreening().getScreen().getId())-start_y+dragged_y,
 //                    COL_WIDTH*SLOTS*((managementSystem.getSelectedScreening().getMovie().getDuration())/(3600f*24f)),
 //                    ROW_HEIGHT);
+            float x = Math.min(timeToX(xToTime((int) (timeToX(LocalTime.parse(managementSystem.getSelectedScreening().getStartTime())) - start_x + dragged_x))), -1 + LEFT_MARGIN + COL_WIDTH * SLOTS - COL_WIDTH * SLOTS * ((managementSystem.getSelectedScreening().getMovie().getDuration()) / (3600f * 24f)));
+            float y = screenToY(yToScreen((int) dragged_y));
             gc.fillRect(
-                    Math.min(timeToX(xToTime((int) (timeToX(LocalTime.parse(managementSystem.getSelectedScreening().getStartTime())) - start_x + dragged_x))), -1 + LEFT_MARGIN + COL_WIDTH * SLOTS - COL_WIDTH * SLOTS * ((managementSystem.getSelectedScreening().getMovie().getDuration()) / (3600f * 24f))),
-                    screenToY(yToScreen((int) dragged_y)),
+                    x,
+                    y,
                     COL_WIDTH * SLOTS * ((managementSystem.getSelectedScreening().getMovie().getDuration()) / (3600f * 24f)),
                     ROW_HEIGHT);
+
+            gc.setStroke(Color.RED);
+            gc.strokeLine(x, TOP_MARGIN, x, canvas.getHeight());
+            gc.setStroke(Color.BLACK);
+            gc.fillText(xToTime((int) x).format(DateTimeFormatter.ISO_TIME), x - 15, 40);
+            gc.fillText(xToTime((int) x).format(DateTimeFormatter.ISO_TIME), x - 45, y + ROW_HEIGHT * 0.5);
         }
     }
 
