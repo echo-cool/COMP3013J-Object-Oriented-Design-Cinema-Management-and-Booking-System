@@ -5,7 +5,6 @@ import com.application.domain.ScreeningObserver;
 import com.application.models.Movie;
 import com.application.models.Screen;
 import com.application.models.Screening;
-import com.view.fxaddarrangement.AddArrangementView;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -38,6 +37,8 @@ public class StaffUI implements ScreeningObserver {
     final static int SLOTS = 12;                    // Number of booking slots shown
     public LocalDate currentDate = LocalDate.now();
     public Screening[] currentScreeningDAOS = new Screening[0];
+    @FXML
+    public Canvas canvas1;
     ManagementSystem managementSystem;
     @FXML
     private DatePicker datePicker;
@@ -66,6 +67,30 @@ public class StaffUI implements ScreeningObserver {
             }
         });
         this.draw();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (!Thread.interrupted()) {
+                    GraphicsContext gc1 = canvas1.getGraphicsContext2D();
+                    gc1.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                    canvas1.setHeight(TOP_MARGIN + 6 * ROW_HEIGHT + 100);
+                    canvas1.setWidth(LEFT_MARGIN + (SLOTS * COL_WIDTH) + 50);
+                    gc1.setLineWidth(2.0);
+                    gc1.setFill(Color.BLACK);
+                    gc1.setStroke(Color.YELLOW);
+                    gc1.setFont(new Font(12));
+                    gc1.fillText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")), timeToX(LocalTime.now()) - 25, 44);
+                    gc1.strokeLine(timeToX(LocalTime.now()), TOP_MARGIN, timeToX(LocalTime.now()), canvas.getHeight());
+                    gc1.setStroke(Color.BLACK);
+                    gc1.setFont(new Font(15));
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 
 
@@ -113,7 +138,7 @@ public class StaffUI implements ScreeningObserver {
 
     private int screenToY(String screen) {
 //        System.out.println(">>>>>>"+screen);
-        return TOP_MARGIN + managementSystem.findScreenIndex(screen)* ROW_HEIGHT;
+        return TOP_MARGIN + managementSystem.findScreenIndex(screen) * ROW_HEIGHT;
     }
 
     private String yToScreen(int y) {
@@ -168,7 +193,9 @@ public class StaffUI implements ScreeningObserver {
             screens.add(s);
         }
         GraphicsContext gc = canvas.getGraphicsContext2D();
+
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
         canvas.setHeight(TOP_MARGIN + screens.size() * ROW_HEIGHT + 2);
         canvas.setWidth(LEFT_MARGIN + (SLOTS * COL_WIDTH) + 50);
         gc.setLineWidth(2.0);
@@ -200,7 +227,7 @@ public class StaffUI implements ScreeningObserver {
             LocalTime show = start.plusMinutes(i * 120);
             String tmp = show.getHour() + ":" + (show.getMinute() > 9 ? show.getMinute() : "0" + show.getMinute());
             int x = LEFT_MARGIN + i * COL_WIDTH;
-            gc.fillText(tmp, x - 15, 40);
+            gc.fillText(tmp, x - 15, 30);
             gc.strokeLine(x, TOP_MARGIN, x, canvas.getHeight());
         }
 
