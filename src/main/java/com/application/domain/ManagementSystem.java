@@ -88,7 +88,7 @@ public class ManagementSystem {
                 observerMessage("Sorry the intended screening overlaps with the current one!", false);
                 return false;
             } else {
-                cinema.scheduleScreening(date, start_time,findScreenIndex(screen_name), movie_name);
+                cinema.scheduleScreening(date, start_time,screen_name, movie_name);
                 setDate(date);
                 notifyObservers();
                 return true;

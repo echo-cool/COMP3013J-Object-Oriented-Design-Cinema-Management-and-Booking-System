@@ -112,6 +112,7 @@ public class StaffUI implements ScreeningObserver {
     }
 
     private int screenToY(String screen) {
+        System.out.println(">>>>>>"+screen);
         return TOP_MARGIN + managementSystem.findScreenIndex(screen)* ROW_HEIGHT;
     }
 
@@ -278,7 +279,7 @@ public class StaffUI implements ScreeningObserver {
 //                    COL_WIDTH*SLOTS*((managementSystem.getSelectedScreening().getMovie().getDuration())/(3600f*24f)),
 //                    ROW_HEIGHT);
             float x = Math.min(timeToX(xToTime((int) (timeToX(managementSystem.getSelectedScreening().getStartTime()) - start_x + dragged_x))), -1 + LEFT_MARGIN + COL_WIDTH * SLOTS - COL_WIDTH * SLOTS * ((managementSystem.getSelectedScreening().getMovie().getDuration()) / (3600f * 24f)));
-            float y = screenToY("Screen " + yToScreen((int) dragged_y));
+            float y = screenToY(yToScreen((int) dragged_y));
             gc.fillRect(
                     x,
                     y,
