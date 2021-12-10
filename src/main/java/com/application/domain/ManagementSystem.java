@@ -168,11 +168,13 @@ public class ManagementSystem {
 
     private boolean checkOverlapScreening(LocalDate date, LocalTime start_time, String screen_name, int duration) {
 //        Screening[] screenings = cinema.getScreenings(date);
-        Screening[] screenings=displayScreenings;
+        Screening[] screenings = displayScreenings;
         for (Screening screeningDAO : screenings) {
             if (screeningDAO.getScreen().getName().equals(screen_name)) {
                 LocalTime over_time = start_time.plusSeconds(duration);
                 if (over_time.isBefore(screeningDAO.getStartTime()) || start_time.isAfter(screeningDAO.getStartTime().plusSeconds(screeningDAO.getMovie().getDuration()))) {
+
+                } else if (over_time.equals(screeningDAO.getStartTime()) || start_time.equals(screeningDAO.getStartTime().plusSeconds(screeningDAO.getMovie().getDuration()))) {
 
                 } else {
                     if (selectedScreening != null) {
