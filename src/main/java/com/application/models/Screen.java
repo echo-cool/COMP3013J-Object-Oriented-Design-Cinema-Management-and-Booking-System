@@ -23,4 +23,22 @@ public class Screen {
     public Integer getCapacity() {
         return capacity;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Screen screen = (Screen) o;
+
+        if (name != null ? !name.equals(screen.name) : screen.name != null) return false;
+        return capacity != null ? capacity.equals(screen.capacity) : screen.capacity == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (capacity != null ? capacity.hashCode() : 0);
+        return result;
+    }
 }

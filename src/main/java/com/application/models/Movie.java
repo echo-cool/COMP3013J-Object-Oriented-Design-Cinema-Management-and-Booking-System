@@ -30,12 +30,17 @@ public class Movie {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         Movie movie = (Movie) o;
-        return name.equals(movie.name) && duration.equals(movie.duration);
+
+        if (name != null ? !name.equals(movie.name) : movie.name != null) return false;
+        return duration != null ? duration.equals(movie.duration) : movie.duration == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, duration);
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (duration != null ? duration.hashCode() : 0);
+        return result;
     }
 }

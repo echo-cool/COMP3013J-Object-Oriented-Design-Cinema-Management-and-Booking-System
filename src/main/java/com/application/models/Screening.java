@@ -70,12 +70,23 @@ public class Screening {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         Screening screening = (Screening) o;
-        return startTime.equals(screening.startTime) && date.equals(screening.date) && ticketSold.equals(screening.ticketSold) && movie.equals(screening.movie) && screen.equals(screening.screen);
+
+        if (startTime != null ? !startTime.equals(screening.startTime) : screening.startTime != null) return false;
+        if (date != null ? !date.equals(screening.date) : screening.date != null) return false;
+        if (ticketSold != null ? !ticketSold.equals(screening.ticketSold) : screening.ticketSold != null) return false;
+        if (movie != null ? !movie.equals(screening.movie) : screening.movie != null) return false;
+        return screen != null ? screen.equals(screening.screen) : screening.screen == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(startTime, date, ticketSold, movie, screen);
+        int result = startTime != null ? startTime.hashCode() : 0;
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (ticketSold != null ? ticketSold.hashCode() : 0);
+        result = 31 * result + (movie != null ? movie.hashCode() : 0);
+        result = 31 * result + (screen != null ? screen.hashCode() : 0);
+        return result;
     }
 }
