@@ -168,24 +168,26 @@ public class ManagementSystem {
 
     private boolean checkOverlapScreening(LocalDate date, LocalTime start_time, String screen_name, int duration) {
 //        Screening[] screenings = cinema.getScreenings(date);
-        Screening[] screenings=displayScreenings;
+        Screening[] screenings = displayScreenings;
         for (Screening screeningDAO : screenings) {
             if (screeningDAO.getScreen().getName().equals(screen_name)) {
-                LocalTime over_time = start_time.plusSeconds(duration);
-                if (over_time.isBefore(screeningDAO.getStartTime()) || start_time.isAfter(screeningDAO.getStartTime().plusSeconds(screeningDAO.getMovie().getDuration()))) {
+                LocalTime over_time = start_time.plusSeconds(duration - 1);
 
-                } else {
+                if ((!over_time.isBefore(screeningDAO.getStartTime())) && (!start_time.isAfter(screeningDAO.getStartTime().plusSeconds(screeningDAO.getMovie().getDuration() - 1)))) {
                     if (selectedScreening != null) {
                         if (screeningDAO.equals(selectedScreening)) {
                             continue;
                         }
                     }
                     return true;
+                } else {
+
                 }
             }
         }
         return false;
     }
+
 
     public void setDate(LocalDate date) {
         this.currentDate = date;
