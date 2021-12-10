@@ -54,3 +54,11 @@ You can either use IDEA to start the project or use the following command in the
 ```shell
 java -jar target/COMP3013J-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
+
+## Project Screenshots
+
+![](assets/Screen%20Shot%202021-12-10%20at%2015.04.45.png)
+![](assets/Screen%20Shot%202021-12-10%20at%2015.04.58.png)
+![](assets/Screen%20Shot%202021-12-10%20at%2015.05.30.png)
+![](assets/Screen%20Shot%202021-12-10%20at%2015.05.39.png)
+![](assets/Screen%20Shot%202021-12-10%20at%2015.05.44.png)
