@@ -10,7 +10,7 @@
 
 [19206207 - YangLiuxin  Personal Information](19206207.md)
 
-## Project preview
+## Project Preview
 ![](assets/demo.gif)
 
 ## Use Case
