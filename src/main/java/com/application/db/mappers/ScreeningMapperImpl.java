@@ -109,7 +109,8 @@ public class ScreeningMapperImpl {
                         .andDateEqualTo(old.getDate().format(DateTimeFormatter.ISO_DATE))
                         .andStartTimeEqualTo(old.getStartTime().format(DateTimeFormatter.ISO_TIME));
 
-                mapper.updateBySQL(screeningDAO, screeningSqlBuilder);
+                screeningDAO.setId(mapper.selectBySQL(screeningSqlBuilder).get(0).getId());
+                mapper.updateByPrimaryKey(screeningDAO);
             }
         });
 
@@ -152,12 +153,21 @@ public class ScreeningMapperImpl {
             @Override
             public void query_commands(SqlSession sqlSession) {
                 ScreeningMapper mapper = sqlSession.getMapper(ScreeningMapper.class);
-                MovieDAO movieDAO = new MovieDAO();
-                movieDAO.setName(movie.getName());
-                movieDAO.setDuration(movie.getDuration());
-                ScreenDAO screenDAO = new ScreenDAO();
-                screenDAO.setName(screen.getName());
-                screenDAO.setCapacity(screen.getCapacity());
+                MovieMapper movieMapper = sqlSession.getMapper(MovieMapper.class);
+                ScreenMapper screenMapper = sqlSession.getMapper(ScreenMapper.class);
+                ScreenSqlBuilder screenSqlBuilder = new ScreenSqlBuilder();
+                screenSqlBuilder
+                        .createCriteria()
+                        .andNameEqualTo(screen.getName())
+                        .andCapacityEqualTo(screen.getCapacity());
+                ScreenDAO screenDAO = screenMapper.selectBySQL(screenSqlBuilder).get(0);
+                MovieSqlBuilder movieSqlBuilder = new MovieSqlBuilder();
+                movieSqlBuilder
+                        .createCriteria()
+                        .andNameEqualTo(movie.getName())
+                        .andDurationEqualTo(movie.getDuration());
+                MovieDAO movieDAO = movieMapper.selectBySQL(movieSqlBuilder).get(0);
+
                 ScreeningDAO screeningDAO = new ScreeningDAO(date, start_time, 0, movieDAO, screenDAO);
                 mapper.insert(screeningDAO);
             }
