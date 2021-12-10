@@ -2,7 +2,6 @@ package com.application.models;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Objects;
 
 /**
  * @Author: WangYuyang
@@ -68,6 +67,7 @@ public class Screening {
 
     @Override
     public boolean equals(Object o) {
+        //Check if two screening object contains the same information
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 

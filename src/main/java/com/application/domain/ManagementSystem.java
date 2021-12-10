@@ -23,6 +23,7 @@ public class ManagementSystem {
     public ManagementSystem() {
     }
 
+    //Init signal instance.
     public static ManagementSystem getInstance() {
         if (uniqueInstance == null) {
             uniqueInstance = new ManagementSystem();
