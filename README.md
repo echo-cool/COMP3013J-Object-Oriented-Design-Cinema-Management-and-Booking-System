@@ -16,34 +16,6 @@ Weiyun link: https://share.weiyun.com/M9geoGak
 ## Project Preview
 ![](assets/demo.gif)
 
-## Functionality
-##### Add new movie
-1. Click the "Add Movie" button
-2. Enter the "movie name" and "duration" of this movie
-3. Click ok to store the newly added movie into the database
-
-## Use Case
-
-##### Use Case 1:
-
-Display Screening Tickets Sold Capacity
-
-##### Use Case 2:
-
-Schedule Movie Screening
-
-##### Use Case 3:
-
-Reschedule Movie Screening
-
-##### Use Case 4:
-
-Cancel Movie Screening
-
-##### Use Case 5:
-
-Sell Tickets
-
 ## Build
 
 To build this project, it would be easier if you have maven installed. Please run the following command in the terminal:
@@ -67,6 +39,59 @@ You can either use IDEA to start the project or use the following command in the
 java -jar target/COMP3013J-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
+## Functionality
+##### Add new movie
+1. Click the "Add Movie" button
+2. Enter the "movie name" and "duration" of this movie
+3. Click ok to store the newly added movie into the database
+
+##### Schedule new movie screening
+1. Click the "Schedule" button
+2. Enter the "movie name", "start time", and "screen" number of this movie
+3. Click ok to store the newly added movie screening into the database
+1. Constraint: Cannot schedule movie screening spanning different days
+2. Constraint: Cannot schedule movie screening that overlaps the existing ones
+
+##### Reschedule movie screening
+1. Select a movie screening
+2. Drag the selected movie screening to the expected area
+3. Constraint: Cannot drag/reschedule movie screening that overlaps the existing ones
+4. Constraint: Cannot drag/reschedule movie screening out of the screen bounds
+5. Constraint: Cannot drag/reschedule movie screening with tickets sold
+
+##### Cancel movie screening
+1. Select a movie screening
+2. Click the "Cancel" button
+3. Click ok
+4. Constraint: Cannot cancel movie screening with tickets sold
+
+##### Sell tickets
+1. Select a movie screening
+2. Click "Sell" button
+3. Select the number of tickets to sell
+4. Constraint: Cannot sell tickets out of the screen's capacity
+
+## Use Case
+
+##### Use Case 1:
+
+Display Screening Tickets Sold Capacity
+
+##### Use Case 2:
+
+Schedule Movie Screening
+
+##### Use Case 3:
+
+Reschedule Movie Screening
+
+##### Use Case 4:
+
+Cancel Movie Screening
+
+##### Use Case 5:
+
+Sell Tickets
 
 
 ## Assumptions
