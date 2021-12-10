@@ -81,16 +81,12 @@ public class ManagementSystem {
             int durationHour = movie.getDuration() / 3600;
             int durationSec = movie.getDuration() % 3600;
             String end_time = start_time.toString().split(":")[0];
-            if (end_time.charAt(0) == '0') {
-                if (Integer.parseInt(String.valueOf(end_time.charAt(0))) + durationHour > 24) {
+
+            if (start_time.toSecondOfDay()+movie.getDuration()>3600*24-2) {
+
                     observerMessage("Sorry you cannot schedule screening spanning different days!", false);
                     return false;
-                }
-            } else {
-                if (Integer.parseInt(end_time) + durationHour > 24 || (Integer.parseInt(end_time) + durationHour == 24 && durationSec > 0)) {
-                    observerMessage("Sorry you cannot schedule screening spanning different days!", false);
-                    return false;
-                }
+
             }
             if (checkOverlapScreening(date, start_time, screen_name, movie.getDuration())) {
                 observerMessage("Sorry the intended screening overlaps with the current one!", false);
