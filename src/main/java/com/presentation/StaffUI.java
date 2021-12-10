@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class StaffUI implements ScreeningObserver {
+    //The UI controls of this application
     final static int LEFT_MARGIN = 70;
     final static int TOP_MARGIN = 50;
     final static int BOTTOM_MARGIN = 50;
