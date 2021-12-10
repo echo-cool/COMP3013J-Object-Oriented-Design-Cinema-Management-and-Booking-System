@@ -105,7 +105,12 @@ public class ManagementSystem {
         } else {
             if (observerMessage("Are you sure to reschedule this screening?", true)) {
                 selectedScreening.setStartTime(time);
-//                selectedScreening.setScreenId(screen_no);
+                for(Screen screen:getScreens()){
+                    if(screen.getName().equals(screen_name)){
+                        selectedScreening.setScreen(screen);
+                        break;
+                    }
+                }
 
                 cinema.updateScreening(selectedScreening);
                 notifyObservers();
