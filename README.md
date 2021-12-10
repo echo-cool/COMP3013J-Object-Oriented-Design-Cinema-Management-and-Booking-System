@@ -10,6 +10,9 @@
 
 [19206207 - YangLiuxin  Personal Information](19206207.md)
 
+## Video Explanation Link
+Weiyun link: https://share.weiyun.com/M9geoGak
+
 ## Project Preview
 ![](assets/demo.gif)
 
