@@ -109,8 +109,7 @@ public class ScreeningMapperImpl {
                         .andDateEqualTo(old.getDate().format(DateTimeFormatter.ISO_DATE))
                         .andStartTimeEqualTo(old.getStartTime().format(DateTimeFormatter.ISO_TIME));
 
-                screeningDAO.setId(mapper.selectBySQL(screeningSqlBuilder).get(0).getId());
-                mapper.updateByPrimaryKey(screeningDAO);
+                mapper.updateBySQL(screeningDAO, screeningSqlBuilder);
             }
         });
 
