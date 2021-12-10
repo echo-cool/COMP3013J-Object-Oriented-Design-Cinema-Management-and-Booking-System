@@ -9,11 +9,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 
-/**
- * @generated
- */
 public class ManagementSystem {
-    private static ManagementSystem uniqueInstance = null;
+    private static ManagementSystem uniqueInstance = null; //ManagementSystem is a unique Instance
     private final LinkedList<ScreeningObserver> observers = new LinkedList<>();
     private final Cinema cinema = new Cinema();
     private LocalDate currentDate;
@@ -23,6 +20,7 @@ public class ManagementSystem {
     public ManagementSystem() {
     }
 
+    //Init signal instance.
     public static ManagementSystem getInstance() {
         if (uniqueInstance == null) {
             uniqueInstance = new ManagementSystem();
@@ -35,6 +33,7 @@ public class ManagementSystem {
     }
 
     public void notifyObservers() {
+        //Notify all observers to update UI
         for (ScreeningObserver observer : observers) {
             observer.update();
         }
@@ -49,6 +48,7 @@ public class ManagementSystem {
     }
 
     public boolean sellTicket(int num) {
+        //sell a specific number of Ticket
         if (selectedScreening == null) {
             observerMessage("Sorry you have not chosen a screening yet!", true);
             return false;
@@ -135,8 +135,8 @@ public class ManagementSystem {
         return false;
     }
 
-    public boolean removeScreening(Screening screeningDAO) {
-        cinema.deleteScreening(screeningDAO);
+    public boolean removeScreening(Screening screening) {
+        cinema.deleteScreening(screening);
         return true;
     }
 
@@ -146,6 +146,7 @@ public class ManagementSystem {
             notifyObservers();
             return false;
         } else {
+            //Can only cancel a screening that has not been sold
             if (selectedScreening.getTicketSold() > 0) {
                 observerMessage("Sorry you cannot cancel this screening with tickets sold!", false);
                 notifyObservers();
@@ -162,20 +163,21 @@ public class ManagementSystem {
         return false;
     }
 
-    private boolean checkInsufficientTicket(Screening screeningDAO, int num) {
-        return screeningDAO.getScreen().getCapacity() - screeningDAO.getTicketSold() - num < 0;
+    private boolean checkInsufficientTicket(Screening screening, int num) {
+        //Check if there are enough tickets
+        return screening.getScreen().getCapacity() - screening.getTicketSold() - num < 0;
     }
 
     private boolean checkOverlapScreening(LocalDate date, LocalTime start_time, String screen_name, int duration) {
 //        Screening[] screenings = cinema.getScreenings(date);
+        //Check if two screenings overlap
         Screening[] screenings = displayScreenings;
-        for (Screening screeningDAO : screenings) {
-            if (screeningDAO.getScreen().getName().equals(screen_name)) {
+        for (Screening screening : screenings) {
+            if (screening.getScreen().getName().equals(screen_name)) {
                 LocalTime over_time = start_time.plusSeconds(duration - 1);
-
-                if ((!over_time.isBefore(screeningDAO.getStartTime())) && (!start_time.isAfter(screeningDAO.getStartTime().plusSeconds(screeningDAO.getMovie().getDuration() - 1)))) {
+                if ((!over_time.isBefore(screening.getStartTime())) && (!start_time.isAfter(screening.getStartTime().plusSeconds(screening.getMovie().getDuration() - 1)))) {
                     if (selectedScreening != null) {
-                        if (screeningDAO.equals(selectedScreening)) {
+                        if (screening.equals(selectedScreening)) {
                             continue;
                         }
                     }
@@ -203,10 +205,10 @@ public class ManagementSystem {
     public void changeSelected(LocalTime time, String screen) {
         label:
         {
-            for (Screening screeningDAO : displayScreenings) {
-                if (screen.equals(screeningDAO.getScreen().getName())) {
-                    if (screeningDAO.getStartTime().isBefore(time) && screeningDAO.getStartTime().plusSeconds(screeningDAO.getMovie().getDuration()).isAfter(time)) {
-                        selectedScreening = screeningDAO;
+            for (Screening screening : displayScreenings) {
+                if (screen.equals(screening.getScreen().getName())) {
+                    if (screening.getStartTime().isBefore(time) && screening.getStartTime().plusSeconds(screening.getMovie().getDuration()).isAfter(time)) {
+                        selectedScreening = screening;
                         break label;
                     }
                 }

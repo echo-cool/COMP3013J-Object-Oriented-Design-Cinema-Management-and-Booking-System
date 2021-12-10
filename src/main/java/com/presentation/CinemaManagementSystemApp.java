@@ -11,12 +11,13 @@ import javafx.stage.Stage;
  * @Date: 2021/12/9-13:01
  * @Project: comp3013j_assignment
  * @Package: com.presentation
- * @Description:
+ * @Description: The entry point of this application.
  **/
 public class CinemaManagementSystemApp extends Application {
     private static Stage primaryStage;
 
     public static void main(String[] args) {
+        //Open the application
         launch(args);
     }
 
@@ -37,6 +38,7 @@ public class CinemaManagementSystemApp extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
+        //Load XML file for UI
         FXMLLoader fxmlLoader = new FXMLLoader(ResourceUtil.getResource("fx/index-view.fxml"));
         Scene scene = null;
         scene = new Scene(fxmlLoader.load());

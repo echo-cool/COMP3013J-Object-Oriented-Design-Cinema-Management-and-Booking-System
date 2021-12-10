@@ -10,9 +10,6 @@ import com.application.models.Screening;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-/**
- * @generated
- */
 public class Cinema {
     //Cinema knows all the information of the databse
     MovieMapperImpl movieMapper = new MovieMapperImpl();
@@ -33,8 +30,8 @@ public class Cinema {
         screeningMapper.updateScreening(old, selected);
     }
 
-    public void deleteScreening(Screening screeningDAO) {
-        screeningMapper.deleteScreening(screeningDAO);
+    public void deleteScreening(Screening screening) {
+        screeningMapper.deleteScreening(screening);
     }
 
     public Movie getMovie(String name) {

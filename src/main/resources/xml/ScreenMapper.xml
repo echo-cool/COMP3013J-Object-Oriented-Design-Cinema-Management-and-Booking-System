@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.application.db.mappers.ScreenMapper">
   <resultMap id="BaseResultMap" type="com.application.db.dao.ScreenDAO">
-    <!--@mbg.generated -->
+
     <!--@Table Screen -->
     <!-- generated on Tue Dec 07 16:13:30 CST 2021 -->
     <id column="ID" jdbcType="INTEGER" property="id" />
@@ -10,7 +10,7 @@
     <result column="capacity" jdbcType="INTEGER" property="capacity" />
   </resultMap>
   <sql id="Example_Where_Clause">
-    <!--@mbg.generated -->
+
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
         <if test="criteria.valid">
@@ -40,7 +40,7 @@
     </where>
   </sql>
   <sql id="Update_By_Example_Where_Clause">
-    <!--@mbg.generated -->
+
     <where>
       <foreach collection="example.oredCriteria" item="criteria" separator="or">
         <if test="criteria.valid">
@@ -70,11 +70,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    <!--@mbg.generated -->
+
     ID, "name", capacity
   </sql>
   <select id="selectBySQL" parameterType="com.application.db.builders.ScreenSqlBuilder" resultMap="BaseResultMap">
-    <!--@mbg.generated -->
+
     select
     <if test="distinct">
       distinct
@@ -89,33 +89,33 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    <!--@mbg.generated -->
+
     select 
     <include refid="Base_Column_List" />
     from Screen
     where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--@mbg.generated -->
+
     delete from Screen
     where ID = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteBySQL" parameterType="com.application.db.builders.ScreenSqlBuilder">
-    <!--@mbg.generated -->
+
     delete from Screen
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.application.db.dao.ScreenDAO">
-    <!--@mbg.generated -->
+
     insert into Screen (ID, "name", capacity
       )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{capacity,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.application.db.dao.ScreenDAO">
-    <!--@mbg.generated -->
+
     insert into Screen
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -141,14 +141,14 @@
     </trim>
   </insert>
   <select id="countBySQL" parameterType="com.application.db.builders.ScreenSqlBuilder" resultType="java.lang.Long">
-    <!--@mbg.generated -->
+
     select count(*) from Screen
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateBySQLSelective" parameterType="map">
-    <!--@mbg.generated -->
+
     update Screen
     <set>
       <if test="record.id != null">
@@ -166,7 +166,7 @@
     </if>
   </update>
   <update id="updateBySQL" parameterType="map">
-    <!--@mbg.generated -->
+
     update Screen
     set ID = #{record.id,jdbcType=INTEGER},
       "name" = #{record.name,jdbcType=VARCHAR},
@@ -176,7 +176,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.application.db.dao.ScreenDAO">
-    <!--@mbg.generated -->
+
     update Screen
     <set>
       <if test="name != null">
@@ -189,7 +189,7 @@
     where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.application.db.dao.ScreenDAO">
-    <!--@mbg.generated -->
+
     update Screen
     set "name" = #{name,jdbcType=VARCHAR},
       capacity = #{capacity,jdbcType=INTEGER}

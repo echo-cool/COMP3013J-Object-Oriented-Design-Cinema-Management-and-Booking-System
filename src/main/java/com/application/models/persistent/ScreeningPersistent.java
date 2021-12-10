@@ -15,6 +15,7 @@ import java.time.LocalTime;
  * @Description:
  **/
 public class ScreeningPersistent extends Screening {
+    //A persistent screening is a screening that is stored in the database
     private Integer id;
 
     public ScreeningPersistent(LocalTime startTime, LocalDate date, Integer ticketSold, Movie movie, Screen screen, Integer id) {

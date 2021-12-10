@@ -29,6 +29,7 @@ public class DatabaseUtil {
         try {
             sqlSession = MyBatisUtils.openSession();
             queryListener.query_commands(sqlSession);
+            //For insert, we need to commit the change
             sqlSession.commit();
         } catch (Exception e) {
             throw e;

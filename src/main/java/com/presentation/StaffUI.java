@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class StaffUI implements ScreeningObserver {
+    //The UI controls of this application
     final static int LEFT_MARGIN = 70;
     final static int TOP_MARGIN = 50;
     final static int BOTTOM_MARGIN = 50;
@@ -36,7 +37,7 @@ public class StaffUI implements ScreeningObserver {
     final static int COL_WIDTH = 75;
     final static int SLOTS = 12;                    // Number of booking slots shown
     public LocalDate currentDate = LocalDate.now();
-    public Screening[] currentScreeningDAOS = new Screening[0];
+    public Screening[] currentScreenings = new Screening[0];
     @FXML
     public Canvas canvas1;
     ManagementSystem managementSystem;
@@ -96,7 +97,7 @@ public class StaffUI implements ScreeningObserver {
 
     @Override
     public void update() {
-        currentScreeningDAOS = managementSystem.getScreenings();
+        currentScreenings = managementSystem.getScreenings();
         draw();
     }
 
@@ -231,7 +232,7 @@ public class StaffUI implements ScreeningObserver {
             gc.strokeLine(x, TOP_MARGIN, x, canvas.getHeight());
         }
 
-        for (Screening screening : currentScreeningDAOS) {
+        for (Screening screening : currentScreenings) {
             if (screening.getTicketSold() > 0)
                 gc.setFill(Color.LIGHTGREEN);
             else

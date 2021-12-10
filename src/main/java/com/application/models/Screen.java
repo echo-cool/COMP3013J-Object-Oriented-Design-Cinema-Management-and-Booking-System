@@ -26,6 +26,7 @@ public class Screen {
 
     @Override
     public boolean equals(Object o) {
+        //Check if two screen object contains the same information
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 

@@ -28,6 +28,7 @@ public class Movie {
 
     @Override
     public boolean equals(Object o) {
+        //Check if two movie object contains the same information
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
