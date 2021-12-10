@@ -6,6 +6,7 @@ import com.application.models.Screening;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 
 /**
@@ -55,8 +56,8 @@ public class ManagementSystem {
             int ticket_sold = selectedScreening.getTicketSold();
             if (!checkInsufficientTicket(selectedScreening, num)) {
                 Screening old = new Screening(
-                        selectedScreening.getStartTime(),
-                        selectedScreening.getDate(),
+                        LocalTime.parse(selectedScreening.getStartTime().format(DateTimeFormatter.ISO_TIME)),
+                        LocalDate.parse(selectedScreening.getDate().format(DateTimeFormatter.ISO_DATE)),
                         selectedScreening.getTicketSold(),
                         new Movie(selectedScreening.getMovie().getName(), selectedScreening.getMovie().getDuration()),
                         new Screen(selectedScreening.getScreen().getName(), selectedScreening.getScreen().getCapacity())
@@ -112,8 +113,8 @@ public class ManagementSystem {
         } else {
             if (observerMessage("Are you sure to reschedule this screening?", true)) {
                 Screening old = new Screening(
-                        selectedScreening.getStartTime(),
-                        selectedScreening.getDate(),
+                        LocalTime.parse(selectedScreening.getStartTime().format(DateTimeFormatter.ISO_TIME)),
+                        LocalDate.parse(selectedScreening.getDate().format(DateTimeFormatter.ISO_DATE)),
                         selectedScreening.getTicketSold(),
                         new Movie(selectedScreening.getMovie().getName(), selectedScreening.getMovie().getDuration()),
                         new Screen(selectedScreening.getScreen().getName(), selectedScreening.getScreen().getCapacity())
