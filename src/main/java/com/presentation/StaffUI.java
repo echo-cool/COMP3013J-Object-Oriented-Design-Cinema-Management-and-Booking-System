@@ -234,34 +234,34 @@ public class StaffUI implements ScreeningObserver {
             gc.strokeLine(x, TOP_MARGIN, x, canvas.getHeight());
         }
 
-        for (Screening screeningDAO : currentScreeningDAOS) {
-            if (screeningDAO.getTicketSold() > 0)
+        for (Screening screening : currentScreeningDAOS) {
+            if (screening.getTicketSold() > 0)
                 gc.setFill(Color.LIGHTGREEN);
             else
                 gc.setFill(Color.LIGHTPINK);
             gc.fillRect(
-                    timeToX(screeningDAO.getStartTime()),
-                    screenToY(screeningDAO.getScreen().getName()),
-                    COL_WIDTH * SLOTS * ((screeningDAO.getMovie().getDuration()) / (3600f * 24f)),
+                    timeToX(screening.getStartTime()),
+                    screenToY(screening.getScreen().getName()),
+                    COL_WIDTH * SLOTS * ((screening.getMovie().getDuration()) / (3600f * 24f)),
                     ROW_HEIGHT);
             gc.setFill(Color.BLACK);
             gc.setFont(new Font(10));
-            String movie_name = screeningDAO.getMovie().getName();
+            String movie_name = screening.getMovie().getName();
             Integer scale_factor = 8 * 60;
 //            System.out.println(screening.getMovie().getDuration() / scale_factor);
-            if (movie_name.length() >= screeningDAO.getMovie().getDuration() / scale_factor) {
-                movie_name = movie_name.substring(0, screeningDAO.getMovie().getDuration() / scale_factor) + "...";
+            if (movie_name.length() >= screening.getMovie().getDuration() / scale_factor) {
+                movie_name = movie_name.substring(0, screening.getMovie().getDuration() / scale_factor) + "...";
             }
-            gc.fillText(movie_name + "\nsell: " + screeningDAO.getTicketSold(), timeToX(screeningDAO.getStartTime()) + 5,
-                    screenToY(screeningDAO.getScreen().getName()) + ROW_HEIGHT * 0.4);
-            gc.strokeRect(timeToX(screeningDAO.getStartTime()),
-                    screenToY(screeningDAO.getScreen().getName()),
-                    COL_WIDTH * SLOTS * ((screeningDAO.getMovie().getDuration()) / (3600f * 24f)),
+            gc.fillText(movie_name + "\nsell: " + screening.getTicketSold(), timeToX(screening.getStartTime()) + 5,
+                    screenToY(screening.getScreen().getName()) + ROW_HEIGHT * 0.4);
+            gc.strokeRect(timeToX(screening.getStartTime()),
+                    screenToY(screening.getScreen().getName()),
+                    COL_WIDTH * SLOTS * ((screening.getMovie().getDuration()) / (3600f * 24f)),
                     ROW_HEIGHT);
-            if (screeningDAO.equals(managementSystem.getSelectedScreening())) {
-                gc.strokeRect(timeToX(screeningDAO.getStartTime()) + 2,
-                        screenToY(screeningDAO.getScreen().getName()) + 2,
-                        COL_WIDTH * SLOTS * ((screeningDAO.getMovie().getDuration()) / (3600f * 24f)) - 4,
+            if (screening.equals(managementSystem.getSelectedScreening())) {
+                gc.strokeRect(timeToX(screening.getStartTime()) + 2,
+                        screenToY(screening.getScreen().getName()) + 2,
+                        COL_WIDTH * SLOTS * ((screening.getMovie().getDuration()) / (3600f * 24f)) - 4,
                         ROW_HEIGHT - 4);
             }
         }
