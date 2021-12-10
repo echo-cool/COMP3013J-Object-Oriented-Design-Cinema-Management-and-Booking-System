@@ -55,6 +55,10 @@ public class StaffUI implements ScreeningObserver {
 
     }
 
+
+    /**
+     * Initialization completes system and UI startup
+     */
     public void initialize() {
         // utilize singleton design
         managementSystem = ManagementSystem.getInstance();
@@ -95,12 +99,22 @@ public class StaffUI implements ScreeningObserver {
     }
 
 
+    /**
+     * Refresh the interface
+     */
     @Override
     public void update() {
         currentScreenings = managementSystem.getScreenings();
         draw();
     }
 
+
+    /**
+     * Pop-up message box
+     * @param message The message content
+     * @param isConfirmation Whether user confirmation is required
+     * @return Confirm or cancel
+     */
     @Override
     public boolean message(String message, boolean isConfirmation) {
         if (isConfirmation) {
@@ -129,24 +143,47 @@ public class StaffUI implements ScreeningObserver {
         }
     }
 
+    /**
+     * Returns a mapping of time to screen coordinates
+     * @param time time in day
+     * @return location on screen
+     */
     private int timeToX(LocalTime time) {
         return (int) ((time.getHour() * 60 + time.getMinute()) / (60 * 24f) * (SLOTS * COL_WIDTH) + LEFT_MARGIN);
     }
 
+    /**
+     * Returns a mapping of screen coordinates to time
+     * @param x location on screen
+     * @return time in day
+     */
     private LocalTime xToTime(int x) {
         return LocalTime.ofSecondOfDay(Math.min(3600 * 24 - 1, Math.max((long) (60 * ((24 * 60f * (x - LEFT_MARGIN) / (SLOTS * COL_WIDTH)))), 0)));
     }
 
+    /**
+     * Returns a mapping of screen coordinates to Screen
+     * @param screen the screen name
+     * @return location on screen
+     */
     private int screenToY(String screen) {
 //        System.out.println(">>>>>>"+screen);
         return TOP_MARGIN + managementSystem.findScreenIndex(screen) * ROW_HEIGHT;
     }
 
+    /**
+     * Returns Screen to screen coordinate mapping
+     * @param y location on screen
+     * @return the screen name
+     */
     private String yToScreen(int y) {
         return managementSystem.getScreens()[Math.min(Math.max((y - TOP_MARGIN) / ROW_HEIGHT, 0), 5)].getName();
     }
 
 
+    /**
+     * pops up set ticket dialog
+     */
     public void sellTicket() {
         List<String> choices = new ArrayList<>();
         choices.add("1");
@@ -167,14 +204,10 @@ public class StaffUI implements ScreeningObserver {
         }
     }
 
-    public void showSellTicketDialog() {
 
-    }
-
-    public void cancelScreening() {
-
-    }
-
+    /**
+     * pops up schedule dialog
+     */
     public void showScheduleScreeningDialog() {
         ScheduleDialog addRes = new ScheduleDialog(managementSystem.getAllMovies());
         Optional<ScheduleInfo> result = addRes.showAndWait();
@@ -188,6 +221,9 @@ public class StaffUI implements ScreeningObserver {
         update();
     }
 
+    /**
+     * draw on the screen
+     */
     public void draw() {
         ArrayList<Screen> screens = new ArrayList();
         for (Screen s : managementSystem.getScreens()) {
@@ -286,10 +322,10 @@ public class StaffUI implements ScreeningObserver {
         }
     }
 
-    public void showDate(ActionEvent actionEvent) {
 
-    }
-
+    /**
+     * go to the next day
+     */
     public void nextDay() {
         currentDate = datePicker.getValue();
         currentDate = currentDate.plusDays(1);
@@ -297,6 +333,9 @@ public class StaffUI implements ScreeningObserver {
         managementSystem.setDate(currentDate);
     }
 
+    /**
+     * go to the prev day
+     */
     public void prevDay() {
         currentDate = datePicker.getValue();
         currentDate = currentDate.minusDays(1);
@@ -304,7 +343,10 @@ public class StaffUI implements ScreeningObserver {
         managementSystem.setDate(currentDate);
     }
 
-    public void showAddMovieView(ActionEvent actionEvent) {
+    /**
+     * pop up add movie dialog
+     */
+    public void showAddMovieView() {
         Dialog<Pair<String, Integer>> dialog = new Dialog<>();
         dialog.setTitle("Add Movie Dialog");
         dialog.setHeaderText("Add a Movie");
@@ -365,11 +407,22 @@ public class StaffUI implements ScreeningObserver {
         });
     }
 
+    public void showDate(ActionEvent actionEvent) {
 
+    }
+
+    /**
+     * awake system to cancel schedule
+     * @param actionEvent
+     */
     public void cancelSchedule(ActionEvent actionEvent) {
         managementSystem.cancelSelected();
     }
 
+    /**
+     * awake system to update date
+     * @param actionEvent
+     */
     public void test(ActionEvent actionEvent) {
         managementSystem.setDate(currentDate);
     }
@@ -386,6 +439,10 @@ public class StaffUI implements ScreeningObserver {
 
     }
 
+    /**
+     * record mouse drag event
+     * @param mouseEvent
+     */
     public void onMouseDragged(MouseEvent mouseEvent) {
         is_dragging = true;
         dragged_x = mouseEvent.getX();
@@ -393,6 +450,10 @@ public class StaffUI implements ScreeningObserver {
         update();
     }
 
+    /**
+     * handle mouse released event
+     * @param mouseEvent
+     */
     public void onMouseReleased(MouseEvent mouseEvent) {
         if (managementSystem.getSelectedScreening() != null && is_dragging) {
             is_dragging = false;
@@ -400,6 +461,10 @@ public class StaffUI implements ScreeningObserver {
         }
     }
 
+    /**
+     * handle mouse pressed event
+     * @param mouseEvent
+     */
     public void onMousePressed(MouseEvent mouseEvent) {
         start_x = mouseEvent.getX();
         start_y = mouseEvent.getY();
