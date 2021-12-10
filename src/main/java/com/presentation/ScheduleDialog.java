@@ -87,5 +87,4 @@ public class ScheduleDialog extends Dialog<ScheduleInfo> {
                 && !coversBox.getSelectionModel().isEmpty();
         getDialogPane().lookupButton(buttonTypeOk).setDisable(!disable);
     }
-
 }
