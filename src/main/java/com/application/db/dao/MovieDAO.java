@@ -1,6 +1,10 @@
 package com.application.db.dao;
 
 public class MovieDAO {
+    //This is a database access object for the Movie table
+    //This object is a direct mapping for the row in the database and only used in mappers for query.
+    //The reason we have this class is that DAO is required for the using of mybatis.
+    //The real model and persistent models are in the model package
     private Integer id;
 
     private String name;

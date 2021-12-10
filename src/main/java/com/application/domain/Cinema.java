@@ -14,18 +14,21 @@ import java.time.LocalTime;
  * @generated
  */
 public class Cinema {
+    //Cinema knows all the information of the databse
     MovieMapperImpl movieMapper = new MovieMapperImpl();
     ScreenMapperImpl screenMapper = new ScreenMapperImpl();
     ScreeningMapperImpl screeningMapper = new ScreeningMapperImpl();
 
-    Screen[] screens=null;
+    Screen[] screens = null;
 
+    //schedule a Screening
     public void scheduleScreening(LocalDate date, LocalTime start_time, String screen_name, String movie_name) {
         Screen screen = screenMapper.getScreenForName(screen_name);
         Movie movie = movieMapper.getMovie(movie_name);
         screeningMapper.scheduleScreening(date, start_time, screen, movie);
     }
 
+    //update Screening
     public void updateScreening(Screening old, Screening selected) {
         screeningMapper.updateScreening(old, selected);
     }
@@ -47,8 +50,8 @@ public class Cinema {
     }
 
     public Screen[] getScreens() {
-        if (screens==null){
-            screens=screenMapper.getScreens();
+        if (screens == null) {
+            screens = screenMapper.getScreens();
         }
         return screens;
     }

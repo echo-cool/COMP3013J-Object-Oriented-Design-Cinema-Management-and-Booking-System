@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScreenSqlBuilder {
+    //This class is used to build sql queries for mappers to query in the database
+    //For Screen
     protected String orderByClause;
 
     protected boolean distinct;
