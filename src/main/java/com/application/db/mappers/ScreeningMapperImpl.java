@@ -88,8 +88,8 @@ public class ScreeningMapperImpl {
                 ScreenSqlBuilder screenSqlBuilder = new ScreenSqlBuilder();
                 screenSqlBuilder
                         .createCriteria()
-                        .andNameEqualTo(old.getScreen().getName())
-                        .andCapacityEqualTo(old.getScreen().getCapacity());
+                        .andNameEqualTo(selected.getScreen().getName())
+                        .andCapacityEqualTo(selected.getScreen().getCapacity());
                 ScreenDAO screenDAO = screenMapper.selectBySQL(screenSqlBuilder).get(0);
                 screeningDAO.setScreenId(screenDAO.getId());
 
@@ -105,7 +105,7 @@ public class ScreeningMapperImpl {
                 screeningSqlBuilder
                         .createCriteria()
                         .andMovieIdEqualTo(movieDAO.getId())
-                        .andScreenIdEqualTo(screenDAO.getId())
+//                        .andScreenIdEqualTo(screenDAO.getId())
                         .andDateEqualTo(old.getDate().format(DateTimeFormatter.ISO_DATE))
                         .andStartTimeEqualTo(old.getStartTime().format(DateTimeFormatter.ISO_TIME));
 
