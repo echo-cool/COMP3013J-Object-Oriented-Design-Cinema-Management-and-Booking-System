@@ -29,13 +29,10 @@ public class ScheduleDialog extends Dialog<ScheduleInfo> {
 
     public ScheduleDialog(Movie[] movieDAOS) {
         this();
-//        nameField.setText(c.getName());
         MovieNames.clear();
         for (Movie movieDAO : movieDAOS) {
             MovieNames.add(movieDAO.getName());
         }
-//        timeBox.getSelectionModel().select(c.getTime().toString());
-//        coversBox.getSelectionModel().select(Integer.valueOf(c.getScreen()));
     }
 
     public ScheduleDialog() {
@@ -56,9 +53,6 @@ public class ScheduleDialog extends Dialog<ScheduleInfo> {
         });
         setTitle("New Scheduled Screening");
         setHeaderText("Please enter the details for the newly scheduled screening");
-//        nameField.textProperty().addListener((observable, oldValue, newValue) -> {
-//            validateInput();
-//        });
         nameField.getSelectionModel().selectedIndexProperty().addListener((e) -> {
             validateInput();
         });

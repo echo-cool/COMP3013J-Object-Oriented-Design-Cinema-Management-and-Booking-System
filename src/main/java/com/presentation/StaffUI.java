@@ -112,7 +112,7 @@ public class StaffUI implements ScreeningObserver {
     }
 
     private int screenToY(String screen) {
-        System.out.println(">>>>>>"+screen);
+//        System.out.println(">>>>>>"+screen);
         return TOP_MARGIN + managementSystem.findScreenIndex(screen)* ROW_HEIGHT;
     }
 
@@ -120,18 +120,6 @@ public class StaffUI implements ScreeningObserver {
         return managementSystem.getScreens()[Math.min(Math.max((y - TOP_MARGIN) / ROW_HEIGHT, 0), 5)].getName();
     }
 
-    public void mousePressed(int x, int y) {
-    }
-
-    public void mouseMoved(int x, int y) {
-    }
-
-    public void mouseReleased(int x, int y) {
-    }
-
-    public void submit(LocalDate date) {
-        managementSystem.setDate(date);
-    }
 
     public void sellTicket() {
         List<String> choices = new ArrayList<>();
@@ -174,33 +162,15 @@ public class StaffUI implements ScreeningObserver {
         update();
     }
 
-    public void showAlert(String message, Alert.AlertType warning) {
-    }
-
-    public void showMessage(String message) {
-    }
-
-    public void showAddMovieDialog() {
-    }
-
-
     public void draw() {
         ArrayList<Screen> screens = new ArrayList();
         for (Screen s : managementSystem.getScreens()) {
             screens.add(s);
         }
-//        screens.add("Screen 1");
-//        screens.add("Screen 2");
-//        screens.add("Screen 3");
-//        screens.add("Screen 4");
-//        screens.add("Screen 5");
-//        screens.add("Screen 6");
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         canvas.setHeight(TOP_MARGIN + screens.size() * ROW_HEIGHT + 2);
         canvas.setWidth(LEFT_MARGIN + (SLOTS * COL_WIDTH) + 50);
-//        gc.setFill(Color.WHITE);
-//        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         gc.setLineWidth(2.0);
         gc.setFill(Color.BLACK);
         //
@@ -248,7 +218,6 @@ public class StaffUI implements ScreeningObserver {
             gc.setFont(new Font(10));
             String movie_name = screening.getMovie().getName();
             Integer scale_factor = 8 * 60;
-//            System.out.println(screening.getMovie().getDuration() / scale_factor);
             if (movie_name.length() >= screening.getMovie().getDuration() / scale_factor) {
                 movie_name = movie_name.substring(0, screening.getMovie().getDuration() / scale_factor) + "...";
             }
@@ -272,12 +241,6 @@ public class StaffUI implements ScreeningObserver {
             } else {
                 gc.setFill(Color.rgb(255, 182, 193, 0.7));
             }
-
-//            gc.fillRect(
-//                    timeToX(LocalTime.parse(managementSystem.getSelectedScreening().getStartTime()))-start_x+dragged_x,
-//                    screenToY(managementSystem.getSelectedScreening().getScreen().getId())-start_y+dragged_y,
-//                    COL_WIDTH*SLOTS*((managementSystem.getSelectedScreening().getMovie().getDuration())/(3600f*24f)),
-//                    ROW_HEIGHT);
             float x = Math.min(timeToX(xToTime((int) (timeToX(managementSystem.getSelectedScreening().getStartTime()) - start_x + dragged_x))), -1 + LEFT_MARGIN + COL_WIDTH * SLOTS - COL_WIDTH * SLOTS * ((managementSystem.getSelectedScreening().getMovie().getDuration()) / (3600f * 24f)));
             float y = screenToY(yToScreen((int) dragged_y));
             gc.fillRect(
@@ -373,10 +336,6 @@ public class StaffUI implements ScreeningObserver {
         });
     }
 
-    public void showAddArraignmentView(ActionEvent actionEvent) {
-        AddArrangementView addArrangementView = new AddArrangementView();
-        addArrangementView.show();
-    }
 
     public void cancelSchedule(ActionEvent actionEvent) {
         managementSystem.cancelSelected();

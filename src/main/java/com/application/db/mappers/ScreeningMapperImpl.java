@@ -82,6 +82,9 @@ public class ScreeningMapperImpl {
                 MovieMapper movieMapper = sqlSession.getMapper(MovieMapper.class);
                 ScreenMapper screenMapper = sqlSession.getMapper(ScreenMapper.class);
                 ScreeningDAO screeningDAO = new ScreeningDAO();
+                screeningDAO.setDate(selected.getDate().format(DateTimeFormatter.ISO_DATE));
+                screeningDAO.setStartTime(selected.getStartTime().format(DateTimeFormatter.ISO_TIME));
+                screeningDAO.setTicketSold(selected.getTicketSold());
                 ScreenSqlBuilder screenSqlBuilder = new ScreenSqlBuilder();
                 screenSqlBuilder
                         .createCriteria()
