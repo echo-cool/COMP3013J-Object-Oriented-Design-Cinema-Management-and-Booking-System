@@ -3,7 +3,6 @@ package com.application.domain;
 import com.application.models.Movie;
 import com.application.models.Screen;
 import com.application.models.Screening;
-import com.application.models.persistent.MoviePersistent;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

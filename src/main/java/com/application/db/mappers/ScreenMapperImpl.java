@@ -46,6 +46,24 @@ public class ScreenMapperImpl {
         return resultArray;
     }
 
+    public Screen getScreenForName(String name) {
+        result = null;
+        DatabaseUtil.query(new QueryStatement() {
+            @Override
+            public void query_commands(SqlSession sqlSession) {
+                ScreenSqlBuilder screenSqlBuilder = new ScreenSqlBuilder();
+                screenSqlBuilder.createCriteria()
+                        .andNameEqualTo(name);
+                ScreenDAO tmp = sqlSession.getMapper(ScreenMapper.class).selectBySQL(screenSqlBuilder).get(0);
+                result = new Screen(
+                        tmp.getName(),
+                        tmp.getCapacity()
+                );
+            }
+        });
+        return result;
+    }
+
     public Screen getScreenForOid(int sno) {
         result = null;
         DatabaseUtil.query(new QueryStatement() {
