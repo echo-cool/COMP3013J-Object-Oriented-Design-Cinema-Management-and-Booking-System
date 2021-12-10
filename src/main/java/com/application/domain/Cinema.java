@@ -18,22 +18,20 @@ public class Cinema {
     ScreenMapperImpl screenMapper = new ScreenMapperImpl();
     ScreeningMapperImpl screeningMapper = new ScreeningMapperImpl();
 
-    public void scheduleScreening(LocalDate date, LocalTime start_time, int screen_no, String movie_name) {
-        Screen screen = screenMapper.getScreenForOid(screen_no);
+    Screen[] screens=null;
+
+    public void scheduleScreening(LocalDate date, LocalTime start_time, String screen_name, String movie_name) {
+        Screen screen = screenMapper.getScreenForName(screen_name);
         Movie movie = movieMapper.getMovie(movie_name);
         screeningMapper.scheduleScreening(date, start_time, screen, movie);
     }
 
-    public void updateScreening(Screening selected) {
-        screeningMapper.updateScreening(selected);
+    public void updateScreening(Screening old, Screening selected) {
+        screeningMapper.updateScreening(old, selected);
     }
 
-    public void deleteScreening(Screening screening) {
-        screeningMapper.deleteScreening(screening);
-    }
-
-    public Movie getMovie(int mno) {
-        return movieMapper.getMovieForOid(mno);
+    public void deleteScreening(Screening screeningDAO) {
+        screeningMapper.deleteScreening(screeningDAO);
     }
 
     public Movie getMovie(String name) {
@@ -49,7 +47,10 @@ public class Cinema {
     }
 
     public Screen[] getScreens() {
-        return screenMapper.getScreens();
+        if (screens==null){
+            screens=screenMapper.getScreens();
+        }
+        return screens;
     }
 
     public boolean addMovie(Movie movie) {

@@ -31,11 +31,11 @@ deactivate PersistentScreening
 end
 
 
-ScreeningMapper-->Cinema:return screenings
+ScreeningMapper-->Cinema:return screeningDAOS
 deactivate ScreeningMapper
 
 
-Cinema-->ManagementSystem:return screenings
+Cinema-->ManagementSystem:return screeningDAOS
 deactivate Cinema
 
 ManagementSystem->ManagementSystem:notifyObservers()
@@ -50,7 +50,7 @@ deactivate ManagementSystem
 
 StaffUI->ManagementSystem:getScreenings()
 activate ManagementSystem
-ManagementSystem-->StaffUI:return screenings
+ManagementSystem-->StaffUI:return screeningDAOS
 deactivate ManagementSystem
 
 StaffUI-->ManagementSystem:

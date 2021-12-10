@@ -47,7 +47,7 @@ activate ManagementSystem
 
 ManagementSystem->ManagementSystem:checkOverlapScreening(date : LocalDate, start_time: LocalTime, \nscreen_no : Integer, duration : Integer)
 activate ManagementSystem
-note over ManagementSystem:another screening is found that overlaps with this in time on the same screen
+note over ManagementSystem:another screeningDAO is found that overlaps with this in time on the same screenDAO
 
 
 ManagementSystem->ManagementSystem:observerMessage(message : String, false : Boolean)

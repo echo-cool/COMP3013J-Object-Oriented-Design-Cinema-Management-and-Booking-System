@@ -6,6 +6,7 @@ import com.application.models.Screening;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 
 /**
@@ -13,11 +14,11 @@ import java.util.LinkedList;
  */
 public class ManagementSystem {
     private static ManagementSystem uniqueInstance = null;
-    private LocalDate currentDate;
     private final LinkedList<ScreeningObserver> observers = new LinkedList<>();
+    private final Cinema cinema = new Cinema();
+    private LocalDate currentDate;
     private Screening[] displayScreenings;
     private Screening selectedScreening;
-    private final Cinema cinema = new Cinema();
 
     public ManagementSystem() {
     }
@@ -54,8 +55,15 @@ public class ManagementSystem {
         } else {
             int ticket_sold = selectedScreening.getTicketSold();
             if (!checkInsufficientTicket(selectedScreening, num)) {
+                Screening old = new Screening(
+                        LocalTime.parse(selectedScreening.getStartTime().format(DateTimeFormatter.ISO_TIME)),
+                        LocalDate.parse(selectedScreening.getDate().format(DateTimeFormatter.ISO_DATE)),
+                        selectedScreening.getTicketSold(),
+                        new Movie(selectedScreening.getMovie().getName(), selectedScreening.getMovie().getDuration()),
+                        new Screen(selectedScreening.getScreen().getName(), selectedScreening.getScreen().getCapacity())
+                );
                 selectedScreening.setTicketSold(ticket_sold + num);
-                cinema.updateScreening(selectedScreening);
+                cinema.updateScreening(old, selectedScreening);
                 notifyObservers();
                 return true;
             } else {
@@ -65,9 +73,9 @@ public class ManagementSystem {
         }
     }
 
-    public boolean scheduleScreening(LocalDate date, LocalTime start_time, int screen_no, String movie_name) {
+    public boolean scheduleScreening(LocalDate date, LocalTime start_time, String screen_name, String movie_name) {
         Movie movie = cinema.getMovie(movie_name);
-        selectedScreening=null;
+        selectedScreening = null;
         if (movie != null) {
             // in this system, we do not allow screening to be scheduled spanning different days
             int durationHour = movie.getDuration() / 3600;
@@ -84,12 +92,11 @@ public class ManagementSystem {
                     return false;
                 }
             }
-            if (checkOverlapScreening(date, start_time, screen_no, movie.getDuration())) {
+            if (checkOverlapScreening(date, start_time, screen_name, movie.getDuration())) {
                 observerMessage("Sorry the intended screening overlaps with the current one!", false);
                 return false;
-            }
-            else {
-                cinema.scheduleScreening(date, start_time, screen_no, movie_name);
+            } else {
+                cinema.scheduleScreening(date, start_time, screen_name, movie_name);
                 setDate(date);
                 notifyObservers();
                 return true;
@@ -98,16 +105,29 @@ public class ManagementSystem {
         return false;
     }
 
-    public boolean updateSelected(LocalTime time, int screen_no) {
-        if (checkOverlapScreening(LocalDate.parse(selectedScreening.getDate()), time, screen_no, selectedScreening.getMovie().getDuration())) {
+    public boolean updateSelected(LocalTime time, String screen_name) {
+        if (checkOverlapScreening(selectedScreening.getDate(), time, screen_name, selectedScreening.getMovie().getDuration())) {
             observerMessage("Sorry the intended screening overlaps with the current one!", false);
         } else if (selectedScreening.getTicketSold() > 0) {
             observerMessage("Sorry you cannot reschedule a screening with tickets sold!", false);
         } else {
             if (observerMessage("Are you sure to reschedule this screening?", true)) {
-                selectedScreening.setStartTime(time.toString());
-                selectedScreening.setScreenId(screen_no);
-                cinema.updateScreening(selectedScreening);
+                Screening old = new Screening(
+                        LocalTime.parse(selectedScreening.getStartTime().format(DateTimeFormatter.ISO_TIME)),
+                        LocalDate.parse(selectedScreening.getDate().format(DateTimeFormatter.ISO_DATE)),
+                        selectedScreening.getTicketSold(),
+                        new Movie(selectedScreening.getMovie().getName(), selectedScreening.getMovie().getDuration()),
+                        new Screen(selectedScreening.getScreen().getName(), selectedScreening.getScreen().getCapacity())
+                );
+                selectedScreening.setStartTime(time);
+                for (Screen screen : getScreens()) {
+                    if (screen.getName().equals(screen_name)) {
+                        selectedScreening.setScreen(screen);
+                        break;
+                    }
+                }
+
+                cinema.updateScreening(old, selectedScreening);
                 notifyObservers();
                 return true;
             }
@@ -115,8 +135,8 @@ public class ManagementSystem {
         return false;
     }
 
-    public boolean removeScreening(Screening screening) {
-        cinema.deleteScreening(screening);
+    public boolean removeScreening(Screening screeningDAO) {
+        cinema.deleteScreening(screeningDAO);
         return true;
     }
 
@@ -142,20 +162,21 @@ public class ManagementSystem {
         return false;
     }
 
-    private boolean checkInsufficientTicket(Screening screening, int num) {
-        return screening.getScreen().getCapacity() - screening.getTicketSold() - num < 0;
+    private boolean checkInsufficientTicket(Screening screeningDAO, int num) {
+        return screeningDAO.getScreen().getCapacity() - screeningDAO.getTicketSold() - num < 0;
     }
 
-    private boolean checkOverlapScreening(LocalDate date, LocalTime start_time, int screen_no, int duration) {
-        Screening[] screenings = cinema.getScreenings(date);
-        for (Screening screening : screenings) {
-            if (screening.getScreen().getId() == screen_no) {
+    private boolean checkOverlapScreening(LocalDate date, LocalTime start_time, String screen_name, int duration) {
+//        Screening[] screenings = cinema.getScreenings(date);
+        Screening[] screenings=displayScreenings;
+        for (Screening screeningDAO : screenings) {
+            if (screeningDAO.getScreen().getName().equals(screen_name)) {
                 LocalTime over_time = start_time.plusSeconds(duration);
-                if (over_time.isBefore(LocalTime.parse(screening.getStartTime())) || start_time.isAfter(LocalTime.parse(screening.getStartTime()).plusSeconds(screening.getMovie().getDuration()))) {
+                if (over_time.isBefore(screeningDAO.getStartTime()) || start_time.isAfter(screeningDAO.getStartTime().plusSeconds(screeningDAO.getMovie().getDuration()))) {
 
                 } else {
                     if (selectedScreening != null) {
-                        if (screening.getId().equals(selectedScreening.getId())) {
+                        if (screeningDAO.equals(selectedScreening)) {
                             continue;
                         }
                     }
@@ -177,13 +198,13 @@ public class ManagementSystem {
         return selectedScreening;
     }
 
-    public void changeSelected(LocalTime time, int screen) {
+    public void changeSelected(LocalTime time, String screen) {
         label:
         {
-            for (Screening screening : displayScreenings) {
-                if (screen == (screening.getScreen().getId())) {
-                    if (LocalTime.parse(screening.getStartTime()).isBefore(time) && LocalTime.parse(screening.getStartTime()).plusSeconds(screening.getMovie().getDuration()).isAfter(time)) {
-                        selectedScreening = screening;
+            for (Screening screeningDAO : displayScreenings) {
+                if (screen.equals(screeningDAO.getScreen().getName())) {
+                    if (screeningDAO.getStartTime().isBefore(time) && screeningDAO.getStartTime().plusSeconds(screeningDAO.getMovie().getDuration()).isAfter(time)) {
+                        selectedScreening = screeningDAO;
                         break label;
                     }
                 }
@@ -207,6 +228,15 @@ public class ManagementSystem {
 
     public Screen[] getScreens() {
         return cinema.getScreens();
+    }
+
+    public int findScreenIndex(String name) {
+        for (int i = 0; i < getScreens().length; i++) {
+            if (getScreens()[i].getName().equals(name)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 

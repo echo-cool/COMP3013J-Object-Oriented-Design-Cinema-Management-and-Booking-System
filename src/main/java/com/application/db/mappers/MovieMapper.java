@@ -1,7 +1,7 @@
 package com.application.db.mappers;
 
-import com.application.models.Movie;
-import com.application.models.MovieSqlBuilder;
+import com.application.db.builders.MovieSqlBuilder;
+import com.application.db.dao.MovieDAO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -35,28 +35,28 @@ public interface MovieMapper {
     * @param record record
     * @return int int
     */
-    int insert(Movie record);
+    int insert(MovieDAO record);
 
     /**
     * insertSelective
     * @param record record
     * @return int int
     */
-    int insertSelective(Movie record);
+    int insertSelective(MovieDAO record);
 
     /**
     * selectBySQL
     * @param example example
     * @return List<Movie> List<Movie>
     */
-    List<Movie> selectBySQL(MovieSqlBuilder example);
+    List<MovieDAO> selectBySQL(MovieSqlBuilder example);
 
     /**
     * selectByPrimaryKey
     * @param id id
     * @return Movie Movie
     */
-    Movie selectByPrimaryKey(Integer id);
+    MovieDAO selectByPrimaryKey(Integer id);
 
     /**
     * updateBySQLSelective
@@ -64,7 +64,7 @@ public interface MovieMapper {
     * @param example example
     * @return int int
     */
-    int updateBySQLSelective(@Param("record") Movie record, @Param("example") MovieSqlBuilder example);
+    int updateBySQLSelective(@Param("record") MovieDAO record, @Param("example") MovieSqlBuilder example);
 
     /**
     * updateBySQL
@@ -72,19 +72,19 @@ public interface MovieMapper {
     * @param example example
     * @return int int
     */
-    int updateBySQL(@Param("record") Movie record, @Param("example") MovieSqlBuilder example);
+    int updateBySQL(@Param("record") MovieDAO record, @Param("example") MovieSqlBuilder example);
 
     /**
     * updateByPrimaryKeySelective
     * @param record record
     * @return int int
     */
-    int updateByPrimaryKeySelective(Movie record);
+    int updateByPrimaryKeySelective(MovieDAO record);
 
     /**
     * updateByPrimaryKey
     * @param record record
     * @return int int
     */
-    int updateByPrimaryKey(Movie record);
+    int updateByPrimaryKey(MovieDAO record);
 }

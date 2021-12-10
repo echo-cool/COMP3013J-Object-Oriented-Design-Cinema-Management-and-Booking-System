@@ -1,7 +1,7 @@
 package com.application.db.mappers;
 
-import com.application.models.Screen;
-import com.application.models.ScreenSqlBuilder;
+import com.application.db.builders.ScreenSqlBuilder;
+import com.application.db.dao.ScreenDAO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -35,28 +35,28 @@ public interface ScreenMapper {
     * @param record record
     * @return int int
     */
-    int insert(Screen record);
+    int insert(ScreenDAO record);
 
     /**
     * insertSelective
     * @param record record
     * @return int int
     */
-    int insertSelective(Screen record);
+    int insertSelective(ScreenDAO record);
 
     /**
     * selectBySQL
     * @param example example
     * @return List<Screen> List<Screen>
     */
-    List<Screen> selectBySQL(ScreenSqlBuilder example);
+    List<ScreenDAO> selectBySQL(ScreenSqlBuilder example);
 
     /**
     * selectByPrimaryKey
     * @param id id
     * @return Screen Screen
     */
-    Screen selectByPrimaryKey(Integer id);
+    ScreenDAO selectByPrimaryKey(Integer id);
 
     /**
     * updateBySQLSelective
@@ -64,7 +64,7 @@ public interface ScreenMapper {
     * @param example example
     * @return int int
     */
-    int updateBySQLSelective(@Param("record") Screen record, @Param("example") ScreenSqlBuilder example);
+    int updateBySQLSelective(@Param("record") ScreenDAO record, @Param("example") ScreenSqlBuilder example);
 
     /**
     * updateBySQL
@@ -72,19 +72,19 @@ public interface ScreenMapper {
     * @param example example
     * @return int int
     */
-    int updateBySQL(@Param("record") Screen record, @Param("example") ScreenSqlBuilder example);
+    int updateBySQL(@Param("record") ScreenDAO record, @Param("example") ScreenSqlBuilder example);
 
     /**
     * updateByPrimaryKeySelective
     * @param record record
     * @return int int
     */
-    int updateByPrimaryKeySelective(Screen record);
+    int updateByPrimaryKeySelective(ScreenDAO record);
 
     /**
     * updateByPrimaryKey
     * @param record record
     * @return int int
     */
-    int updateByPrimaryKey(Screen record);
+    int updateByPrimaryKey(ScreenDAO record);
 }

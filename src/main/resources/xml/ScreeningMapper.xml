@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.application.db.mappers.ScreeningMapper">
-  <resultMap id="BaseResultMap" type="com.application.models.Screening">
+  <resultMap id="BaseResultMap" type="com.application.db.dao.ScreeningDAO">
     <!--@mbg.generated -->
     <!--@Table Screening -->
     <!-- generated on Tue Dec 07 16:13:30 CST 2021 -->
@@ -76,7 +76,7 @@
     <!--@mbg.generated -->
     ID, movie_id, screen_id, "date", start_time, ticket_sold
   </sql>
-  <select id="selectBySQL" parameterType="com.application.models.ScreeningSqlBuilder" resultMap="BaseResultMap">
+  <select id="selectBySQL" parameterType="com.application.db.builders.ScreeningSqlBuilder" resultMap="BaseResultMap">
     <!--@mbg.generated -->
     select
     <if test="distinct">
@@ -103,14 +103,14 @@
     delete from Screening
     where ID = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteBySQL" parameterType="com.application.models.ScreeningSqlBuilder">
+  <delete id="deleteBySQL" parameterType="com.application.db.builders.ScreeningSqlBuilder">
     <!--@mbg.generated -->
     delete from Screening
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.application.models.Screening">
+  <insert id="insert" parameterType="com.application.db.dao.ScreeningDAO">
     <!--@mbg.generated -->
     insert into Screening (ID, movie_id, screen_id, 
       "date", start_time, ticket_sold
@@ -119,7 +119,7 @@
       #{date,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, #{ticketSold,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.application.models.Screening">
+  <insert id="insertSelective" parameterType="com.application.db.dao.ScreeningDAO">
     <!--@mbg.generated -->
     insert into Screening
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -163,7 +163,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countBySQL" parameterType="com.application.models.ScreeningSqlBuilder" resultType="java.lang.Long">
+  <select id="countBySQL" parameterType="com.application.db.builders.ScreeningSqlBuilder" resultType="java.lang.Long">
     <!--@mbg.generated -->
     select count(*) from Screening
     <if test="_parameter != null">
@@ -210,7 +210,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.application.models.Screening">
+  <update id="updateByPrimaryKeySelective" parameterType="com.application.db.dao.ScreeningDAO">
     <!--@mbg.generated -->
     update Screening
     <set>
@@ -232,7 +232,7 @@
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.application.models.Screening">
+  <update id="updateByPrimaryKey" parameterType="com.application.db.dao.ScreeningDAO">
     <!--@mbg.generated -->
     update Screening
     set movie_id = #{movieId,jdbcType=INTEGER},
