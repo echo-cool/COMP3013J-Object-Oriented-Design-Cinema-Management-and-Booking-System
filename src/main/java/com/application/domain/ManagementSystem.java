@@ -9,9 +9,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 
-/**
- * @generated
- */
 public class ManagementSystem {
     private static ManagementSystem uniqueInstance = null;
     private final LinkedList<ScreeningObserver> observers = new LinkedList<>();

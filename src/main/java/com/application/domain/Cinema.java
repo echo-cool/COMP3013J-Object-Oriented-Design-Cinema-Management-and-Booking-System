@@ -10,9 +10,6 @@ import com.application.models.Screening;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-/**
- * @generated
- */
 public class Cinema {
     //Cinema knows all the information of the databse
     MovieMapperImpl movieMapper = new MovieMapperImpl();
