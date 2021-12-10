@@ -16,6 +16,12 @@ Weiyun link: https://share.weiyun.com/M9geoGak
 ## Project Preview
 ![](assets/demo.gif)
 
+## Functionality
+##### Add new movie
+1. Click the "Add Movie" button
+2. Enter the "movie name" and "duration" of this movie
+3. Click ok to store the newly added movie into the database
+
 ## Use Case
 
 ##### Use Case 1:
