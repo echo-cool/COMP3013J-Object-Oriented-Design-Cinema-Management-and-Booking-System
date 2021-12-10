@@ -27,7 +27,7 @@ public class ScreenMapperImpl {
                 example.createCriteria()
                         .andIdIsNotNull();
                 example.setOrderByClause("id");
-                resultArray = sqlSession.getMapper(ScreenMapper.class).selectByExample(example).toArray(new Screen[]{});
+                resultArray = sqlSession.getMapper(ScreenMapper.class).selectBySQL(example).toArray(new Screen[]{});
             }
         });
         return resultArray;

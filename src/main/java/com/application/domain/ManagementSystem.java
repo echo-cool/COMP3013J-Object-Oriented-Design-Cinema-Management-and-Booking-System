@@ -67,6 +67,7 @@ public class ManagementSystem {
 
     public boolean scheduleScreening(LocalDate date, LocalTime start_time, int screen_no, String movie_name) {
         Movie movie = cinema.getMovie(movie_name);
+        selectedScreening=null;
         if (movie != null) {
             // in this system, we do not allow screening to be scheduled spanning different days
             int durationHour = movie.getDuration() / 3600;
@@ -98,10 +99,10 @@ public class ManagementSystem {
     }
 
     public boolean updateSelected(LocalTime time, int screen_no) {
-        if (checkOverlapScreening(LocalDate.parse(selectedScreening.getDate()), time, screen_no, selectedScreening.getMovie().getDuration())) {
-            observerMessage("Sorry the intended screening overlaps with the current one!", false);
-        } else if (selectedScreening.getTicketSold() > 0) {
+        if (selectedScreening.getTicketSold() > 0) {
             observerMessage("Sorry you cannot reschedule a screening with tickets sold!", false);
+        } else if (checkOverlapScreening(LocalDate.parse(selectedScreening.getDate()), time, screen_no, selectedScreening.getMovie().getDuration())) {
+            observerMessage("Sorry the intended screening overlaps with the current one!", false);
         } else {
             if (observerMessage("Are you sure to reschedule this screening?", true)) {
                 selectedScreening.setStartTime(time.toString());
@@ -154,7 +155,7 @@ public class ManagementSystem {
 
                 } else {
                     if (selectedScreening != null) {
-                        if (screen_no == selectedScreening.getScreenId()) {
+                        if (screening.getId().equals(selectedScreening.getId())) {
                             continue;
                         }
                     }
