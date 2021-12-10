@@ -1,437 +1,433 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.COMP3013J</groupId>
-  <artifactId>COMP3013J</artifactId>
-  <version>1.0-SNAPSHOT</version>
+    <groupId>com.COMP3013J</groupId>
+    <artifactId>COMP3013J</artifactId>
+    <version>1.0-SNAPSHOT</version>
 
-  <name>COMP3013J</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+    <name>COMP3013J</name>
+    <!-- FIXME change it to the project's website -->
+    <url>http://www.example.com</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-  </properties>
-<!--  &lt;!&ndash;使用阿里云包源，提高下载速度&ndash;&gt;-->
-<!--  <repositories>-->
-<!--    <repository>-->
-<!--      &lt;!&ndash;创建私服的地址&ndash;&gt;-->
-<!--      <id>aliyun</id>-->
-<!--      <name>aliyun</name>-->
-<!--      <url>https://maven.aliyun.com/repository/public</url>-->
-<!--    </repository>-->
-<!--  </repositories>-->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+    <!--  &lt;!&ndash;使用阿里云包源，提高下载速度&ndash;&gt;-->
+    <!--  <repositories>-->
+    <!--    <repository>-->
+    <!--      &lt;!&ndash;创建私服的地址&ndash;&gt;-->
+    <!--      <id>aliyun</id>-->
+    <!--      <name>aliyun</name>-->
+    <!--      <url>https://maven.aliyun.com/repository/public</url>-->
+    <!--    </repository>-->
+    <!--  </repositories>-->
 
-  <dependencies>
-
-
-    <dependency>
-      <groupId>org.openjfx</groupId>
-      <artifactId>javafx-controls</artifactId>
-      <version>11.0.2</version>
-    </dependency>
-    <dependency>
-      <groupId>org.openjfx</groupId>
-      <artifactId>javafx-fxml</artifactId>
-      <version>11.0.2</version>
-    </dependency>
+    <dependencies>
 
 
-    <!--引入mybatis框架-->
-    <dependency>
-      <groupId>org.mybatis</groupId>
-      <artifactId>mybatis</artifactId>
-      <version>3.5.1</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.xerial</groupId>
-      <artifactId>sqlite-jdbc</artifactId>
-      <version>3.36.0.3</version>
-    </dependency>
-    <!--单元测试组件-->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.13.2</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.baidu.aip</groupId>
-      <artifactId>java-sdk</artifactId>
-      <version>4.16.2</version>
-    </dependency>
-
-    <dependency>
-      <groupId>javazoom</groupId>
-      <artifactId>jlayer</artifactId>
-      <version>1.0.1</version>
-    </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>11.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>11.0.2</version>
+        </dependency>
 
 
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.13.2</version>
-      <scope>test</scope>
-    </dependency>
+        <!--引入mybatis框架-->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.5.1</version>
+        </dependency>
 
-    <dependency>
-      <groupId>com.alibaba</groupId>
-      <artifactId>fastjson</artifactId>
-      <version>1.2.78</version>
-    </dependency>
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.36.0.3</version>
+        </dependency>
+        <!--单元测试组件-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+        </dependency>
 
-    <dependency>
-      <groupId>com.aliyun</groupId>
-      <artifactId>aliyun-java-sdk-ecs</artifactId>
-      <version>4.24.8</version>
-    </dependency>
+        <dependency>
+            <groupId>com.baidu.aip</groupId>
+            <artifactId>java-sdk</artifactId>
+            <version>4.16.2</version>
+        </dependency>
 
-    <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
-    <dependency>
-      <groupId>com.squareup.okhttp3</groupId>
-      <artifactId>okhttp</artifactId>
-      <version>4.9.1</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.google.code.gson</groupId>
-      <artifactId>gson</artifactId>
-      <version>2.8.8</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.aliyun</groupId>
-      <artifactId>aliyun-java-sdk-cr</artifactId>
-      <version>4.1.2</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.aliyun</groupId>
-      <artifactId>aliyun-java-sdk-core</artifactId>
-      <version>4.5.25</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.aliyun</groupId>
-      <artifactId>aliyun-java-sdk-alimt</artifactId>
-      <version>3.0.30</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-compiler-plugin</artifactId>
-      <version>3.8.1</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <version>1.7.32</version>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/com.squareup.okio/okio -->
-    <dependency>
-      <groupId>com.squareup.okio</groupId>
-      <artifactId>okio</artifactId>
-      <version>2.10.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-assembly-plugin</artifactId>
-      <version>3.3.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.joshua</groupId>
-      <artifactId>joshua-incubating</artifactId>
-      <version>6.1</version>
-    </dependency>
-
-    <dependency>
-      <groupId>io.github.vincenzopalazzo</groupId>
-      <artifactId>material-ui-swing</artifactId>
-      <version>1.1.2</version>
-    </dependency>
-
-<!--    <dependency>-->
-<!--      <groupId>com.tencentcloudapi</groupId>-->
-<!--      <artifactId>tencentcloud-sdk-java</artifactId>-->
-<!--      &lt;!&ndash; go to https://search.maven.org/search?q=tencentcloud-sdk-java and get the latest version. &ndash;&gt;-->
-<!--      &lt;!&ndash; 请到https://search.maven.org/search?q=tencentcloud-sdk-java查询所有版本，最新版本如下 &ndash;&gt;-->
-<!--      <version>4.0.11</version>-->
-<!--    </dependency>-->
-
-    <dependency>
-      <groupId>cn.hutool</groupId>
-      <artifactId>hutool-all</artifactId>
-      <version>5.7.13</version>
-    </dependency>
-
-    <dependency>
-    <groupId>com.akathist.maven.plugins.launch4j</groupId>
-    <artifactId>launch4j-maven-plugin</artifactId>
-    <version>2.1.2</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.sshtools</groupId>
-      <artifactId>icon-generator-swing</artifactId>
-      <version>1.4.3</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.google.zxing</groupId>
-      <artifactId>core</artifactId>
-      <version>3.4.1</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jacoco</groupId>
-      <artifactId>jacoco-maven-plugin</artifactId>
-      <version>0.8.7</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.baidu.aip</groupId>
-      <artifactId>java-sdk</artifactId>
-      <version>4.16.2</version>
-    </dependency>
+        <dependency>
+            <groupId>javazoom</groupId>
+            <artifactId>jlayer</artifactId>
+            <version>1.0.1</version>
+        </dependency>
 
 
-    <dependency>
-      <groupId>com.alibaba.nls</groupId>
-      <artifactId>nls-sdk-transcriber</artifactId>
-      <version>2.2.1</version>
-    </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
 
-    <dependency>
-      <groupId>com.github.weisj</groupId>
-      <artifactId>darklaf-core</artifactId>
-      <version>2.7.3</version>
-    </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.78</version>
+        </dependency>
 
-  </dependencies>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-ecs</artifactId>
+            <version>4.24.8</version>
+        </dependency>
 
-  <build>
+        <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.9.1</version>
+        </dependency>
 
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
-      <plugins>
-        <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
-        <plugin>
-          <artifactId>maven-clean-plugin</artifactId>
-          <version>3.1.0</version>
-        </plugin>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.8</version>
+        </dependency>
 
-        <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
-        <plugin>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>3.0.2</version>
-        </plugin>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-cr</artifactId>
+            <version>4.1.2</version>
+        </dependency>
 
-        <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.0</version>
-        </plugin>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>4.5.25</version>
+        </dependency>
 
-        <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.22.1</version>
-        </plugin>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-alimt</artifactId>
+            <version>3.0.30</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.32</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.squareup.okio/okio -->
+        <dependency>
+            <groupId>com.squareup.okio</groupId>
+            <artifactId>okio</artifactId>
+            <version>2.10.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.joshua</groupId>
+            <artifactId>joshua-incubating</artifactId>
+            <version>6.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.vincenzopalazzo</groupId>
+            <artifactId>material-ui-swing</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+
+        <!--    <dependency>-->
+        <!--      <groupId>com.tencentcloudapi</groupId>-->
+        <!--      <artifactId>tencentcloud-sdk-java</artifactId>-->
+        <!--      &lt;!&ndash; go to https://search.maven.org/search?q=tencentcloud-sdk-java and get the latest version. &ndash;&gt;-->
+        <!--      &lt;!&ndash; 请到https://search.maven.org/search?q=tencentcloud-sdk-java查询所有版本，最新版本如下 &ndash;&gt;-->
+        <!--      <version>4.0.11</version>-->
+        <!--    </dependency>-->
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.7.13</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.akathist.maven.plugins.launch4j</groupId>
+            <artifactId>launch4j-maven-plugin</artifactId>
+            <version>2.1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sshtools</groupId>
+            <artifactId>icon-generator-swing</artifactId>
+            <version>1.4.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baidu.aip</groupId>
+            <artifactId>java-sdk</artifactId>
+            <version>4.16.2</version>
+        </dependency>
 
 
-        <plugin>
-          <artifactId>maven-install-plugin</artifactId>
-          <version>2.5.2</version>
-        </plugin>
+        <dependency>
+            <groupId>com.alibaba.nls</groupId>
+            <artifactId>nls-sdk-transcriber</artifactId>
+            <version>2.2.1</version>
+        </dependency>
 
-        <plugin>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>2.8.2</version>
-        </plugin>
+        <dependency>
+            <groupId>com.github.weisj</groupId>
+            <artifactId>darklaf-core</artifactId>
+            <version>2.7.3</version>
+        </dependency>
 
-        <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
-        <plugin>
-          <artifactId>maven-site-plugin</artifactId>
-          <version>3.7.1</version>
-        </plugin>
+    </dependencies>
 
-        <plugin>
-          <artifactId>maven-project-info-reports-plugin</artifactId>
-          <version>3.0.0</version>
-        </plugin>
+    <build>
 
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.0.2</version>
-          <configuration>
-            <archive>
-              <manifest>
-                <mainClass>com.presentation.StaffUI</mainClass>
-              </manifest>
-            </archive>
-          </configuration>
-        </plugin>
+        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+            <plugins>
+                <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+
+                <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.0.2</version>
+                </plugin>
+
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.0</version>
+                </plugin>
+
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.1</version>
+                </plugin>
 
 
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.5.2</version>
+                </plugin>
+
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.8.2</version>
+                </plugin>
+
+                <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
+                <plugin>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.7.1</version>
+                </plugin>
+
+                <plugin>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.0.2</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <mainClass>com.presentation.CinemaManagementSystemApp</mainClass>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
 
 
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <!-- get all project dependencies -->
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <!-- MainClass in mainfest make a executable jar -->
+                    <archive>
+                        <manifest>
+                            <mainClass>com.presentation.CinemaManagementSystemApp</mainClass>
+                        </manifest>
+                    </archive>
 
-      </plugins>
-    </pluginManagement>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
-        <configuration>
-          <source>8</source>
-          <target>8</target>
-        </configuration>
-      </plugin>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <!-- bind to the packaging phase -->
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.2</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                        <exclude>.settings/**</exclude>
+                                        <exclude>*.classpath</exclude>
+                                        <exclude>*.project</exclude>
+                                        <exclude>*.txt</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <!-- get all project dependencies -->
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-          <!-- MainClass in mainfest make a executable jar -->
-          <archive>
-            <manifest>
-              <mainClass>com.presentation.StaffUI</mainClass>
-            </manifest>
-          </archive>
+            <!--      <plugin>-->
+            <!--        <groupId>com.akathist.maven.plugins.launch4j</groupId>-->
+            <!--        <artifactId>launch4j-maven-plugin</artifactId>-->
+            <!--        <version>2.0.1</version>-->
+            <!--        <executions>-->
+            <!--          <execution>-->
+            <!--            <id>l4j-gui</id>-->
+            <!--            <phase>package</phase>-->
+            <!--            <goals>-->
+            <!--              <goal>launch4j</goal>-->
+            <!--            </goals>-->
+            <!--            <configuration>-->
+            <!--              <headerType>gui</headerType>-->
+            <!--              <outfile>target/YOTO_Translator.exe</outfile>-->
+            <!--              <jar>target/${project.artifactId}-${project.version}.jar</jar>-->
+            <!--              &lt;!&ndash; if <dontWrapJar>true</dontWrapJar> change to this conf <jar>${project.artifactId}-${project.version}.jar</jar> &ndash;&gt;-->
+            <!--              <dontWrapJar>false</dontWrapJar>-->
+            <!--              <errTitle>Error in launch4j plugin</errTitle>-->
+            <!--              <classPath>-->
+            <!--                <mainClass>com.Group_Six.Window</mainClass>-->
+            <!--              </classPath>-->
+            <!--              <icon>AppIcon.ico</icon>-->
+            <!--              <jre>-->
+            <!--                <minVersion>1.5.0</minVersion>-->
+            <!--                <maxVersion>15.0</maxVersion>-->
+            <!--                <initialHeapSize>512</initialHeapSize>-->
+            <!--                <maxHeapSize>1024</maxHeapSize>-->
+            <!--              </jre>-->
+            <!--              <versionInfo>-->
+            <!--                <fileVersion>1.0.0.0</fileVersion>-->
+            <!--                <txtFileVersion>1.0.0.0</txtFileVersion>-->
+            <!--                <fileDescription>YOTO_Translator</fileDescription>-->
+            <!--                <copyright>COMP2008J_Group_Six Copyright (c) 2021 </copyright>-->
+            <!--                <companyName>COMP2008J_Group_Six</companyName>-->
+            <!--                <productVersion>3.0.0.0</productVersion>-->
+            <!--                <txtProductVersion>${project.version}</txtProductVersion>-->
+            <!--                <productName>YOTO_Translator</productName>-->
+            <!--                <internalName>YOTO_Translator</internalName>-->
+            <!--                <originalFilename>YOTO_Translator.exe</originalFilename>-->
+            <!--              </versionInfo>-->
+            <!--            </configuration>-->
+            <!--          </execution>-->
+            <!--        </executions>-->
+            <!--      </plugin>-->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.3</version>
+                <configuration>
+                    <excludes>
+                        <!--            <exclude>com/Group_Six/View/**/*</exclude>-->
+                    </excludes>
+                    <includes>
+                        <include>com/**/*</include>
+                        <!--            <include>com/Group_Six/Database/**/*</include>-->
+                        <!--            <include>com/Group_Six/Utils/**/*</include>-->
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>pre-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>post-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
-        </configuration>
-        <executions>
-          <execution>
-            <id>make-assembly</id>
-            <!-- bind to the packaging phase -->
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-        <version>2.2</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-            <configuration>
-              <createDependencyReducedPom>false</createDependencyReducedPom>
-              <filters>
-                <filter>
-                  <artifact>*:*</artifact>
-                  <excludes>
-                    <exclude>META-INF/*.SF</exclude>
-                    <exclude>META-INF/*.DSA</exclude>
-                    <exclude>META-INF/*.RSA</exclude>
-                    <exclude>.settings/**</exclude>
-                    <exclude>*.classpath</exclude>
-                    <exclude>*.project</exclude>
-                    <exclude>*.txt</exclude>
-                  </excludes>
-                </filter>
-              </filters>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-<!--      <plugin>-->
-<!--        <groupId>com.akathist.maven.plugins.launch4j</groupId>-->
-<!--        <artifactId>launch4j-maven-plugin</artifactId>-->
-<!--        <version>2.0.1</version>-->
-<!--        <executions>-->
-<!--          <execution>-->
-<!--            <id>l4j-gui</id>-->
-<!--            <phase>package</phase>-->
-<!--            <goals>-->
-<!--              <goal>launch4j</goal>-->
-<!--            </goals>-->
-<!--            <configuration>-->
-<!--              <headerType>gui</headerType>-->
-<!--              <outfile>target/YOTO_Translator.exe</outfile>-->
-<!--              <jar>target/${project.artifactId}-${project.version}.jar</jar>-->
-<!--              &lt;!&ndash; if <dontWrapJar>true</dontWrapJar> change to this conf <jar>${project.artifactId}-${project.version}.jar</jar> &ndash;&gt;-->
-<!--              <dontWrapJar>false</dontWrapJar>-->
-<!--              <errTitle>Error in launch4j plugin</errTitle>-->
-<!--              <classPath>-->
-<!--                <mainClass>com.Group_Six.Window</mainClass>-->
-<!--              </classPath>-->
-<!--              <icon>AppIcon.ico</icon>-->
-<!--              <jre>-->
-<!--                <minVersion>1.5.0</minVersion>-->
-<!--                <maxVersion>15.0</maxVersion>-->
-<!--                <initialHeapSize>512</initialHeapSize>-->
-<!--                <maxHeapSize>1024</maxHeapSize>-->
-<!--              </jre>-->
-<!--              <versionInfo>-->
-<!--                <fileVersion>1.0.0.0</fileVersion>-->
-<!--                <txtFileVersion>1.0.0.0</txtFileVersion>-->
-<!--                <fileDescription>YOTO_Translator</fileDescription>-->
-<!--                <copyright>COMP2008J_Group_Six Copyright (c) 2021 </copyright>-->
-<!--                <companyName>COMP2008J_Group_Six</companyName>-->
-<!--                <productVersion>3.0.0.0</productVersion>-->
-<!--                <txtProductVersion>${project.version}</txtProductVersion>-->
-<!--                <productName>YOTO_Translator</productName>-->
-<!--                <internalName>YOTO_Translator</internalName>-->
-<!--                <originalFilename>YOTO_Translator.exe</originalFilename>-->
-<!--              </versionInfo>-->
-<!--            </configuration>-->
-<!--          </execution>-->
-<!--        </executions>-->
-<!--      </plugin>-->
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.3</version>
-        <configuration>
-          <excludes>
-<!--            <exclude>com/Group_Six/View/**/*</exclude>-->
-          </excludes>
-          <includes>
-            <include>com/**/*</include>
-<!--            <include>com/Group_Six/Database/**/*</include>-->
-<!--            <include>com/Group_Six/Utils/**/*</include>-->
-          </includes>
-        </configuration>
-        <executions>
-          <execution>
-            <id>pre-test</id>
-            <goals>
-              <goal>prepare-agent</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>post-test</id>
-            <phase>test</phase>
-            <goals>
-              <goal>report</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
-    </plugins>
-  </build>
+        </plugins>
+    </build>
 </project>
