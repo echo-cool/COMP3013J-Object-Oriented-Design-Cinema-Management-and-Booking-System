@@ -54,8 +54,15 @@ public class ManagementSystem {
         } else {
             int ticket_sold = selectedScreening.getTicketSold();
             if (!checkInsufficientTicket(selectedScreening, num)) {
+                Screening old = new Screening(
+                        selectedScreening.getStartTime(),
+                        selectedScreening.getDate(),
+                        selectedScreening.getTicketSold(),
+                        new Movie(selectedScreening.getMovie().getName(), selectedScreening.getMovie().getDuration()),
+                        new Screen(selectedScreening.getScreen().getName(), selectedScreening.getScreen().getCapacity())
+                );
                 selectedScreening.setTicketSold(ticket_sold + num);
-                cinema.updateScreening(selectedScreening);
+                cinema.updateScreening(old, selectedScreening);
                 notifyObservers();
                 return true;
             } else {
@@ -88,7 +95,7 @@ public class ManagementSystem {
                 observerMessage("Sorry the intended screening overlaps with the current one!", false);
                 return false;
             } else {
-                cinema.scheduleScreening(date, start_time,screen_name, movie_name);
+                cinema.scheduleScreening(date, start_time, screen_name, movie_name);
                 setDate(date);
                 notifyObservers();
                 return true;
@@ -104,15 +111,22 @@ public class ManagementSystem {
             observerMessage("Sorry you cannot reschedule a screening with tickets sold!", false);
         } else {
             if (observerMessage("Are you sure to reschedule this screening?", true)) {
+                Screening old = new Screening(
+                        selectedScreening.getStartTime(),
+                        selectedScreening.getDate(),
+                        selectedScreening.getTicketSold(),
+                        new Movie(selectedScreening.getMovie().getName(), selectedScreening.getMovie().getDuration()),
+                        new Screen(selectedScreening.getScreen().getName(), selectedScreening.getScreen().getCapacity())
+                );
                 selectedScreening.setStartTime(time);
-                for(Screen screen:getScreens()){
-                    if(screen.getName().equals(screen_name)){
+                for (Screen screen : getScreens()) {
+                    if (screen.getName().equals(screen_name)) {
                         selectedScreening.setScreen(screen);
                         break;
                     }
                 }
 
-                cinema.updateScreening(selectedScreening);
+                cinema.updateScreening(old, selectedScreening);
                 notifyObservers();
                 return true;
             }
@@ -214,9 +228,9 @@ public class ManagementSystem {
         return cinema.getScreens();
     }
 
-    public int findScreenIndex(String name){
-        for(int i=0;i<getScreens().length;i++){
-            if(getScreens()[i].getName().equals(name)){
+    public int findScreenIndex(String name) {
+        for (int i = 0; i < getScreens().length; i++) {
+            if (getScreens()[i].getName().equals(name)) {
                 return i;
             }
         }

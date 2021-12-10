@@ -89,4 +89,5 @@ public class Screening {
         result = 31 * result + (screen != null ? screen.hashCode() : 0);
         return result;
     }
+
 }

@@ -74,7 +74,7 @@ public class ScreeningMapperImpl {
         return result.toArray(new Screening[result.size()]);
     }
 
-    public void updateScreening(Screening selected) {
+    public void updateScreening(Screening old, Screening selected) {
         DatabaseUtil.insert(new QueryStatement() {
             @Override
             public void query_commands(SqlSession sqlSession) {
@@ -88,19 +88,28 @@ public class ScreeningMapperImpl {
                 ScreenSqlBuilder screenSqlBuilder = new ScreenSqlBuilder();
                 screenSqlBuilder
                         .createCriteria()
-                        .andNameEqualTo(selected.getScreen().getName())
-                        .andCapacityEqualTo(selected.getScreen().getCapacity());
+                        .andNameEqualTo(old.getScreen().getName())
+                        .andCapacityEqualTo(old.getScreen().getCapacity());
                 ScreenDAO screenDAO = screenMapper.selectBySQL(screenSqlBuilder).get(0);
                 screeningDAO.setScreenId(screenDAO.getId());
 
                 MovieSqlBuilder movieSqlBuilder = new MovieSqlBuilder();
                 movieSqlBuilder
                         .createCriteria()
-                        .andNameEqualTo(selected.getMovie().getName())
-                        .andDurationEqualTo(selected.getMovie().getDuration());
+                        .andNameEqualTo(old.getMovie().getName())
+                        .andDurationEqualTo(old.getMovie().getDuration());
                 MovieDAO movieDAO = movieMapper.selectBySQL(movieSqlBuilder).get(0);
                 screeningDAO.setMovieId(movieDAO.getId());
 
+                ScreeningSqlBuilder screeningSqlBuilder = new ScreeningSqlBuilder();
+                screeningSqlBuilder
+                        .createCriteria()
+                        .andMovieIdEqualTo(movieDAO.getId())
+                        .andScreenIdEqualTo(screenDAO.getId())
+                        .andDateEqualTo(old.getDate().format(DateTimeFormatter.ISO_DATE))
+                        .andStartTimeEqualTo(old.getStartTime().format(DateTimeFormatter.ISO_TIME));
+
+                screeningDAO.setId(mapper.selectBySQL(screeningSqlBuilder).get(0).getId());
                 mapper.updateByPrimaryKey(screeningDAO);
             }
         });
@@ -112,11 +121,29 @@ public class ScreeningMapperImpl {
             @Override
             public void query_commands(SqlSession sqlSession) {
                 ScreeningMapper mapper = sqlSession.getMapper(ScreeningMapper.class);
+                MovieMapper movieMapper = sqlSession.getMapper(MovieMapper.class);
+                ScreenMapper screenMapper = sqlSession.getMapper(ScreenMapper.class);
                 ScreeningSqlBuilder screeningSqlBuilder = new ScreeningSqlBuilder();
-                screeningSqlBuilder.createCriteria()
+                ScreenSqlBuilder screenSqlBuilder = new ScreenSqlBuilder();
+                screenSqlBuilder
+                        .createCriteria()
+                        .andNameEqualTo(selected.getScreen().getName())
+                        .andCapacityEqualTo(selected.getScreen().getCapacity());
+                ScreenDAO screenDAO = screenMapper.selectBySQL(screenSqlBuilder).get(0);
+                MovieSqlBuilder movieSqlBuilder = new MovieSqlBuilder();
+                movieSqlBuilder
+                        .createCriteria()
+                        .andNameEqualTo(selected.getMovie().getName())
+                        .andDurationEqualTo(selected.getMovie().getDuration());
+                MovieDAO movieDAO = movieMapper.selectBySQL(movieSqlBuilder).get(0);
+                screeningSqlBuilder
+                        .createCriteria()
+                        .andMovieIdEqualTo(movieDAO.getId())
+                        .andScreenIdEqualTo(screenDAO.getId())
                         .andDateEqualTo(selected.getDate().format(DateTimeFormatter.ISO_DATE))
                         .andStartTimeEqualTo(selected.getStartTime().format(DateTimeFormatter.ISO_TIME));
-                mapper.deleteByPrimaryKey(mapper.selectBySQL(screeningSqlBuilder).get(0).getScreenId());
+//                mapper.deleteByPrimaryKey(mapper.selectBySQL(screeningSqlBuilder).get(0).getScreenId());
+                mapper.deleteBySQL(screeningSqlBuilder);
             }
         });
     }

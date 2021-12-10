@@ -26,8 +26,8 @@ public class Cinema {
         screeningMapper.scheduleScreening(date, start_time, screen, movie);
     }
 
-    public void updateScreening(Screening selected) {
-        screeningMapper.updateScreening(selected);
+    public void updateScreening(Screening old, Screening selected) {
+        screeningMapper.updateScreening(old, selected);
     }
 
     public void deleteScreening(Screening screeningDAO) {
