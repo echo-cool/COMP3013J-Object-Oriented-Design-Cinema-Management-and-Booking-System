@@ -18,6 +18,7 @@ import org.apache.ibatis.session.SqlSession;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,6 +45,7 @@ public class ScreeningMapperImpl {
                 example
                         .createCriteria()
                         .andDateEqualTo(date.format(dtf));
+                ArrayList queryResult = new ArrayList();
                 for (ScreeningDAO s : mapper.selectBySQL(example)) {
                     MovieDAO movieDAO = movieMapper.selectByPrimaryKey(s.getMovieId());
                     MoviePersistent moviePersistent = new MoviePersistent(
@@ -57,19 +59,18 @@ public class ScreeningMapperImpl {
                             screeningDAO.getCapacity(),
                             screeningDAO.getId()
                     );
-                    result.add(new Screening(
+
+                    queryResult.add(new Screening(
                             LocalTime.parse(s.getStartTime()),
                             LocalDate.parse(s.getDate()),
                             s.getTicketSold(),
                             moviePersistent,
                             screenPersistent
                     ));
-
                 }
+                result = queryResult;
             }
         });
-        if (result == null)
-            return new Screening[]{};
         return result.toArray(new Screening[result.size()]);
     }
 
