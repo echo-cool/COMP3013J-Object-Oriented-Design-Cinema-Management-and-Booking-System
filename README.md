@@ -10,7 +10,10 @@
 
 [19206207 - YangLiuxin  Personal Information](19206207.md)
 
-## Project preview
+## Video Explanation Link
+Weiyun link: https://share.weiyun.com/M9geoGak
+
+## Project Preview
 ![](assets/demo.gif)
 
 ## Use Case
@@ -80,8 +83,7 @@ Consider each seat as the same, so that the system does not allocate the seat nu
 
 Assumption 6:
 Cinema staff can only reschedule a movie screening (timeslot and screen) to another
-available timeslot and screen on the same day.
-If cinema staff tries to move a currently scheduled movie screening to a different one, he/she should first cancel that movie screening and schedule a new one on the right
+available timeslot and screen on the **same** day.
 
 Assumption 7:
 The cinema staff can display the scheduled times for movie screening in one day at a time and which screen they are being shown on as well as the number of tickets sold for each and the capacity of the screens for any day (past days, today and future days).
@@ -90,12 +92,7 @@ Assumption 8:
 The cinema staff can schedule, reschedule, cancel movie screenings for the current day and the next coming days as long as there are no tickets sold for that movie screening.
 
 Assumption 9:
-The cinema staff can sell tickets for the current day and the next coming days as
-long as there are left tickets for that movie screening.
-
-Assumption 10:
 The cinema staff cannot reschedule an existing movie screening to a different start time if there are already tickets sold for that screening.
-
 
 ## Project Screenshots
 

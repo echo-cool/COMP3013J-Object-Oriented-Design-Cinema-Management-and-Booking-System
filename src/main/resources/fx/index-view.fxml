@@ -71,6 +71,7 @@
                         <Pane layoutX="87.0" layoutY="-33.0" prefHeight="333.0" prefWidth="638.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <Canvas fx:id="canvas" height="512.0" onMouseClicked="#onMouseClicked" onMouseDragEntered="#onMouseDragEntered" onMouseDragReleased="#onMouseDragExited" onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" onMouseReleased="#onMouseReleased" width="1070.0" />
+                        <Canvas fx:id="canvas1" height="512.0" onMouseClicked="#onMouseClicked" onMouseDragEntered="#onMouseDragEntered" onMouseDragReleased="#onMouseDragExited" onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" onMouseReleased="#onMouseReleased" width="1070.0" />
                             </children>
                         </Pane>
                     </children>
