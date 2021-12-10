@@ -295,11 +295,11 @@ public class StaffUI implements ScreeningObserver {
 
         TextField duration = new TextField();
 
-        duration.setPromptText("Duration (seconds)");
+        duration.setPromptText("Duration (minutes)");
 
         grid.add(new Label("Movie Name:"), 0, 0);
         grid.add(movie_name, 1, 0);
-        grid.add(new Label("Duration(seconds):"), 0, 1);
+        grid.add(new Label("Duration(minutes):"), 0, 1);
         grid.add(duration, 1, 1);
 
 // Enable/Disable login button depending on whether a movie_name was entered.
