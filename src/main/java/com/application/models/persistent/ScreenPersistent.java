@@ -11,7 +11,7 @@ import com.application.models.Screen;
  **/
 public class ScreenPersistent extends Screen {
     // A persistent screen is a screen that is stored in the database
-    private Integer id;
+    private Integer id; // The id of the screen in the database
 
     public ScreenPersistent(String name, Integer capacity, Integer id) {
         super(name, capacity);

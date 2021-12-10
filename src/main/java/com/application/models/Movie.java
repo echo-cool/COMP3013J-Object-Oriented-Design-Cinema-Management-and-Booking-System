@@ -1,7 +1,5 @@
 package com.application.models;
 
-import java.util.Objects;
-
 /**
  * @Author: WangYuyang
  * @Date: 2021/12/9-17:00
@@ -10,8 +8,8 @@ import java.util.Objects;
  * @Description:
  **/
 public class Movie {
-    private String name;
-    private Integer duration;
+    private String name; // name of the movie
+    private Integer duration; // duration of the movie
 
     public Movie(String name, Integer duration) {
         this.name = name;

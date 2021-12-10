@@ -11,11 +11,11 @@ import java.time.LocalTime;
  * @Description:
  **/
 public class Screening {
-    private LocalTime startTime;
-    private LocalDate date;
-    private Integer ticketSold;
-    private Movie movie;
-    private Screen screen;
+    private LocalTime startTime; // start time of the screening
+    private LocalDate date; // date of the screening
+    private Integer ticketSold; // number of tickets sold
+    private Movie movie; // movie of the screening
+    private Screen screen; // screen of the screening
 
     public Screening(LocalTime startTime, LocalDate date, Integer ticketSold, Movie movie, Screen screen) {
         this.startTime = startTime;

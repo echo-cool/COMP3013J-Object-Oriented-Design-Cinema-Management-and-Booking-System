@@ -8,8 +8,8 @@ package com.application.models;
  * @Description:
  **/
 public class Screen {
-    private String name;
-    private Integer capacity;
+    private String name; //the name of the screen
+    private Integer capacity; // the capacity of the screen
 
     public Screen(String name, Integer capacity) {
         this.name = name;

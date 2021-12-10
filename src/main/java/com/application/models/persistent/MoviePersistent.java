@@ -11,7 +11,7 @@ import com.application.models.Movie;
  **/
 public class MoviePersistent extends Movie {
     //A persistent movie is a movie that is stored in the database
-    private Integer id;
+    private Integer id; // the id of the movie in the database
 
     public MoviePersistent(String name, Integer duration, Integer id) {
         super(name, duration);
