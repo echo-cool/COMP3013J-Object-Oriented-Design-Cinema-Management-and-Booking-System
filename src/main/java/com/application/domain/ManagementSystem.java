@@ -47,6 +47,7 @@ public class ManagementSystem {
     }
 
     public boolean sellTicket(int num) {
+        //sell a specific number of Ticket
         if (selectedScreening == null) {
             observerMessage("Sorry you have not chosen a screening yet!", true);
             return false;
