@@ -50,7 +50,7 @@ public class ScheduleDialog extends Dialog<ScheduleInfo> {
             @Override
             public ScheduleInfo call(ButtonType b) {
                 if (b == buttonTypeOk) {
-                    return new ScheduleInfo(nameField.getValue(), LocalTime.parse(timeBox.getValue()), Integer.parseInt(coversBox.getValue().split(" ")[1]) - 1);
+                    return new ScheduleInfo(nameField.getValue(), LocalTime.parse(timeBox.getValue()), coversBox.getValue());
                 }
                 return null;
             }

@@ -112,11 +112,11 @@ public class StaffUI implements ScreeningObserver {
     }
 
     private int screenToY(String screen) {
-        return TOP_MARGIN + Integer.parseInt(screen.split(" ")[1]) * ROW_HEIGHT;
+        return TOP_MARGIN + managementSystem.findScreenIndex(screen)* ROW_HEIGHT;
     }
 
-    private int yToScreen(int y) {
-        return Math.min(Math.max((y - TOP_MARGIN) / ROW_HEIGHT, 0), 5);
+    private String yToScreen(int y) {
+        return managementSystem.getScreens()[Math.min(Math.max((y - TOP_MARGIN) / ROW_HEIGHT, 0), 5)].getName();
     }
 
     public void mousePressed(int x, int y) {
@@ -407,7 +407,7 @@ public class StaffUI implements ScreeningObserver {
     public void onMouseReleased(MouseEvent mouseEvent) {
         if (managementSystem.getSelectedScreening() != null && is_dragging) {
             is_dragging = false;
-            System.out.println(managementSystem.updateSelected(xToTime((int) (Math.min(timeToX(xToTime((int) (timeToX(LocalTime.parse(managementSystem.getSelectedScreening().getStartTime())) - start_x + dragged_x))), -1 + LEFT_MARGIN + COL_WIDTH * SLOTS - COL_WIDTH * SLOTS * ((managementSystem.getSelectedScreening().getMovie().getDuration()) / (3600f * 24f))))), yToScreen((int) dragged_y)));
+            System.out.println(managementSystem.updateSelected(xToTime((int) (Math.min(timeToX(xToTime((int) (timeToX(managementSystem.getSelectedScreening().getStartTime()) - start_x + dragged_x))), -1 + LEFT_MARGIN + COL_WIDTH * SLOTS - COL_WIDTH * SLOTS * ((managementSystem.getSelectedScreening().getMovie().getDuration()) / (3600f * 24f))))), yToScreen((int) dragged_y)));
         }
     }
 
@@ -416,7 +416,7 @@ public class StaffUI implements ScreeningObserver {
         start_y = mouseEvent.getY();
         LocalTime time = xToTime((int) mouseEvent.getX());
         System.out.printf("%s,%s\n", time, mouseEvent.getY());
-        int screen = yToScreen((int) mouseEvent.getY());
+        String screen = yToScreen((int) mouseEvent.getY());
         managementSystem.changeSelected(time, screen);
     }
 
