@@ -3,7 +3,6 @@ package com.application.domain;
 import com.application.models.Movie;
 import com.application.models.Screen;
 import com.application.models.Screening;
-import com.application.models.persistent.MoviePersistent;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -66,7 +65,7 @@ public class ManagementSystem {
         }
     }
 
-    public boolean scheduleScreening(LocalDate date, LocalTime start_time, int screen_no, String movie_name) {
+    public boolean scheduleScreening(LocalDate date, LocalTime start_time, String screen_name, String movie_name) {
         Movie movie = cinema.getMovie(movie_name);
         selectedScreening = null;
         if (movie != null) {
@@ -85,11 +84,11 @@ public class ManagementSystem {
                     return false;
                 }
             }
-            if (checkOverlapScreening(date, start_time, screen_no, movie.getDuration())) {
+            if (checkOverlapScreening(date, start_time, screen_name, movie.getDuration())) {
                 observerMessage("Sorry the intended screening overlaps with the current one!", false);
                 return false;
             } else {
-                cinema.scheduleScreening(date, start_time, screen_no, movie_name);
+                cinema.scheduleScreening(date, start_time, screen_name, movie_name);
                 setDate(date);
                 notifyObservers();
                 return true;
@@ -98,8 +97,8 @@ public class ManagementSystem {
         return false;
     }
 
-    public boolean updateSelected(LocalTime time, int screen_no) {
-        if (checkOverlapScreening(selectedScreening.getDate(), time, screen_no, selectedScreening.getMovie().getDuration())) {
+    public boolean updateSelected(LocalTime time, String screen_name) {
+        if (checkOverlapScreening(selectedScreening.getDate(), time, screen_name, selectedScreening.getMovie().getDuration())) {
             observerMessage("Sorry the intended screening overlaps with the current one!", false);
         } else if (selectedScreening.getTicketSold() > 0) {
             observerMessage("Sorry you cannot reschedule a screening with tickets sold!", false);
@@ -178,11 +177,11 @@ public class ManagementSystem {
         return selectedScreening;
     }
 
-    public void changeSelected(LocalTime time, String screen) {
+    public void changeSelected(LocalTime time, String screenName) {
         label:
         {
             for (Screening screeningDAO : displayScreenings) {
-                if (screen == (screeningDAO.getScreen().getName())) {
+                if (screenName == (screeningDAO.getScreen().getName())) {
                     if (screeningDAO.getStartTime().isBefore(time) && screeningDAO.getStartTime().plusSeconds(screeningDAO.getMovie().getDuration()).isAfter(time)) {
                         selectedScreening = screeningDAO;
                         break label;

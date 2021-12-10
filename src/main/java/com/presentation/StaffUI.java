@@ -115,8 +115,8 @@ public class StaffUI implements ScreeningObserver {
         return TOP_MARGIN + Integer.parseInt(screen.split(" ")[1]) * ROW_HEIGHT;
     }
 
-    private int yToScreen(int y) {
-        return Math.min(Math.max((y - TOP_MARGIN) / ROW_HEIGHT, 0), 5);
+    private String yToScreenName(int y) {
+        return "Screen " + Math.min(Math.max((y - TOP_MARGIN) / ROW_HEIGHT, 0), 5);
     }
 
     public void mousePressed(int x, int y) {
@@ -166,7 +166,7 @@ public class StaffUI implements ScreeningObserver {
 
         if (result.isPresent()) {
             ScheduleInfo c = result.get();
-            if (!managementSystem.scheduleScreening(currentDate, c.getTime(), c.getScreen(), c.getName())) {
+            if (!managementSystem.scheduleScreening(currentDate, c.getTime(), c.getScreenName(), c.getName())) {
                 showScheduleScreeningDialog();
             }
         }
@@ -278,7 +278,7 @@ public class StaffUI implements ScreeningObserver {
 //                    COL_WIDTH*SLOTS*((managementSystem.getSelectedScreening().getMovie().getDuration())/(3600f*24f)),
 //                    ROW_HEIGHT);
             float x = Math.min(timeToX(xToTime((int) (timeToX(managementSystem.getSelectedScreening().getStartTime()) - start_x + dragged_x))), -1 + LEFT_MARGIN + COL_WIDTH * SLOTS - COL_WIDTH * SLOTS * ((managementSystem.getSelectedScreening().getMovie().getDuration()) / (3600f * 24f)));
-            float y = screenToY("Screen " + yToScreen((int) dragged_y));
+            float y = screenToY("Screen " + yToScreenName((int) dragged_y));
             gc.fillRect(
                     x,
                     y,
@@ -407,7 +407,7 @@ public class StaffUI implements ScreeningObserver {
     public void onMouseReleased(MouseEvent mouseEvent) {
         if (managementSystem.getSelectedScreening() != null && is_dragging) {
             is_dragging = false;
-            System.out.println(managementSystem.updateSelected(xToTime((int) (Math.min(timeToX(xToTime((int) (timeToX(LocalTime.parse(managementSystem.getSelectedScreening().getStartTime())) - start_x + dragged_x))), -1 + LEFT_MARGIN + COL_WIDTH * SLOTS - COL_WIDTH * SLOTS * ((managementSystem.getSelectedScreening().getMovie().getDuration()) / (3600f * 24f))))), yToScreen((int) dragged_y)));
+            System.out.println(managementSystem.updateSelected(xToTime((int) (Math.min(timeToX(xToTime((int) (timeToX(managementSystem.getSelectedScreening().getStartTime()) - start_x + dragged_x))), -1 + LEFT_MARGIN + COL_WIDTH * SLOTS - COL_WIDTH * SLOTS * ((managementSystem.getSelectedScreening().getMovie().getDuration()) / (3600f * 24f))))), yToScreenName((int) dragged_y)));
         }
     }
 
@@ -416,7 +416,7 @@ public class StaffUI implements ScreeningObserver {
         start_y = mouseEvent.getY();
         LocalTime time = xToTime((int) mouseEvent.getX());
         System.out.printf("%s,%s\n", time, mouseEvent.getY());
-        int screen = yToScreen((int) mouseEvent.getY());
+        String screen = yToScreenName((int) mouseEvent.getY());
         managementSystem.changeSelected(time, screen);
     }
 

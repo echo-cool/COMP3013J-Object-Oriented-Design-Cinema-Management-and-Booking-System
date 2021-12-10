@@ -5,12 +5,12 @@ import java.time.LocalTime;
 class ScheduleInfo {
     private final String name;
     private final LocalTime time;
-    private final int screen;
+    private final String screenName;
 
-    ScheduleInfo(String movie_name, LocalTime t, int screen) {
-        this.name = movie_name;
-        this.time = t;
-        this.screen = screen;
+    ScheduleInfo(String name, LocalTime time, String screenName) {
+        this.name = name;
+        this.time = time;
+        this.screenName = screenName;
     }
 
     public String getName() {
@@ -21,7 +21,7 @@ class ScheduleInfo {
         return time;
     }
 
-    public int getScreen() {
-        return screen;
+    public String getScreenName() {
+        return screenName;
     }
 }

@@ -68,6 +68,8 @@ public class ScreeningMapperImpl {
                 }
             }
         });
+        if (result == null)
+            return new Screening[]{};
         return result.toArray(new Screening[result.size()]);
     }
 
