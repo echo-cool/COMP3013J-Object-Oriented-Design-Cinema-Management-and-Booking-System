@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
  * @Description:
  **/
 public class DatabaseUtil {
+    //A database util for query and insert
     public static void query(QueryStatement queryListener) {
         SqlSession sqlSession = null;
         try {

@@ -10,5 +10,6 @@ import org.apache.ibatis.session.SqlSession;
  * @Description:
  **/
 public interface QueryStatement {
+    //A call back method for the query statement
     void query_commands(SqlSession sqlSession);
 }

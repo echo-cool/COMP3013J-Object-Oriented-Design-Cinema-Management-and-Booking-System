@@ -26,7 +26,8 @@ import java.util.List;
  * @Date: 2021/12/7-12:20
  * @Project: comp3013j_assignment
  * @Package: com.application.db.mappers
- * @Description:
+ * @Description: This class contains the functions that we need to use in the system related to the movie, screen
+ * and screening.
  **/
 public class ScreeningMapperImpl {
     private List<Screening> result;

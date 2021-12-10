@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScreeningSqlBuilder {
+    //This class is used to build sql queries for mappers to query in the database
+    //For Screening
     protected String orderByClause;
 
     protected boolean distinct;

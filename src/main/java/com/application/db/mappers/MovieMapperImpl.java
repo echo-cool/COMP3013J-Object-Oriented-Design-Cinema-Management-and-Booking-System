@@ -5,7 +5,6 @@ import com.application.db.QueryStatement;
 import com.application.db.builders.MovieSqlBuilder;
 import com.application.db.dao.MovieDAO;
 import com.application.models.Movie;
-import com.application.models.persistent.MoviePersistent;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.ArrayList;
@@ -18,7 +17,8 @@ import java.util.List;
  * @Date: 2021/12/7-12:20
  * @Project: comp3013j_assignment
  * @Package: com.application.db.mappers
- * @Description:
+ * @Description: This class contains the functions that we need to use in the system related to the movie, screen
+ * and screening.
  **/
 public class MovieMapperImpl {
     private final HashMap<Integer, MovieDAO> id_cache = new LinkedHashMap();
@@ -27,10 +27,13 @@ public class MovieMapperImpl {
     private Movie[] resultList = null;
 
     public boolean addMovie(Movie movie) {
+        //Add a new Movie to the database
         DatabaseUtil.insert(new QueryStatement() {
             @Override
             public void query_commands(SqlSession sqlSession) {
+                //Get movie mapper
                 MovieMapper movieMapper = sqlSession.getMapper(MovieMapper.class);
+                //use DAO to access the database.
                 MovieDAO dao = new MovieDAO();
                 dao.setName(movie.getName());
                 dao.setDuration(movie.getDuration());
