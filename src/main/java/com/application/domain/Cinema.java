@@ -30,8 +30,8 @@ public class Cinema {
         screeningMapper.updateScreening(old, selected);
     }
 
-    public void deleteScreening(Screening screeningDAO) {
-        screeningMapper.deleteScreening(screeningDAO);
+    public void deleteScreening(Screening screening) {
+        screeningMapper.deleteScreening(screening);
     }
 
     public Movie getMovie(String name) {

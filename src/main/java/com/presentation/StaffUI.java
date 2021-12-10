@@ -36,7 +36,7 @@ public class StaffUI implements ScreeningObserver {
     final static int COL_WIDTH = 75;
     final static int SLOTS = 12;                    // Number of booking slots shown
     public LocalDate currentDate = LocalDate.now();
-    public Screening[] currentScreeningDAOS = new Screening[0];
+    public Screening[] currentScreenings = new Screening[0];
     @FXML
     public Canvas canvas1;
     ManagementSystem managementSystem;
@@ -96,7 +96,7 @@ public class StaffUI implements ScreeningObserver {
 
     @Override
     public void update() {
-        currentScreeningDAOS = managementSystem.getScreenings();
+        currentScreenings = managementSystem.getScreenings();
         draw();
     }
 
@@ -231,7 +231,7 @@ public class StaffUI implements ScreeningObserver {
             gc.strokeLine(x, TOP_MARGIN, x, canvas.getHeight());
         }
 
-        for (Screening screening : currentScreeningDAOS) {
+        for (Screening screening : currentScreenings) {
             if (screening.getTicketSold() > 0)
                 gc.setFill(Color.LIGHTGREEN);
             else
