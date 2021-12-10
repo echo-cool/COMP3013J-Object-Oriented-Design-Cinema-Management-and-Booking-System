@@ -86,7 +86,7 @@ ManagementSystem-->StaffUI:return date
 deactivate ManagementSystem
 StaffUI->ManagementSystem:getScreenings()
 activate ManagementSystem
-ManagementSystem-->StaffUI: return screenings
+ManagementSystem-->StaffUI: return screeningDAOS
 deactivate ManagementSystem
 StaffUI-->ManagementSystem:
 deactivate StaffUI

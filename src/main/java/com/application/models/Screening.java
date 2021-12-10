@@ -1,83 +1,45 @@
 package com.application.models;
 
-import com.application.db.mappers.MovieMapperImpl;
-import com.application.db.mappers.ScreenMapperImpl;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
+/**
+ * @Author: WangYuyang
+ * @Date: 2021/12/9-17:00
+ * @Project: comp3013j_assignment
+ * @Package: com.application.models
+ * @Description:
+ **/
 public class Screening {
-    private Integer id;
-
-    private Integer movieId;
-
-    private Integer screenId;
-
-    private String date;
-
-    private String startTime;
-
+    private LocalTime startTime;
+    private LocalDate date;
     private Integer ticketSold;
-
     private Movie movie;
-
     private Screen screen;
 
-    public Screening() {
-    }
-
-    public Screening(LocalDate date, LocalTime start_time, int i, Movie movie, Screen screen) {
-        this.date = date.format(DateTimeFormatter.ISO_DATE);
-        this.startTime = start_time.format(DateTimeFormatter.ISO_TIME);
-        this.ticketSold = i;
-        this.movieId = movie.getId();
-        this.screenId = screen.getId();
-        this.movie=movie;
-        this.screen=screen;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getMovieId() {
-        return movieId;
-    }
-
-    public void setMovieId(Integer movieId) {
-        this.movieId = movieId;
-        this.movie=new MovieMapperImpl().getMovieForOid(movieId);
-    }
-
-    public Integer getScreenId() {
-        return screenId;
-    }
-
-    public void setScreenId(Integer screenId) {
-        this.screenId = screenId;
-        this.screen=new ScreenMapperImpl().getScreenForOid(screenId);
-    }
-
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
+    public Screening(LocalTime startTime, LocalDate date, Integer ticketSold, Movie movie, Screen screen) {
+        this.startTime = startTime;
         this.date = date;
+        this.ticketSold = ticketSold;
+        this.movie = movie;
+        this.screen = screen;
     }
 
-    public String getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public Integer getTicketSold() {
@@ -88,73 +50,44 @@ public class Screening {
         this.ticketSold = ticketSold;
     }
 
-    public Screen getScreen() {
-        return screen;
-    }
-
     public Movie getMovie() {
         return movie;
     }
 
-    /**
-    * toString
-    * @return String String
-    */
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", movieId=").append(movieId);
-        sb.append(", screenId=").append(screenId);
-        sb.append(", date=").append(date);
-        sb.append(", startTime=").append(startTime);
-        sb.append(", ticketSold=").append(ticketSold);
-        sb.append("]");
-        return sb.toString();
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 
-    /**
-    * equals
-    * @param that that
-    * @return boolean boolean
-    */
-    @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        Screening other = (Screening) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getMovieId() == null ? other.getMovieId() == null : this.getMovieId().equals(other.getMovieId()))
-            && (this.getScreenId() == null ? other.getScreenId() == null : this.getScreenId().equals(other.getScreenId()))
-            && (this.getDate() == null ? other.getDate() == null : this.getDate().equals(other.getDate()))
-            && (this.getStartTime() == null ? other.getStartTime() == null : this.getStartTime().equals(other.getStartTime()))
-            && (this.getTicketSold() == null ? other.getTicketSold() == null : this.getTicketSold().equals(other.getTicketSold()));
+    public Screen getScreen() {
+        return screen;
     }
 
-    /**
-    * hashCode
-    * @return int int
-    */
+    public void setScreen(Screen screen) {
+        this.screen = screen;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Screening screening = (Screening) o;
+
+        if (startTime != null ? !startTime.equals(screening.startTime) : screening.startTime != null) return false;
+        if (date != null ? !date.equals(screening.date) : screening.date != null) return false;
+        if (ticketSold != null ? !ticketSold.equals(screening.ticketSold) : screening.ticketSold != null) return false;
+        if (movie != null ? !movie.equals(screening.movie) : screening.movie != null) return false;
+        return screen != null ? screen.equals(screening.screen) : screening.screen == null;
+    }
+
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getMovieId() == null) ? 0 : getMovieId().hashCode());
-        result = prime * result + ((getScreenId() == null) ? 0 : getScreenId().hashCode());
-        result = prime * result + ((getDate() == null) ? 0 : getDate().hashCode());
-        result = prime * result + ((getStartTime() == null) ? 0 : getStartTime().hashCode());
-        result = prime * result + ((getTicketSold() == null) ? 0 : getTicketSold().hashCode());
+        int result = startTime != null ? startTime.hashCode() : 0;
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (ticketSold != null ? ticketSold.hashCode() : 0);
+        result = 31 * result + (movie != null ? movie.hashCode() : 0);
+        result = 31 * result + (screen != null ? screen.hashCode() : 0);
         return result;
     }
+
 }

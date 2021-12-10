@@ -2,10 +2,13 @@ package com.application.db.mappers;
 
 import com.application.db.DatabaseUtil;
 import com.application.db.QueryStatement;
+import com.application.db.builders.MovieSqlBuilder;
+import com.application.db.dao.MovieDAO;
 import com.application.models.Movie;
-import com.application.models.MovieSqlBuilder;
+import com.application.models.persistent.MoviePersistent;
 import org.apache.ibatis.session.SqlSession;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -18,8 +21,8 @@ import java.util.List;
  * @Description:
  **/
 public class MovieMapperImpl {
-    private final HashMap<Integer, Movie> id_cache = new LinkedHashMap();
-    private final HashMap<String, Movie> name_cache = new LinkedHashMap();
+    private final HashMap<Integer, MovieDAO> id_cache = new LinkedHashMap();
+    private final HashMap<String, MovieDAO> name_cache = new LinkedHashMap();
     private Movie result;
     private Movie[] resultList = null;
 
@@ -28,7 +31,10 @@ public class MovieMapperImpl {
             @Override
             public void query_commands(SqlSession sqlSession) {
                 MovieMapper movieMapper = sqlSession.getMapper(MovieMapper.class);
-                movieMapper.insert(movie);
+                MovieDAO dao = new MovieDAO();
+                dao.setName(movie.getName());
+                dao.setDuration(movie.getDuration());
+                movieMapper.insert(dao);
                 System.out.println("insert success");
             }
         });
@@ -41,8 +47,12 @@ public class MovieMapperImpl {
             @Override
             public void query_commands(SqlSession sqlSession) {
                 MovieMapper movieMapper = sqlSession.getMapper(MovieMapper.class);
-                result = movieMapper.selectByPrimaryKey(movie_id);
-                id_cache.put(movie_id, result);
+                MovieDAO movieDAO = movieMapper.selectByPrimaryKey(movie_id);
+                result = new Movie(
+                        movieDAO.getName(),
+                        movieDAO.getDuration()
+                );
+                id_cache.put(movie_id, movieDAO);
             }
         });
         return result;
@@ -59,10 +69,13 @@ public class MovieMapperImpl {
                         .createCriteria()
                         .andNameEqualTo(movie_name);
 
-                List<Movie> tmp = movieMapper.selectBySQL(movieSqlBuilder);
+                List<MovieDAO> tmp = movieMapper.selectBySQL(movieSqlBuilder);
                 if (tmp.size() > 0) {
-                    result = tmp.get(0);
-                    name_cache.put(movie_name, result);
+                    result = new Movie(
+                            tmp.get(0).getName(),
+                            tmp.get(0).getDuration()
+                    );
+                    name_cache.put(movie_name, tmp.get(0));
                 }
             }
         });
@@ -79,19 +92,27 @@ public class MovieMapperImpl {
                 movieSqlBuilder
                         .createCriteria()
                         .andIdIsNotNull();
-
-                resultList = movieMapper.selectBySQL(movieSqlBuilder).toArray(new Movie[]{});
+                List<MovieDAO> tmp = movieMapper.selectBySQL(movieSqlBuilder);
+                ArrayList<Movie> res = new ArrayList<>();
+                for (MovieDAO m : tmp) {
+                    Movie movie = new Movie(
+                            m.getName(),
+                            m.getDuration()
+                    );
+                    res.add(movie);
+                }
+                resultList = res.toArray(new Movie[]{});
             }
         });
         return resultList;
     }
 
 
-    public Movie getFromCacheByName(String movie_name) {
+    public MovieDAO getFromCacheByName(String movie_name) {
         return name_cache.get(movie_name);
     }
 
-    public Movie getFromCacheByNumber(Integer movie_id) {
+    public MovieDAO getFromCacheByNumber(Integer movie_id) {
         return id_cache.get(movie_id);
     }
 

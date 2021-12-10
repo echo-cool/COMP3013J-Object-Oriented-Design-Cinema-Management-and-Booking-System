@@ -37,7 +37,7 @@ public class StaffUI implements ScreeningObserver {
     final static int COL_WIDTH = 75;
     final static int SLOTS = 12;                    // Number of booking slots shown
     public LocalDate currentDate = LocalDate.now();
-    public Screening[] currentScreenings = new Screening[0];
+    public Screening[] currentScreeningDAOS = new Screening[0];
     ManagementSystem managementSystem;
     @FXML
     private DatePicker datePicker;
@@ -71,7 +71,7 @@ public class StaffUI implements ScreeningObserver {
 
     @Override
     public void update() {
-        currentScreenings = managementSystem.getScreenings();
+        currentScreeningDAOS = managementSystem.getScreenings();
         draw();
     }
 
@@ -111,26 +111,15 @@ public class StaffUI implements ScreeningObserver {
         return LocalTime.ofSecondOfDay(Math.min(3600 * 24 - 1, Math.max((long) (60 * ((24 * 60f * (x - LEFT_MARGIN) / (SLOTS * COL_WIDTH)))), 0)));
     }
 
-    private int screenToY(int screen) {
-        return TOP_MARGIN + screen * ROW_HEIGHT;
+    private int screenToY(String screen) {
+//        System.out.println(">>>>>>"+screen);
+        return TOP_MARGIN + managementSystem.findScreenIndex(screen)* ROW_HEIGHT;
     }
 
-    private int yToScreen(int y) {
-        return Math.min(Math.max((y - TOP_MARGIN) / ROW_HEIGHT, 0), 5);
+    private String yToScreen(int y) {
+        return managementSystem.getScreens()[Math.min(Math.max((y - TOP_MARGIN) / ROW_HEIGHT, 0), 5)].getName();
     }
 
-    public void mousePressed(int x, int y) {
-    }
-
-    public void mouseMoved(int x, int y) {
-    }
-
-    public void mouseReleased(int x, int y) {
-    }
-
-    public void submit(LocalDate date) {
-        managementSystem.setDate(date);
-    }
 
     public void sellTicket() {
         List<String> choices = new ArrayList<>();
@@ -173,33 +162,15 @@ public class StaffUI implements ScreeningObserver {
         update();
     }
 
-    public void showAlert(String message, Alert.AlertType warning) {
-    }
-
-    public void showMessage(String message) {
-    }
-
-    public void showAddMovieDialog() {
-    }
-
-
     public void draw() {
         ArrayList<Screen> screens = new ArrayList();
         for (Screen s : managementSystem.getScreens()) {
             screens.add(s);
         }
-//        screens.add("Screen 1");
-//        screens.add("Screen 2");
-//        screens.add("Screen 3");
-//        screens.add("Screen 4");
-//        screens.add("Screen 5");
-//        screens.add("Screen 6");
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         canvas.setHeight(TOP_MARGIN + screens.size() * ROW_HEIGHT + 2);
         canvas.setWidth(LEFT_MARGIN + (SLOTS * COL_WIDTH) + 50);
-//        gc.setFill(Color.WHITE);
-//        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         gc.setLineWidth(2.0);
         gc.setFill(Color.BLACK);
         //
@@ -233,33 +204,32 @@ public class StaffUI implements ScreeningObserver {
             gc.strokeLine(x, TOP_MARGIN, x, canvas.getHeight());
         }
 
-        for (Screening screening : currentScreenings) {
+        for (Screening screening : currentScreeningDAOS) {
             if (screening.getTicketSold() > 0)
                 gc.setFill(Color.LIGHTGREEN);
             else
                 gc.setFill(Color.LIGHTPINK);
             gc.fillRect(
-                    timeToX(LocalTime.parse(screening.getStartTime())),
-                    screenToY(screening.getScreen().getId()),
+                    timeToX(screening.getStartTime()),
+                    screenToY(screening.getScreen().getName()),
                     COL_WIDTH * SLOTS * ((screening.getMovie().getDuration()) / (3600f * 24f)),
                     ROW_HEIGHT);
             gc.setFill(Color.BLACK);
             gc.setFont(new Font(10));
             String movie_name = screening.getMovie().getName();
             Integer scale_factor = 8 * 60;
-//            System.out.println(screening.getMovie().getDuration() / scale_factor);
             if (movie_name.length() >= screening.getMovie().getDuration() / scale_factor) {
                 movie_name = movie_name.substring(0, screening.getMovie().getDuration() / scale_factor) + "...";
             }
-            gc.fillText(movie_name + "\nsell: " + screening.getTicketSold(), timeToX(LocalTime.parse(screening.getStartTime())) + 5,
-                    screenToY(screening.getScreen().getId()) + ROW_HEIGHT * 0.4);
-            gc.strokeRect(timeToX(LocalTime.parse(screening.getStartTime())),
-                    screenToY(screening.getScreen().getId()),
+            gc.fillText(movie_name + "\nsell: " + screening.getTicketSold(), timeToX(screening.getStartTime()) + 5,
+                    screenToY(screening.getScreen().getName()) + ROW_HEIGHT * 0.4);
+            gc.strokeRect(timeToX(screening.getStartTime()),
+                    screenToY(screening.getScreen().getName()),
                     COL_WIDTH * SLOTS * ((screening.getMovie().getDuration()) / (3600f * 24f)),
                     ROW_HEIGHT);
-            if (screening == managementSystem.getSelectedScreening()) {
-                gc.strokeRect(timeToX(LocalTime.parse(screening.getStartTime())) + 2,
-                        screenToY(screening.getScreen().getId()) + 2,
+            if (screening.equals(managementSystem.getSelectedScreening())) {
+                gc.strokeRect(timeToX(screening.getStartTime()) + 2,
+                        screenToY(screening.getScreen().getName()) + 2,
                         COL_WIDTH * SLOTS * ((screening.getMovie().getDuration()) / (3600f * 24f)) - 4,
                         ROW_HEIGHT - 4);
             }
@@ -271,13 +241,7 @@ public class StaffUI implements ScreeningObserver {
             } else {
                 gc.setFill(Color.rgb(255, 182, 193, 0.7));
             }
-
-//            gc.fillRect(
-//                    timeToX(LocalTime.parse(managementSystem.getSelectedScreening().getStartTime()))-start_x+dragged_x,
-//                    screenToY(managementSystem.getSelectedScreening().getScreen().getId())-start_y+dragged_y,
-//                    COL_WIDTH*SLOTS*((managementSystem.getSelectedScreening().getMovie().getDuration())/(3600f*24f)),
-//                    ROW_HEIGHT);
-            float x = Math.min(timeToX(xToTime((int) (timeToX(LocalTime.parse(managementSystem.getSelectedScreening().getStartTime())) - start_x + dragged_x))), -1 + LEFT_MARGIN + COL_WIDTH * SLOTS - COL_WIDTH * SLOTS * ((managementSystem.getSelectedScreening().getMovie().getDuration()) / (3600f * 24f)));
+            float x = Math.min(timeToX(xToTime((int) (timeToX(managementSystem.getSelectedScreening().getStartTime()) - start_x + dragged_x))), -1 + LEFT_MARGIN + COL_WIDTH * SLOTS - COL_WIDTH * SLOTS * ((managementSystem.getSelectedScreening().getMovie().getDuration()) / (3600f * 24f)));
             float y = screenToY(yToScreen((int) dragged_y));
             gc.fillRect(
                     x,
@@ -364,17 +328,14 @@ public class StaffUI implements ScreeningObserver {
 
         result.ifPresent(input -> {
 //            System.out.println("Username=" + usernamePassword.getKey() + ", Password=" + usernamePassword.getValue());
-            Movie movie = new Movie();
-            movie.setName(input.getKey());
-            movie.setDuration(input.getValue() * 60);
-            managementSystem.addMovie(movie);
+            Movie moviePersistent = new Movie(
+                    input.getKey(),
+                    input.getValue() * 60
+            );
+            managementSystem.addMovie(moviePersistent);
         });
     }
 
-    public void showAddArraignmentView(ActionEvent actionEvent) {
-        AddArrangementView addArrangementView = new AddArrangementView();
-        addArrangementView.show();
-    }
 
     public void cancelSchedule(ActionEvent actionEvent) {
         managementSystem.cancelSelected();
@@ -406,7 +367,7 @@ public class StaffUI implements ScreeningObserver {
     public void onMouseReleased(MouseEvent mouseEvent) {
         if (managementSystem.getSelectedScreening() != null && is_dragging) {
             is_dragging = false;
-            System.out.println(managementSystem.updateSelected(xToTime((int) (Math.min(timeToX(xToTime((int) (timeToX(LocalTime.parse(managementSystem.getSelectedScreening().getStartTime())) - start_x + dragged_x))), -1 + LEFT_MARGIN + COL_WIDTH * SLOTS - COL_WIDTH * SLOTS * ((managementSystem.getSelectedScreening().getMovie().getDuration()) / (3600f * 24f))))), yToScreen((int) dragged_y)));
+            System.out.println(managementSystem.updateSelected(xToTime((int) (Math.min(timeToX(xToTime((int) (timeToX(managementSystem.getSelectedScreening().getStartTime()) - start_x + dragged_x))), -1 + LEFT_MARGIN + COL_WIDTH * SLOTS - COL_WIDTH * SLOTS * ((managementSystem.getSelectedScreening().getMovie().getDuration()) / (3600f * 24f))))), yToScreen((int) dragged_y)));
         }
     }
 
@@ -415,7 +376,7 @@ public class StaffUI implements ScreeningObserver {
         start_y = mouseEvent.getY();
         LocalTime time = xToTime((int) mouseEvent.getX());
         System.out.printf("%s,%s\n", time, mouseEvent.getY());
-        int screen = yToScreen((int) mouseEvent.getY());
+        String screen = yToScreen((int) mouseEvent.getY());
         managementSystem.changeSelected(time, screen);
     }
 

@@ -1,4 +1,4 @@
-package com.application.models;
+package com.application.db.builders;
 
 import java.util.ArrayList;
 import java.util.List;

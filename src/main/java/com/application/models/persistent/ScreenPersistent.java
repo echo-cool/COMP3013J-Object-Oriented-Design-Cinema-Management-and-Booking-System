@@ -1,0 +1,23 @@
+package com.application.models.persistent;
+
+import com.application.models.Screen;
+
+/**
+ * @Author: WangYuyang
+ * @Date: 2021/12/9-17:35
+ * @Project: comp3013j_assignment
+ * @Package: com.application.models.persistent
+ * @Description:
+ **/
+public class ScreenPersistent extends Screen {
+    private Integer id;
+
+    public ScreenPersistent(String name, Integer capacity, Integer id) {
+        super(name, capacity);
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+}
