@@ -1,15 +1,5 @@
 # COMP3013J_Assignment
 
-## Group Setup
-
-[19206226 - WangYuyang  Personal Information](19206226.md)
-
-[19206202 - ZhangYiteng Personal Information](19206202.md)
-
-[19206206 - WenruiLiu  Personal Information](19206206.md)
-
-[19206207 - YangLiuxin  Personal Information](19206207.md)
-
 ## Video Explanation Link
 Weiyun link: https://share.weiyun.com/M9geoGak
 
