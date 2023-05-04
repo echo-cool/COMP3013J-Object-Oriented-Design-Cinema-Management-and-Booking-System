@@ -1,5 +1,7 @@
 # COMP3013J_Assignment
 
+[![Java CI with Maven](https://github.com/echo-cool/COMP3013J-Object-Oriented-Design-Cinema-Management-and-Booking-System/actions/workflows/maven-publish.yml/badge.svg)](https://github.com/echo-cool/COMP3013J-Object-Oriented-Design-Cinema-Management-and-Booking-System/actions/workflows/maven-publish.yml)
+
 ## Video Explanation Link
 Weiyun link: https://share.weiyun.com/M9geoGak
 
