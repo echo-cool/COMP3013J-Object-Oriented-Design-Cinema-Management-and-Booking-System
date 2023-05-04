@@ -40,6 +40,6 @@ jobs:
         prerelease: false
         title: Latest Compiled APP
         files: |
-          target/YOTO_Translator.exe
-          target/YOTO_Translator_Maven-1.0-SNAPSHOT-jar-with-dependencies.jar
-          target/YOTO_Translator_Maven-1.0-SNAPSHOT.jar
+          target/COMP3013J-1.0-SNAPSHOT-jar-with-dependencies.jar 
+          target/COMP3013J-1.0-SNAPSHOT.jar
+          target/original-COMP3013J-1.0-SNAPSHOT.jar
